@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using Microsoft.SqlServer.TransactSql.ScriptDom;
 
 namespace DBI202_Creator.Utils
@@ -9,8 +8,7 @@ namespace DBI202_Creator.Utils
         public static string FormatSqlCode(string query)
         {
             var parser = new TSql110Parser(false);
-            IList<ParseError> errors;
-            var parsedQuery = parser.Parse(new StringReader(query), out errors);
+            var parsedQuery = parser.Parse(new StringReader(query), out _);
 
             var generator = new Sql110ScriptGenerator(new SqlScriptGeneratorOptions
             {
@@ -21,8 +19,7 @@ namespace DBI202_Creator.Utils
                 NewLineBeforeWhereClause = true,
                 AlignClauseBodies = false
             });
-            string formattedQuery;
-            generator.GenerateScript(parsedQuery, out formattedQuery);
+            generator.GenerateScript(parsedQuery, out var formattedQuery);
             return formattedQuery;
         }
     }

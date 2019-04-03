@@ -76,7 +76,7 @@ namespace DBI_Grading.UI
         {
             if (Constant.PaperSet == null)
             {
-                MessageBox.Show("You must import PaperSet first to get number question count!");
+                MessageBox.Show(@"Open question set successfully.");
                 return;
             }
             // Init List submissions

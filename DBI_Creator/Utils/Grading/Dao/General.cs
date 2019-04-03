@@ -14,6 +14,7 @@ namespace DBI202_Creator.Utils.Grading.Dao
         /// <summary>
         /// </summary>
         /// <param name="databaseName"></param>
+        /// <param name="builder"></param>
         /// <returns></returns>
         public static int GetNumberOfTablesInDatabase(string databaseName, SqlConnectionStringBuilder builder)
         {
@@ -34,6 +35,7 @@ namespace DBI202_Creator.Utils.Grading.Dao
         ///     Get DataSet
         /// </summary>
         /// <param name="query"></param>
+        /// <param name="builder"></param>
         /// <returns></returns>
         public static DataSet GetDataSetFromReader(string query, SqlConnectionStringBuilder builder)
         {
@@ -72,6 +74,7 @@ namespace DBI202_Creator.Utils.Grading.Dao
         ///     Get DataSet
         /// </summary>
         /// <param name="query"></param>
+        /// <param name="builder"></param>
         /// <returns>
         ///     datatable[1] as Schema of Table
         ///     datatable[0] as Data of Table
@@ -152,6 +155,7 @@ namespace DBI202_Creator.Utils.Grading.Dao
         ///     Drop a Database
         /// </summary>
         /// <param name="dbName">Database need to drop</param>
+        /// <param name="builder"></param>
         /// <returns>
         ///     "message error" if error
         ///     "" if done
@@ -208,6 +212,7 @@ namespace DBI202_Creator.Utils.Grading.Dao
         /// </summary>
         /// <param name="query">Query to execute</param>
         /// <param name="catalog"></param>
+        /// <param name="builder"></param>
         public static bool ExecuteSingleQuery(string query, string catalog, SqlConnectionStringBuilder builder)
         {
             query = "Use " + "[" + catalog + "];\nGO\n" + query + "";

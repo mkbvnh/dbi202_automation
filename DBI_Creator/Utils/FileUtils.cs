@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Forms;
 
 namespace DBI202_Creator.Utils
@@ -8,14 +7,7 @@ namespace DBI202_Creator.Utils
     {
         public static void DeleteDirectory(string path)
         {
-            try
-            {
-                Directory.Delete(path, true);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            Directory.Delete(path, true);
         }
 
         public static void CopyDirectory(string sourceDirName, string destDirName, bool copySubDirs)
@@ -42,12 +34,14 @@ namespace DBI202_Creator.Utils
             }
 
             // If copying subdirectories, copy them and their contents to new location.
-            if (copySubDirs)
+            if (!copySubDirs) return;
+            {
                 foreach (var subdir in dirs)
                 {
                     var temppath = Path.Combine(destDirName, subdir.Name);
-                    CopyDirectory(subdir.FullName, temppath, copySubDirs);
+                    CopyDirectory(subdir.FullName, temppath, true);
                 }
+            }
         }
 
         public static string CreateNewDirectory(string path, string nameOfFolder)

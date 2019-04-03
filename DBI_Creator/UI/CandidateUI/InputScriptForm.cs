@@ -6,23 +6,25 @@ namespace DBI202_Creator.UI.CandidateUI
 {
     public partial class InputScriptForm : Form
     {
-        private readonly HandleClose handleClose;
+        private readonly HandleClose _handleClose;
 
         public InputScriptForm()
         {
             InitializeComponent();
         }
 
-        public InputScriptForm(Func<List<string>, bool> _handleClose, List<string> scriptList)
+        public InputScriptForm(Func<List<string>, bool> handleClose, List<string> scriptList)
         {
             InitializeComponent();
-            handleClose = new HandleClose(_handleClose);
+            this._handleClose = new HandleClose(handleClose);
 
             for (var i = 0; i < tabControl.TabPages.Count; i++)
             {
-                var box = new RichTextBox();
-                box.Name = "scriptTextBox";
-                box.Dock = DockStyle.Fill;
+                var box = new RichTextBox
+                {
+                    Name = "scriptTextBox",
+                    Dock = DockStyle.Fill
+                };
 
                 tabControl.TabPages[i].Controls.Add(box);
             }
@@ -34,15 +36,16 @@ namespace DBI202_Creator.UI.CandidateUI
         private void InputScriptForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var scriptList = new List<string>();
-            foreach (TabPage tab in tabControl.TabPages)
+            for (var index = 0; index < tabControl.TabPages.Count; index++)
             {
+                TabPage tab = tabControl.TabPages[index];
                 var script = ((RichTextBox) tab.Controls["scriptTextBox"]).Text;
                 scriptList.Add(script);
             }
-            handleClose(scriptList);
+            _handleClose(scriptList);
         }
 
-        private void saveBtn_Click(object sender, EventArgs e)
+        private void SaveBtn_Click(object sender, EventArgs e)
         {
             Close();
         }

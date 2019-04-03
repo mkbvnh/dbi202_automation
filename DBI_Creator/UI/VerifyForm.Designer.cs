@@ -61,7 +61,7 @@
             this.checkConnectionButton.TabIndex = 49;
             this.checkConnectionButton.Text = "Check Connection";
             this.checkConnectionButton.UseVisualStyleBackColor = true;
-            this.checkConnectionButton.Click += new System.EventHandler(this.checkConnectionButton_Click);
+            this.checkConnectionButton.Click += new System.EventHandler(this.CheckConnectionButton_Click);
             // 
             // passwordTextBox
             // 
@@ -131,7 +131,7 @@
             this.startBtn.TabIndex = 45;
             this.startBtn.Text = "START";
             this.startBtn.UseVisualStyleBackColor = true;
-            this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
+            this.startBtn.Click += new System.EventHandler(this.StartBtn_Click);
             // 
             // VerifyForm
             // 

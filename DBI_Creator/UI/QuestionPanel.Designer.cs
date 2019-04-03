@@ -71,7 +71,7 @@
             this.addCandidateBtn.TabIndex = 0;
             this.addCandidateBtn.Text = "Add Candidate";
             this.addCandidateBtn.UseVisualStyleBackColor = true;
-            this.addCandidateBtn.Click += new System.EventHandler(this.addCandidateBtn_Click);
+            this.addCandidateBtn.Click += new System.EventHandler(this.AddCandidateBtn_Click);
             // 
             // removeQuestionBtn
             // 
@@ -85,7 +85,7 @@
             this.removeQuestionBtn.Size = new System.Drawing.Size(38, 36);
             this.removeQuestionBtn.TabIndex = 2;
             this.removeQuestionBtn.UseVisualStyleBackColor = false;
-            this.removeQuestionBtn.Click += new System.EventHandler(this.removeQuestionBtn_Click);
+            this.removeQuestionBtn.Click += new System.EventHandler(this.RemoveQuestionBtn_Click);
             // 
             // label1
             // 

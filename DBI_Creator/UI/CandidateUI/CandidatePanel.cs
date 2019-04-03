@@ -3,27 +3,26 @@ using System.Drawing;
 using System.Windows.Forms;
 using DBI202_Creator.Commons;
 using DBI202_Creator.Model;
-using DBI202_Creator.UI.CandidateUI;
 using DBI202_Creator.Utils;
 using DBI_Grading.Model.Candidate;
 
-namespace DBI202_Creator.UI
+namespace DBI202_Creator.UI.CandidateUI
 {
     public partial class CandidatePanel : UserControl
     {
-        private readonly HandleDelete handleDelete;
+        private readonly HandleDelete _handleDelete;
 
         public CandidatePanel()
         {
             InitializeComponent();
         }
 
-        public CandidatePanel(Candidate candidate, Func<Candidate, TabPage, bool> _handleDelete)
+        public CandidatePanel(Candidate candidate, Func<Candidate, TabPage, bool> handleDelete)
         {
             InitializeComponent();
             Candidate = candidate;
             OnCreate();
-            handleDelete = new HandleDelete(_handleDelete);
+            _handleDelete = new HandleDelete(handleDelete);
         }
 
         public Candidate Candidate { get; set; }
@@ -53,20 +52,20 @@ namespace DBI202_Creator.UI
             // Images.
             if (Candidate.Illustration.Count != 0)
             {
-                imgPreview.Text = "Preview";
+                imgPreview.Text = @"Preview";
                 imgPreview.Visible = true;
             }
 
             // Trigger questionTypeComboBox SelectedValueChanged event
-            questionTypeComboBox_SelectedValueChanged(questionTypeComboBox, null);
+            QuestionTypeComboBox_SelectedValueChanged(questionTypeComboBox, null);
         }
 
         // Browse Images.
-        private void browseImgBtn_Click(object sender, EventArgs e)
+        private void BrowseImgBtn_Click(object sender, EventArgs e)
         {
             Candidate.Illustration.Clear();
             browseImgDialog.InitialDirectory = "C:\\";
-            browseImgDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;";
+            browseImgDialog.Filter = @"Image Files|*.jpg;*.jpeg;*.png;";
             browseImgDialog.Multiselect = true;
             if (browseImgDialog.ShowDialog() == DialogResult.OK)
                 foreach (var fileName in browseImgDialog.FileNames)
@@ -81,75 +80,51 @@ namespace DBI202_Creator.UI
                     var base64Data = ImageUtils.ImageToBase64(img);
 
                     Candidate.Illustration.Add(base64Data);
-                    //imgPreview.Text = Path.GetFileName(filePath);
-                    imgPreview.Text = "Preview";
+                    imgPreview.Text = @"Preview";
                     var tt = new ToolTip();
                     tt.SetToolTip(imgPreview, "Click to preview");
                 }
         }
 
         // Preview Images.
-        private void imgPreview_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        protected virtual void ImgPreview_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            //foreach (string imgData in Candidate.Illustration)
-            //{
-            //    Image image = ImageUtils.Base64StringToImage(imgData);
-            //    using (Form form = new Form())
-            //    {
-            //        form.StartPosition = FormStartPosition.CenterScreen;
-            //        form.Size = image.Size;
-            //        form.FormBorderStyle = FormBorderStyle.FixedDialog;
-            //        form.MaximizeBox = false;
-            //        form.MinimizeBox = false;
-
-            //        PictureBox pb = new PictureBox();
-            //        pb.Dock = DockStyle.Fill;
-            //        pb.Image = image;
-
-            //        form.Controls.Add(pb);
-            //        form.ShowDialog();
-            //    }
-            //}
-            var preview = new PicturePreview(Candidate.Illustration);
-            preview.Visible = true;
+            var preview = new PicturePreview(Candidate.Illustration) {Visible = true};
             preview.Show();
-        }
-
-        private void dataGridView_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine("something");
         }
 
         // Delete current Candidate from Question
         // Close current Tab.
-        private void deleteCandidateBtn_Click(object sender, EventArgs e)
+        private void DeleteCandidateBtn_Click(object sender, EventArgs e)
         {
-            handleDelete(Candidate, (TabPage) Parent);
+            _handleDelete(Candidate, (TabPage)Parent);
         }
 
-        private void questionTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
+        private void QuestionTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
         {
             switch (questionTypeComboBox.SelectedValue)
             {
                 case Candidate.QuestionTypes.Select:
-                    selectState();
+                    SelectState();
                     break;
                 case Candidate.QuestionTypes.Procedure:
-                    procedureState();
+                    ProcedureState();
                     break;
                 case Candidate.QuestionTypes.Trigger:
-                    triggerState();
+                    TriggerState();
                     break;
                 case Candidate.QuestionTypes.Schema:
-                    schemaState();
+                    SchemaState();
                     break;
                 case Candidate.QuestionTypes.DML:
-                    dmlState();
+                    DmlState();
                     break;
+                default:
+                    return;
             }
         }
 
-        private void selectState()
+        private void SelectState()
         {
             testQueryTxt.Enabled = true;
 
@@ -166,7 +141,7 @@ namespace DBI202_Creator.UI
             checkDistinctCheckbox.Checked = false;
         }
 
-        private void procedureState()
+        private void ProcedureState()
         {
             testQueryTxt.Enabled = true;
 
@@ -183,7 +158,7 @@ namespace DBI202_Creator.UI
             checkDistinctCheckbox.Checked = false;
         }
 
-        private void triggerState()
+        private void TriggerState()
         {
             testQueryTxt.Enabled = true;
 
@@ -200,7 +175,7 @@ namespace DBI202_Creator.UI
             checkDistinctCheckbox.Checked = false;
         }
 
-        private void dmlState()
+        private void DmlState()
         {
             testQueryTxt.Enabled = true;
 
@@ -217,7 +192,7 @@ namespace DBI202_Creator.UI
             checkDistinctCheckbox.Checked = false;
         }
 
-        private void schemaState()
+        private void SchemaState()
         {
             testQueryTxt.Enabled = true;
 
@@ -239,7 +214,7 @@ namespace DBI202_Creator.UI
             Dock = DockStyle.Fill; //Fill Usercontrol within the his parent layout
         }
 
-        private void insertTcBtn_Click(object sender, EventArgs e)
+        private void InsertTcBtn_Click(object sender, EventArgs e)
         {
             var testCase = new TestCase();
 
@@ -247,13 +222,12 @@ namespace DBI202_Creator.UI
             {
                 testQueryTxt.AppendText(tc.ToString());
                 return true;
-            });
+            }) {Visible = true};
 
-            tcDialog.Visible = true;
             tcDialog.Show();
         }
 
-        private void validateTcBtn_Click(object sender, EventArgs e)
+        private void ValidateTcBtn_Click(object sender, EventArgs e)
         {
             var testCases = StringUtils.GetTestCases(testQueryTxt.Text, Candidate);
             var mess = "";

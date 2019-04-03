@@ -1,4 +1,4 @@
-﻿namespace DBI202_Creator.UI
+﻿namespace DBI202_Creator.UI.CandidateUI
 {
     partial class CandidatePanel
     {
@@ -64,7 +64,7 @@
             deleteCandidateBtn.TabIndex = 32;
             deleteCandidateBtn.Text = "Remove Candidate";
             deleteCandidateBtn.UseVisualStyleBackColor = false;
-            deleteCandidateBtn.Click += new System.EventHandler(this.deleteCandidateBtn_Click);
+            deleteCandidateBtn.Click += new System.EventHandler(this.DeleteCandidateBtn_Click);
             // 
             // browseImgBtn
             // 
@@ -74,7 +74,7 @@
             this.browseImgBtn.TabIndex = 23;
             this.browseImgBtn.Text = "Browse";
             this.browseImgBtn.UseVisualStyleBackColor = true;
-            this.browseImgBtn.Click += new System.EventHandler(this.browseImgBtn_Click);
+            this.browseImgBtn.Click += new System.EventHandler(this.BrowseImgBtn_Click);
             // 
             // imgLabel
             // 
@@ -117,7 +117,7 @@
             this.questionTypeComboBox.Name = "questionTypeComboBox";
             this.questionTypeComboBox.Size = new System.Drawing.Size(118, 21);
             this.questionTypeComboBox.TabIndex = 20;
-            this.questionTypeComboBox.SelectedValueChanged += new System.EventHandler(this.questionTypeComboBox_SelectedValueChanged);
+            this.questionTypeComboBox.SelectedValueChanged += new System.EventHandler(this.QuestionTypeComboBox_SelectedValueChanged);
             // 
             // typeLabel
             // 
@@ -135,7 +135,7 @@
             this.imgPreview.Name = "imgPreview";
             this.imgPreview.Size = new System.Drawing.Size(0, 13);
             this.imgPreview.TabIndex = 29;
-            this.imgPreview.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.imgPreview_LinkClicked);
+            this.imgPreview.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ImgPreview_LinkClicked);
             // 
             // browseImgDialog
             // 
@@ -241,7 +241,7 @@
             this.insertTcBtn.TabIndex = 46;
             this.insertTcBtn.Text = "Insert TC";
             this.insertTcBtn.UseVisualStyleBackColor = true;
-            this.insertTcBtn.Click += new System.EventHandler(this.insertTcBtn_Click);
+            this.insertTcBtn.Click += new System.EventHandler(this.InsertTcBtn_Click);
             // 
             // validateTcBtn
             // 
@@ -252,7 +252,7 @@
             this.validateTcBtn.TabIndex = 46;
             this.validateTcBtn.Text = "Validate TestQueries";
             this.validateTcBtn.UseVisualStyleBackColor = true;
-            this.validateTcBtn.Click += new System.EventHandler(this.validateTcBtn_Click);
+            this.validateTcBtn.Click += new System.EventHandler(this.ValidateTcBtn_Click);
             // 
             // CandidatePanel
             // 

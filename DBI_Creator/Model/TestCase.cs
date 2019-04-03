@@ -10,8 +10,7 @@ namespace DBI202_Creator.Model
 
         public override string ToString()
         {
-            return string.Format("\n/*{0}*/\n/*{1}*/\n{2}", RatePoint / 100, Description, TestQuery)
-                .Replace("\n", Environment.NewLine);
+            return $"\n/*{RatePoint / 100}*/\n/*{Description}*/\n{TestQuery}".Replace("\n", Environment.NewLine);
         }
     }
 }

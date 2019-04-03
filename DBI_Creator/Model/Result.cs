@@ -11,15 +11,15 @@ namespace DBI202_Creator.Model
 {
     public class Result
     {
-        private readonly SqlConnectionStringBuilder Builder;
-        private readonly VerifyForm ParentForm;
-        private readonly QuestionSet QuestionSet;
+        private readonly SqlConnectionStringBuilder _builder;
+        private readonly VerifyForm _parentForm;
+        private readonly QuestionSet _questionSet;
 
         public Result(QuestionSet questionSet, SqlConnectionStringBuilder builder, VerifyForm parentForm)
         {
-            QuestionSet = questionSet;
-            Builder = builder;
-            ParentForm = parentForm;
+            _questionSet = questionSet;
+            _builder = builder;
+            _parentForm = parentForm;
         }
 
 
@@ -48,19 +48,19 @@ namespace DBI202_Creator.Model
             {
                 case Candidate.QuestionTypes.Schema:
                     // Schema Question
-                    return PaperUtils.SchemaType(candidate, "Test", answer, questionOrder, Builder);
+                    return PaperUtils.SchemaType(candidate, "Test", answer, questionOrder, _builder);
                 case Candidate.QuestionTypes.Select:
                     //Select Question
-                    return PaperUtils.SelectType(candidate, "Test", answer, questionOrder, dbScript, Builder);
+                    return PaperUtils.SelectType(candidate, "Test", answer, questionOrder, dbScript, _builder);
                 case Candidate.QuestionTypes.DML:
                     // DML: Insert/Delete/Update Question
-                    return PaperUtils.OthersType(candidate, "Test", answer, questionOrder, dbScript, Builder);
+                    return PaperUtils.OthersType(candidate, "Test", answer, questionOrder, dbScript, _builder);
                 case Candidate.QuestionTypes.Procedure:
                     // Procedure Question
-                    return PaperUtils.OthersType(candidate, "Test", answer, questionOrder, dbScript, Builder);
+                    return PaperUtils.OthersType(candidate, "Test", answer, questionOrder, dbScript, _builder);
                 case Candidate.QuestionTypes.Trigger:
                     // Trigger Question
-                    return PaperUtils.OthersType(candidate, "Test", answer, questionOrder, dbScript, Builder);
+                    return PaperUtils.OthersType(candidate, "Test", answer, questionOrder, dbScript, _builder);
                 default:
                     // Not supported yet
                     throw new Exception("This question type has not been supported yet.");
@@ -76,7 +76,7 @@ namespace DBI202_Creator.Model
             var countCandi = 0;
             try
             {
-                foreach (var question in QuestionSet.QuestionList)
+                foreach (var question in _questionSet.QuestionList)
                 {
                     AppendVerifyText(@"Question " + ++countQs + ":\n");
                     foreach (var candidate in question.Candidates)
@@ -84,7 +84,7 @@ namespace DBI202_Creator.Model
                         AppendVerifyText("Candi " + ++countCandi + ":\n");
 
                         var result = GradeAnswer(candidate, candidate.Solution, 0,
-                            QuestionSet.DBScriptList[1]);
+                            _questionSet.DBScriptList[1]);
                         AppendVerifyText(result["Comment"]);
                     }
                     countCandi = 0;
@@ -93,14 +93,14 @@ namespace DBI202_Creator.Model
             }
             catch (Exception e)
             {
-                MessageBox.Show(ParentForm, e.Message, @"Error");
+                MessageBox.Show(_parentForm, e.Message, @"Error");
                 AppendVerifyText(@"Error: " + e.Message);
             }
         }
 
         private void AppendVerifyText(string txt)
         {
-            ParentForm.verifyText.Invoke(new Action(() => ParentForm.verifyText.Text += txt));
+            _parentForm.verifyText.Invoke(new Action(() => _parentForm.verifyText.Text += txt));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using DBI202_Creator.UI.CandidateUI;
 using DBI_Grading.Model.Candidate;
 using DBI_Grading.Model.Question;
 
@@ -8,49 +9,51 @@ namespace DBI202_Creator.UI
 {
     public partial class QuestionPanel : UserControl
     {
-        private readonly HandleRemove handleRemove;
+        private readonly HandleRemove _handleRemove;
 
         public QuestionPanel()
         {
             InitializeComponent();
         }
 
-        public QuestionPanel(Question question, Func<Question, TabPage, bool> _handleRemove)
+        public QuestionPanel(Question question, Func<Question, TabPage, bool> handleRemove)
         {
             InitializeComponent();
-            this.question = question;
-            handleRemove = new HandleRemove(_handleRemove);
+            Question = question;
+            _handleRemove = new HandleRemove(handleRemove);
 
             OnCreate();
         }
 
-        public Question question { get; set; }
+        public Question Question { get; set; }
 
         private void OnCreate()
         {
-            questionIdTxt.Text = question.QuestionId;
-            pointNumeric.DataBindings.Add("Value", question, "Point", true, DataSourceUpdateMode.OnPropertyChanged);
+            questionIdTxt.Text = Question.QuestionId;
+            pointNumeric.DataBindings.Add("Value", Question, "Point", true, DataSourceUpdateMode.OnPropertyChanged);
 
-            for (var i = 0; i < question.Candidates.Count; i++)
-                AddCandidateTab(question.Candidates[i], "Candidate " + (i + 1));
+            for (var i = 0; i < Question.Candidates.Count; i++)
+                AddCandidateTab(Question.Candidates[i], "Candidate " + (i + 1));
         }
 
-        private void removeQuestionBtn_Click(object sender, EventArgs e)
+        private void RemoveQuestionBtn_Click(object sender, EventArgs e)
         {
-            handleRemove(question, (TabPage) Parent);
+            _handleRemove(Question, (TabPage) Parent);
         }
 
-        private void addCandidateBtn_Click(object sender, EventArgs e)
+        private void AddCandidateBtn_Click(object sender, EventArgs e)
         {
-            var c = new Candidate();
-            c.Point = decimal.ToDouble(question.Point);
-            c.QuestionId = question.QuestionId;
-            c.CandidateId = Guid.NewGuid().ToString();
-            c.QuestionType = Candidate.QuestionTypes.Select;
+            var c = new Candidate
+            {
+                Point = decimal.ToDouble(Question.Point),
+                QuestionId = Question.QuestionId,
+                CandidateId = Guid.NewGuid().ToString(),
+                QuestionType = Candidate.QuestionTypes.Select
+            };
 
-            question.Candidates.Add(c);
+            Question.Candidates.Add(c);
 
-            var tabTitle = "Candidate " + question.Candidates.Count;
+            var tabTitle = "Candidate " + Question.Candidates.Count;
 
             AddCandidateTab(c, tabTitle);
 
@@ -60,18 +63,16 @@ namespace DBI202_Creator.UI
 
         private void AddCandidateTab(Candidate c, string tabTitle)
         {
-            var tp = new TabPage(tabTitle);
-            tp.BackColor = SystemColors.Control;
+            var tp = new TabPage(tabTitle) {BackColor = SystemColors.Control};
 
-            var candidatePanel = new CandidatePanel(c, handleDeleteCandidate);
-            candidatePanel.BackColor = SystemColors.Control;
+            var candidatePanel = new CandidatePanel(c, HandleDeleteCandidate) {BackColor = SystemColors.Control};
             tp.Controls.Add(candidatePanel);
             candidateTabControl.TabPages.Add(tp);
         }
 
-        private bool handleDeleteCandidate(Candidate c, TabPage tab)
+        private bool HandleDeleteCandidate(Candidate c, TabPage tab)
         {
-            question.Candidates.Remove(c);
+            Question.Candidates.Remove(c);
             candidateTabControl.TabPages.Remove(tab);
             return false;
         }

@@ -81,14 +81,14 @@
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.openToolStripMenuItem.Text = "Open Question Set";
-            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveToolStripMenuItem.Text = "Save Question Set";
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -100,14 +100,14 @@
             this.importPaperSetToolStripMenuItem.Name = "importPaperSetToolStripMenuItem";
             this.importPaperSetToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.importPaperSetToolStripMenuItem.Text = "Import Paper Set";
-            this.importPaperSetToolStripMenuItem.Click += new System.EventHandler(this.importPaperSetToolStripMenuItem_Click);
+            this.importPaperSetToolStripMenuItem.Click += new System.EventHandler(this.ImportPaperSetToolStripMenuItem_Click);
             // 
             // exportPaperSetToolStripMenuItem
             // 
             this.exportPaperSetToolStripMenuItem.Name = "exportPaperSetToolStripMenuItem";
             this.exportPaperSetToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.exportPaperSetToolStripMenuItem.Text = "Export Papers Folder";
-            this.exportPaperSetToolStripMenuItem.Click += new System.EventHandler(this.exportPaperSetToolStripMenuItem_Click);
+            this.exportPaperSetToolStripMenuItem.Click += new System.EventHandler(this.ExportPaperSetToolStripMenuItem_Click);
             // 
             // questionToolStripMenuItem
             // 
@@ -123,7 +123,7 @@
             this.addQuestionToolStripMenuItem.Name = "addQuestionToolStripMenuItem";
             this.addQuestionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addQuestionToolStripMenuItem.Text = "Add";
-            this.addQuestionToolStripMenuItem.Click += new System.EventHandler(this.addQuestionToolStripMenuItem_Click);
+            this.addQuestionToolStripMenuItem.Click += new System.EventHandler(this.AddQuestionToolStripMenuItem_Click);
             // 
             // removeQuestionToolStripMenuItem
             // 
@@ -163,7 +163,7 @@
             this.previewBtn.TabIndex = 2;
             this.previewBtn.Text = "Preview";
             this.previewBtn.UseVisualStyleBackColor = true;
-            this.previewBtn.Click += new System.EventHandler(this.previewBtn_Click);
+            this.previewBtn.Click += new System.EventHandler(this.PreviewBtn_Click);
             // 
             // questionTabControl
             // 
@@ -181,8 +181,8 @@
             this.questionTabControl.Size = new System.Drawing.Size(1059, 562);
             this.questionTabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.questionTabControl.TabIndex = 0;
-            this.questionTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.questionTabControl_DrawItem);
-            this.questionTabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.questionTabControl_Selected);
+            this.questionTabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.QuestionTabControl_DrawItem);
+            this.questionTabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.QuestionTabControl_Selected);
             // 
             // removeQuestionBtn
             // 
@@ -192,7 +192,7 @@
             this.removeQuestionBtn.Size = new System.Drawing.Size(31, 31);
             this.removeQuestionBtn.TabIndex = 5;
             this.removeQuestionBtn.UseVisualStyleBackColor = true;
-            this.removeQuestionBtn.Click += new System.EventHandler(this.removeQuestionBtn_Click);
+            this.removeQuestionBtn.Click += new System.EventHandler(this.RemoveQuestionBtn_Click);
             // 
             // addQuestionBtn
             // 
@@ -202,7 +202,7 @@
             this.addQuestionBtn.Size = new System.Drawing.Size(31, 31);
             this.addQuestionBtn.TabIndex = 4;
             this.addQuestionBtn.UseVisualStyleBackColor = true;
-            this.addQuestionBtn.Click += new System.EventHandler(this.addQuestionBtn_Click);
+            this.addQuestionBtn.Click += new System.EventHandler(this.AddQuestionBtn_Click);
             // 
             // openFileDialog
             // 
@@ -217,7 +217,7 @@
             this.scriptBtn.TabIndex = 6;
             this.scriptBtn.Text = "Database Script";
             this.scriptBtn.UseVisualStyleBackColor = true;
-            this.scriptBtn.Click += new System.EventHandler(this.scriptBtn_Click);
+            this.scriptBtn.Click += new System.EventHandler(this.ScriptBtn_Click);
             // 
             // VerifySolutionBtn
             // 

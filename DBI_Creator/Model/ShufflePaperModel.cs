@@ -63,12 +63,12 @@ namespace DBI202_Creator.Model
         /// <param name="numOfCases"></param>
         /// <param name="allCases"></param>
         /// <returns></returns>
-        private List<List<CandidateNode>> GetRandomNElementsInList(int numOfCases, List<List<CandidateNode>> allCases)
+        internal List<List<CandidateNode>> GetRandomNElementsInList(int numOfCases, List<List<CandidateNode>> allCases)
         {
             if (numOfCases == 1)
             {
                 var oneCase =
-                    new List<List<CandidateNode>> {allCases.ElementAt(new Random().Next(allCases.Count))};
+                    new List<List<CandidateNode>> { allCases.ElementAt(new Random().Next(allCases.Count)) };
                 return oneCase;
             }
             var newList = new List<List<CandidateNode>>();

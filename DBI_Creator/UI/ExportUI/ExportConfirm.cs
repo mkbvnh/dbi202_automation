@@ -11,15 +11,15 @@ namespace DBI202_Creator.UI.ExportUI
 {
     public partial class ExportConfirm : Form
     {
-        private readonly QuestionSet QuestionSet;
-        private string FirstPagePath;
-        private string OutPutPath;
-        private ShufflePaperModel Spm;
+        private readonly QuestionSet _questionSet;
+        private string _firstPagePath;
+        private string _outPutPath;
+        private ShufflePaperModel _spm;
 
         public ExportConfirm(QuestionSet questionSet)
         {
             InitializeComponent();
-            QuestionSet = questionSet;
+            _questionSet = questionSet;
 
             exportBtn.Visible = true;
         }
@@ -28,12 +28,12 @@ namespace DBI202_Creator.UI.ExportUI
         {
             try
             {
-                OutPutPath = FileUtils.SaveFileLocation();
-                locationTxt.Text = OutPutPath;
+                _outPutPath = FileUtils.SaveFileLocation();
+                locationTxt.Text = _outPutPath;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -41,29 +41,29 @@ namespace DBI202_Creator.UI.ExportUI
         {
             try
             {
-                if (string.IsNullOrEmpty(OutPutPath))
+                if (string.IsNullOrEmpty(_outPutPath))
                 {
-                    MessageBox.Show(@"You need to Browse first!!!", "Error", MessageBoxButtons.OK,
+                    MessageBox.Show(@"You need to Browse first!!!", @"Error", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                     return;
                 }
-                foreach (var question in QuestionSet.QuestionList)
+                foreach (var question in _questionSet.QuestionList)
                 foreach (var candidate in question.Candidates)
                     candidate.Point = decimal.ToDouble(question.Point);
 
-                Spm = new ShufflePaperModel(QuestionSet, Convert.ToInt32(papersNumberInput.Value));
+                _spm = new ShufflePaperModel(_questionSet, Convert.ToInt32(papersNumberInput.Value));
 
-                if (!string.IsNullOrEmpty(FirstPagePath))
-                    File.Copy(FirstPagePath, @".\firstpage.docx", true);
+                if (!string.IsNullOrEmpty(_firstPagePath))
+                    File.Copy(_firstPagePath, @".\firstpage.docx", true);
 
                 //Create Test
                 var paperModel = new PaperModel
                 {
-                    Path = OutPutPath,
-                    Spm = Spm,
+                    Path = _outPutPath,
+                    Spm = _spm,
                     FirstPagePath = Environment.CurrentDirectory + @"\firstpage.docx"
                 };
-                Process.Start(OutPutPath);
+                Process.Start(_outPutPath);
                 paperModel.CreatePaperDat();
 
                 if (DocCheckBox.Checked)
@@ -75,7 +75,7 @@ namespace DBI202_Creator.UI.ExportUI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             Dispose();
         }
@@ -84,7 +84,7 @@ namespace DBI202_Creator.UI.ExportUI
         {
             Constants.PaperSet.ListPaperMatrixId = null;
             papersNumberInput.Enabled = true;
-            papersNumberInput.Maximum = PaperModel.MaxNumberOfTests(QuestionSet.QuestionList);
+            papersNumberInput.Maximum = PaperModel.MaxNumberOfTests(_questionSet.QuestionList);
             papersNumberInput.Value = papersNumberInput.Maximum;
             papersNumberInput.Enabled = true;
             newBtn.Enabled = false;
@@ -92,9 +92,9 @@ namespace DBI202_Creator.UI.ExportUI
 
         private void importFirstPageBtn_Click(object sender, EventArgs e)
         {
-            FirstPagePath = FileUtils.GetFileLocation(@"Document File|*.docx", @"Select a Document File");
-            if (!string.IsNullOrEmpty(FirstPagePath))
-                firstPagePathTextBox.Text = FirstPagePath;
+            _firstPagePath = FileUtils.GetFileLocation(@"Document File|*.docx", @"Select a Document File");
+            if (!string.IsNullOrEmpty(_firstPagePath))
+                firstPagePathTextBox.Text = _firstPagePath;
         }
     }
 }

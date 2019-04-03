@@ -14,7 +14,6 @@ namespace DBI202_Creator.Commons
         public static int MaxThreadPoolSize = 1;
         public static int MaxConnectionPoolSize = 100;
 
-
         public static Dictionary<string, Candidate.QuestionTypes> QuestionTypes()
         {
             return new Dictionary<string, Candidate.QuestionTypes>

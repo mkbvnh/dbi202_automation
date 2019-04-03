@@ -65,54 +65,49 @@ namespace DBI202_Creator.Utils.OfficeUtils
         ///     Append QuestionRequirement of Question
         /// </summary>
         /// <param name="q"></param>
-        /// <param name="section"></param>
-        private static void AppendTestQuestion(Candidate q, Document doc, int questionNumber, ref object missing)
+        /// <param name="doc"></param>
+        /// <param name="questionNumber"></param>
+        /// <param name="missing"></param>
+        private static void AppendTestQuestion(Candidate q, _Document doc, int questionNumber, ref object missing)
         {
-            try
-            {
-                var paraQuestionNumber = doc.Content.Paragraphs.Add(ref missing);
-                var question = "Question " + questionNumber + ":";
-                paraQuestionNumber.Range.Text = question;
-                var questionNumberRange = doc.Range(paraQuestionNumber.Range.Start,
-                    paraQuestionNumber.Range.Start + question.Length);
-                questionNumberRange.Font.Bold = 1;
-                questionNumberRange.Font.Underline = WdUnderline.wdUnderlineSingle;
+            var paraQuestionNumber = doc.Content.Paragraphs.Add(ref missing);
+            var question = "Question " + questionNumber + ":";
+            paraQuestionNumber.Range.Text = question;
+            var questionNumberRange = doc.Range(paraQuestionNumber.Range.Start,
+                paraQuestionNumber.Range.Start + question.Length);
+            questionNumberRange.Font.Bold = 1;
+            questionNumberRange.Font.Underline = WdUnderline.wdUnderlineSingle;
 
-                paraQuestionNumber.Format.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
-                paraQuestionNumber.Range.Font.Name = "Arial";
+            paraQuestionNumber.Format.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
+            paraQuestionNumber.Range.Font.Name = "Arial";
 
-                paraQuestionNumber.Range.InsertParagraphAfter();
+            paraQuestionNumber.Range.InsertParagraphAfter();
 
-                var paraContent = doc.Content.Paragraphs.Add(ref missing);
-                paraContent.Range.Font.Bold = 0;
-                paraContent.Range.Font.Underline = WdUnderline.wdUnderlineNone;
-                paraContent.Range.Text = q.QuestionRequirement;
-                paraContent.Format.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
-                paraContent.Range.InsertParagraphAfter();
+            var paraContent = doc.Content.Paragraphs.Add(ref missing);
+            paraContent.Range.Font.Bold = 0;
+            paraContent.Range.Font.Underline = WdUnderline.wdUnderlineNone;
+            paraContent.Range.Text = q.QuestionRequirement;
+            paraContent.Format.Alignment = WdParagraphAlignment.wdAlignParagraphLeft;
+            paraContent.Range.InsertParagraphAfter();
 
-                var images = q.Illustration;
-                var i = 0;
-                var imageName = AppDomain.CurrentDomain.BaseDirectory + @"/" + q.CandidateId + ".bmp";
-                foreach (var image in images)
-                    if (ImageUtils.Base64StringToImage(image) != null)
-                    {
-                        var img = ImageUtils.Base64StringToImage(image);
-                        Image tempImg = new Bitmap(img);
-                        tempImg.Save(imageName);
-                        var paraImage = doc.Content.Paragraphs.Add(ref missing);
-                        paraImage.Range.InlineShapes.AddPicture(imageName);
-                        paraImage.Format.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                        var paraImageDescription = doc.Content.Paragraphs.Add(ref missing);
-                        paraImageDescription.Range.Text = "Picture " + questionNumber + "." + ++i + "";
-                        paraImageDescription.Format.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
-                        paraImageDescription.Range.InsertParagraphAfter();
-                    }
-                if (File.Exists(imageName)) File.Delete(imageName);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            var images = q.Illustration;
+            var i = 0;
+            var imageName = AppDomain.CurrentDomain.BaseDirectory + @"/" + q.CandidateId + ".bmp";
+            foreach (var image in images)
+                if (ImageUtils.Base64StringToImage(image) != null)
+                {
+                    var img = ImageUtils.Base64StringToImage(image);
+                    Image tempImg = new Bitmap(img);
+                    tempImg.Save(imageName);
+                    var paraImage = doc.Content.Paragraphs.Add(ref missing);
+                    paraImage.Range.InlineShapes.AddPicture(imageName);
+                    paraImage.Format.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                    var paraImageDescription = doc.Content.Paragraphs.Add(ref missing);
+                    paraImageDescription.Range.Text = "Picture " + questionNumber + "." + ++i + "";
+                    paraImageDescription.Format.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
+                    paraImageDescription.Range.InsertParagraphAfter();
+                }
+            if (File.Exists(imageName)) File.Delete(imageName);
         }
     }
 }

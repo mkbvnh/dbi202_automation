@@ -8,7 +8,7 @@ namespace DBI202_Creator.Utils
     {
         public static Image Base64StringToImage(string inputString)
         {
-            Image img = null;
+            Image img;
 
             var imageBytes = Convert.FromBase64String(inputString);
 
@@ -17,7 +17,6 @@ namespace DBI202_Creator.Utils
                 ms.Write(imageBytes, 0, imageBytes.Length);
                 img = Image.FromStream(ms, true);
                 ms.Close();
-                imageBytes = null;
             }
             return img;
         }

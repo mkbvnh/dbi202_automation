@@ -15,9 +15,8 @@ namespace DBI202_Creator.Utils.OfficeUtils
             Application wordApp = null;
             try
             {
-                wordApp = new Application();
+                wordApp = new Application {Visible = true};
                 //Init a Document in Word application
-                wordApp.Visible = true;
                 object missing = Missing.Value;
                 var doc = wordApp.Documents.Add(ref missing, ref missing, ref missing, ref missing);
                 //Settings Page
@@ -35,10 +34,10 @@ namespace DBI202_Creator.Utils.OfficeUtils
                             j + 1, ref missing);
                 }
             }
-            catch (Exception e)
+            catch
             {
                 wordApp?.Application.Quit(false);
-                throw e;
+                throw;
             }
         }
 
@@ -47,6 +46,9 @@ namespace DBI202_Creator.Utils.OfficeUtils
         /// </summary>
         /// <param name="q"></param>
         /// <param name="section"></param>
+        /// <param name="questionNumber"></param>
+        /// <param name="candidateNumber"></param>
+        /// <param name="missing"></param>
         private static void AppendSection(Candidate q, Section section, int questionNumber, int candidateNumber,
             ref object missing)
         {

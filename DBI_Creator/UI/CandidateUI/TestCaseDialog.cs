@@ -8,20 +8,20 @@ namespace DBI202_Creator.UI.CandidateUI
     {
         public delegate bool HandleInsert(TestCase tc);
 
-        private readonly HandleInsert handleInsert;
+        private readonly HandleInsert _handleInsert;
 
-        private readonly TestCase testCase;
+        private readonly TestCase _testCase;
 
-        public TestCaseDialog(TestCase _testCase, HandleInsert _handleInsert)
+        public TestCaseDialog(TestCase testCase, HandleInsert handleInsert)
         {
             InitializeComponent();
-            testCase = _testCase;
-            handleInsert = _handleInsert;
+            _testCase = testCase;
+            _handleInsert = handleInsert;
 
-            testCaseTxt.DataBindings.Add("Text", testCase, "TestQuery", true, DataSourceUpdateMode.OnPropertyChanged);
-            descriptionTxt.DataBindings.Add("Text", testCase, "Description", true,
+            testCaseTxt.DataBindings.Add("Text", _testCase, "TestQuery", true, DataSourceUpdateMode.OnPropertyChanged);
+            descriptionTxt.DataBindings.Add("Text", _testCase, "Description", true,
                 DataSourceUpdateMode.OnPropertyChanged);
-            percentageNumericUpDown.DataBindings.Add("Value", testCase, "RatePoint", true,
+            percentageNumericUpDown.DataBindings.Add("Value", _testCase, "RatePoint", true,
                 DataSourceUpdateMode.OnPropertyChanged);
 
             ActiveControl = descriptionTxt;
@@ -29,12 +29,12 @@ namespace DBI202_Creator.UI.CandidateUI
 
         private void insertBtn_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(testCase.TestQuery.Trim()))
+            if (string.IsNullOrEmpty(_testCase.TestQuery.Trim()))
             {
                 MessageBox.Show(@"You need to input Test Query!", @"Error");
                 return;
             }
-            handleInsert(testCase);
+            _handleInsert(_testCase);
             Dispose();
         }
 

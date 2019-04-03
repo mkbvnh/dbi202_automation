@@ -18,6 +18,7 @@ namespace DBI202_Creator.Utils.Grading
         /// <param name="dbEmptyName"></param>
         /// <param name="candidate"></param>
         /// <param name="errorMessage"></param>
+        /// <param name="builder"></param>
         /// <returns>
         ///     "true" if correct
         ///     "false" if wrong
@@ -152,6 +153,7 @@ namespace DBI202_Creator.Utils.Grading
         /// <param name="dbSolutionName"></param>
         /// <param name="answer"></param>
         /// <param name="candidate"></param>
+        /// <param name="builder"></param>
         /// <returns>
         ///     "true" if correct
         ///     "false" if wrong
@@ -285,6 +287,7 @@ namespace DBI202_Creator.Utils.Grading
         /// <param name="dbSolutionName">DB Name to check teacher query</param>
         /// <param name="candidate">Candidate</param>
         /// <param name="errorMessage"></param>
+        /// <param name="builder"></param>
         /// <exception cref="Exception"></exception>
         /// <returns>
         ///     "true" if correct

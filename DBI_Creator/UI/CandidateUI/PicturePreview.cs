@@ -12,12 +12,12 @@ namespace DBI202_Creator.UI.CandidateUI
             InitializeComponent();
             Images = images;
 
-            renderImages();
+            RenderImages();
         }
 
         public List<string> Images { get; set; }
 
-        private void renderImages()
+        private void RenderImages()
         {
             tabControl.TabPages.Clear();
             for (var i = 0; i < Images.Count; i++)
@@ -25,64 +25,42 @@ namespace DBI202_Creator.UI.CandidateUI
                 var imgData = Images[i];
                 var image = ImageUtils.Base64StringToImage(imgData);
 
-                var pb = new PictureBox();
-                pb.Dock = DockStyle.Fill;
-                pb.Image = image;
+                var pb = new PictureBox
+                {
+                    Dock = DockStyle.Fill,
+                    Image = image
+                };
 
-                var tab = new TabPage("Image " + (i + 1));
-                tab.AutoScroll = true;
+                var tab = new TabPage("Image " + (i + 1)) {AutoScroll = true};
                 tab.Controls.Add(pb);
 
                 tabControl.TabPages.Add(tab);
             }
         }
 
-        private void renderTab(int i)
-        {
-            var imgData = Images[i];
-            var image = ImageUtils.Base64StringToImage(imgData);
-
-            var pb = new PictureBox();
-            pb.Dock = DockStyle.Fill;
-            pb.Image = image;
-
-            var tab = new TabPage("Image " + (i + 1));
-            tab.AutoScroll = true;
-            tab.Controls.Add(pb);
-
-            tabControl.TabPages[i] = tab;
-        }
-
-        private void leftBtn_Click(object sender, EventArgs e)
+        private void LeftBtn_Click(object sender, EventArgs e)
         {
             var selectedIndex = tabControl.SelectedIndex;
-            if (selectedIndex != 0)
-            {
-                var temp = Images[selectedIndex - 1];
-                Images[selectedIndex - 1] = Images[selectedIndex];
-                Images[selectedIndex] = temp;
-
-                //renderTab(selectedIndex - 1);
-                //renderTab(selectedIndex);
-                renderImages();
-                tabControl.SelectedIndex = selectedIndex - 1;
-            }
+            if (selectedIndex == 0) return;
+            var temp = Images[selectedIndex - 1];
+            Images[selectedIndex - 1] = Images[selectedIndex];
+            Images[selectedIndex] = temp;
+            RenderImages();
+            tabControl.SelectedIndex = selectedIndex - 1;
         }
 
         private void rightBtn_Click(object sender, EventArgs e)
         {
             var selectedIndex = tabControl.SelectedIndex;
-            if (selectedIndex != tabControl.TabPages.Count - 1)
-            {
-                var temp = Images[selectedIndex + 1];
-                Images[selectedIndex + 1] = Images[selectedIndex];
-                Images[selectedIndex] = temp;
+            if (selectedIndex == tabControl.TabPages.Count - 1) return;
+            var temp = Images[selectedIndex + 1];
+            Images[selectedIndex + 1] = Images[selectedIndex];
+            Images[selectedIndex] = temp;
 
-                //renderTab(selectedIndex + 1);
-                //renderTab(selectedIndex);
-                renderImages();
-                tabControl.SelectedIndex = selectedIndex + 1;
-            }
+            //renderTab(selectedIndex + 1);
+            //renderTab(selectedIndex);
+            RenderImages();
+            tabControl.SelectedIndex = selectedIndex + 1;
         }
     }
 }

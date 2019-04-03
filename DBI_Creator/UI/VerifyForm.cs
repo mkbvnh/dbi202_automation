@@ -12,23 +12,23 @@ namespace DBI202_Creator.UI
 {
     public partial class VerifyForm : Form
     {
-        private readonly QuestionSet QuestionSet;
-        private SqlConnectionStringBuilder Builder;
+        private readonly QuestionSet _questionSet;
+        private SqlConnectionStringBuilder _builder;
 
         public VerifyForm(QuestionSet questionSet)
         {
             InitializeComponent();
-            QuestionSet = questionSet;
+            _questionSet = questionSet;
             serverNameTextBox.Text = ConfigurationManager.AppSettings["serverName"];
             usernameTextBox.Text = ConfigurationManager.AppSettings["username"];
             passwordTextBox.Text = ConfigurationManager.AppSettings["password"];
         }
 
-        private void checkConnectionButton_Click(object sender, EventArgs e)
+        private void CheckConnectionButton_Click(object sender, EventArgs e)
         {
-            Builder = General.CheckConnection(serverNameTextBox.Text, usernameTextBox.Text, passwordTextBox.Text,
+            _builder = General.CheckConnection(serverNameTextBox.Text, usernameTextBox.Text, passwordTextBox.Text,
                 "master");
-            if (Builder != null && General.PrepareSpCompareDatabase(Builder))
+            if (_builder != null && General.PrepareSpCompareDatabase(_builder))
             {
                 startBtn.Enabled = true;
                 checkConnectionButton.Enabled = false;
@@ -42,22 +42,22 @@ namespace DBI202_Creator.UI
             }
         }
 
-        private void startBtn_Click(object sender, EventArgs e)
+        private void StartBtn_Click(object sender, EventArgs e)
         {
             verifyText.Text = "";
-            if (QuestionSet.DBScriptList.Count < 2 || string.IsNullOrEmpty(QuestionSet.DBScriptList[1]))
+            if (_questionSet.DBScriptList.Count < 2 || string.IsNullOrEmpty(_questionSet.DBScriptList[1]))
             {
                 MessageBox.Show(this, @"Please add Database Script for Grading", @"Error");
                 return;
             }
-            if (Regex.Replace(QuestionSet.DBScriptList[1], @"\s+", "").ToLower().Contains("createdatabase"))
+            if (Regex.Replace(_questionSet.DBScriptList[1], @"\s+", "").ToLower().Contains("createdatabase"))
             {
                 MessageBox.Show(this,
                     @"Database Script for Grading contains CREATE DATABASE\nDatabase for Grading should not contain CREATE DATABASE and USE!!!",
                     @"Error");
                 return;
             }
-            var result = new Result(QuestionSet, Builder, this);
+            var result = new Result(_questionSet, _builder, this);
             var getPointThread = new Thread(result.GetPoint);
             getPointThread.Start();
         }

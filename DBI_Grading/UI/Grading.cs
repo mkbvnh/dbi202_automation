@@ -127,7 +127,7 @@ namespace DBI_Grading.UI
             }
             else
             {
-                MessageBox.Show("Score has already got.");
+                MessageBox.Show(@"Open question set successfully.");
             }
         }
 
