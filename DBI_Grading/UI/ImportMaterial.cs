@@ -7,9 +7,9 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using DBI202_Creator.Entities.Paper;
 using DBI_Grading.Common;
 using DBI_Grading.Model.Student;
-using DBI_Grading.Model.Teacher;
 using DBI_Grading.Utils;
 using DBI_Grading.Utils.Dao;
 
@@ -59,7 +59,7 @@ namespace DBI_Grading.UI
                 //Set Number of Questions
 
                 // Get QuestionPackage from file
-                Constant.PaperSet = SerializationUtils.LoadQuestion(QuestionPath) as PaperSet;
+                Constant.PaperSet = SerializationUtils.DeserializeObject<PaperSet>(QuestionPath);
 
                 if (Constant.PaperSet == null || Constant.PaperSet.Papers.Count == 0)
                     throw new Exception("No question was found!");

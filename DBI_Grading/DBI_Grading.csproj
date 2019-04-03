@@ -111,13 +111,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Constant.cs" />
-    <Compile Include="Model\Teacher\Question.cs" />
-    <Compile Include="Model\Teacher\QuestionSet.cs" />
-    <Compile Include="Model\Teacher\Candidate.cs" />
-    <Compile Include="Model\Teacher\PaperSet.cs" />
     <Compile Include="Model\Result.cs" />
     <Compile Include="Model\Student\Submission.cs" />
-    <Compile Include="Model\Teacher\Paper.cs" />
     <Compile Include="UI\ImportMaterial.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -176,5 +171,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DBI_Creator\DBI_Creator.csproj">
+      <Project>{3537f245-a0e7-4a19-ac7b-571b2d5b1bd8}</Project>
+      <Name>DBI_Creator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

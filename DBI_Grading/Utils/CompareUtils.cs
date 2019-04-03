@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using DBI_Grading.Model.Teacher;
+using DBI202_Creator.Entities.Candidate;
 using DBI_Grading.Utils.Dao;
 
 namespace DBI_Grading.Utils

@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DBI202_Creator.Entities.Candidate;
 using DBI_Grading.Common;
-using DBI_Grading.Model.Teacher;
+
 using DBI_Grading.Utils;
 
 namespace DBI_Grading.Model
