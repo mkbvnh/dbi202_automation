@@ -147,6 +147,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.startBtn);
             this.Controls.Add(this.verifyText);
+            this.MinimumSize = new System.Drawing.Size(555, 489);
             this.Name = "VerifyForm";
             this.Text = "VerifyForm";
             this.ResumeLayout(false);

@@ -78,25 +78,29 @@ namespace DBI202_Creator.Utils.Grading
             {
                 foreach (var question in QuestionSet.QuestionList)
                 {
-                    ParentForm.verifyText.Text += @"Question " + ++countQs + ":\n";
+                    AppendVerifyText(@"Question " + ++countQs + ":\n");
                     foreach (var candidate in question.Candidates)
                     {
-                        ParentForm.verifyText.Text += "Candi " + ++countCandi + ":\n";
+                        AppendVerifyText("Candi " + ++countCandi + ":\n");
 
                         var result = GradeAnswer(candidate, candidate.Solution, 0,
                             QuestionSet.DBScriptList[1]);
-                        ParentForm.verifyText.Text += result["Comment"];
+                        AppendVerifyText(result["Comment"]);
                     }
                     countCandi = 0;
-                    ParentForm.verifyText.Text += @"--------------------";
+                    AppendVerifyText("--------------------\n");
                 }
             }
             catch (Exception e)
             {
                 MessageBox.Show(ParentForm, e.Message, @"Error");
-                ParentForm.verifyText.Text = @"Error: " + e.Message;
+                AppendVerifyText(@"Error: " + e.Message);
             }
-            
+        }
+
+        private void AppendVerifyText(string txt)
+        {
+            ParentForm.verifyText.Invoke(new Action(() => ParentForm.verifyText.Text += txt));
         }
     }
 }

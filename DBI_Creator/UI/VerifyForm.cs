@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows.Forms;
 using DBI202_Creator.Entities.Question;
 using DBI202_Creator.Utils.Grading;
@@ -54,17 +55,9 @@ namespace DBI202_Creator.UI
                 MessageBox.Show(this, @"Database Script for Grading contains CREATE DATABASE\nDatabase for Grading should not contain CREATE DATABASE and USE!!!", @"Error");
                 return;
             }
-            try
-            {
-                var result = new Result(QuestionSet, Builder, verifyText, this);
-                result.GetPoint();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show(this, exception.Message, @"Error");
-                verifyText.Text = "Error: " + exception.Message;
-            }
-
+            var result = new Result(QuestionSet, Builder, this);
+            Thread getPointThread = new Thread(result.GetPoint);
+            getPointThread.Start();
         }
     }
 }
