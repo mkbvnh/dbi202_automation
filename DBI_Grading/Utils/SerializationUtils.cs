@@ -12,14 +12,14 @@ namespace DBI_Grading.Utils
         /// <returns></returns>
         public static T DeserializeObject<T>(string localPath) where T : new()
         {
-            T rez = new T();
+            var rez = new T();
 
             try
             {
                 using (Stream stream = File.Open(localPath, FileMode.Open))
                 {
-                    BinaryFormatter bin = new BinaryFormatter();
-                    rez = (T)bin.Deserialize(stream);
+                    var bin = new BinaryFormatter();
+                    rez = (T) bin.Deserialize(stream);
                 }
             }
             catch (IOException e)

@@ -12,9 +12,9 @@ namespace DBI202_Creator.UI.ExportUI
     public partial class ExportConfirm : Form
     {
         private readonly QuestionSet QuestionSet;
+        private string FirstPagePath;
         private string OutPutPath;
         private ShufflePaperModel Spm;
-        private string FirstPagePath;
 
         public ExportConfirm(QuestionSet questionSet)
         {
@@ -47,15 +47,13 @@ namespace DBI202_Creator.UI.ExportUI
                     return;
                 }
                 foreach (var question in QuestionSet.QuestionList)
-                    foreach (var candidate in question.Candidates)
-                        candidate.Point = decimal.ToDouble(question.Point);
+                foreach (var candidate in question.Candidates)
+                    candidate.Point = decimal.ToDouble(question.Point);
 
                 Spm = new ShufflePaperModel(QuestionSet, Convert.ToInt32(papersNumberInput.Value));
 
                 if (!string.IsNullOrEmpty(FirstPagePath))
-                {
                     File.Copy(FirstPagePath, @"\firstpage.docx", true);
-                }
 
                 //Create Test
                 var paperModel = new PaperModel
@@ -68,12 +66,10 @@ namespace DBI202_Creator.UI.ExportUI
                 paperModel.CreatePaperDat();
 
                 if (DocCheckBox.Checked)
-                {
                     using (var progress = new ProgressBarForm(paperModel.CreateAll))
                     {
                         progress.ShowDialog(this);
                     }
-                }
             }
             catch (Exception ex)
             {

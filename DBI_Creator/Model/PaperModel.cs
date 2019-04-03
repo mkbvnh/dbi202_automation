@@ -24,8 +24,8 @@ namespace DBI202_Creator.Model
             var tmpQuestionSet = paperSet.QuestionSet.CloneObjectSerializable<QuestionSet>();
 
             foreach (var paper in paperSet.Papers)
-                foreach (var candidate in paper.CandidateSet)
-                    candidate.Illustration = new List<string>();
+            foreach (var candidate in paper.CandidateSet)
+                candidate.Illustration = new List<string>();
             //Adding Illustration into QuestionSet
             paperSet.QuestionSet = tmpQuestionSet;
 
@@ -38,7 +38,6 @@ namespace DBI202_Creator.Model
 
         public void CreateAll()
         {
-
             //Count PaperNo
             var countPaperNo = 0;
 

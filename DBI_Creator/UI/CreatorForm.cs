@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using DBI202_Creator.Commons;
 using DBI202_Creator.Entities.Paper;
@@ -71,7 +70,7 @@ namespace DBI202_Creator.UI
         private void removeQuestionBtn_Click(object sender, EventArgs e)
         {
             var tab = questionTabControl.TabPages[questionTabControl.SelectedIndex];
-            var qp = (QuestionPanel)tab.Controls["questionPanel"];
+            var qp = (QuestionPanel) tab.Controls["questionPanel"];
 
             questions.Remove(qp.question);
             questionTabControl.TabPages.Remove(tab);

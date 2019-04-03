@@ -12,8 +12,8 @@ namespace DBI202_Creator.Utils.Grading
     public class Result
     {
         private readonly SqlConnectionStringBuilder Builder;
-        private readonly QuestionSet QuestionSet;
         private readonly VerifyForm ParentForm;
+        private readonly QuestionSet QuestionSet;
 
         public Result(QuestionSet questionSet, SqlConnectionStringBuilder builder, VerifyForm parentForm)
         {

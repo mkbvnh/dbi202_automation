@@ -196,7 +196,7 @@ namespace DBI202_Creator.Utils.Grading.Utils.Dao
                     return builder;
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return null;

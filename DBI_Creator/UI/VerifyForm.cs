@@ -12,8 +12,8 @@ namespace DBI202_Creator.UI
 {
     public partial class VerifyForm : Form
     {
-        private SqlConnectionStringBuilder Builder;
         private readonly QuestionSet QuestionSet;
+        private SqlConnectionStringBuilder Builder;
 
         public VerifyForm(QuestionSet questionSet)
         {
@@ -52,11 +52,13 @@ namespace DBI202_Creator.UI
             }
             if (Regex.Replace(QuestionSet.DBScriptList[1], @"\s+", "").ToLower().Contains("createdatabase"))
             {
-                MessageBox.Show(this, @"Database Script for Grading contains CREATE DATABASE\nDatabase for Grading should not contain CREATE DATABASE and USE!!!", @"Error");
+                MessageBox.Show(this,
+                    @"Database Script for Grading contains CREATE DATABASE\nDatabase for Grading should not contain CREATE DATABASE and USE!!!",
+                    @"Error");
                 return;
             }
             var result = new Result(QuestionSet, Builder, this);
-            Thread getPointThread = new Thread(result.GetPoint);
+            var getPointThread = new Thread(result.GetPoint);
             getPointThread.Start();
         }
     }
