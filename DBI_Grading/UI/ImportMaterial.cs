@@ -7,9 +7,9 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using DBI202_Creator.Entities.Paper;
 using DBI_Grading.Common;
-using DBI_Grading.Model.Student;
+using DBI_Grading.Model;
+using DBI_Grading.Model.Paper;
 using DBI_Grading.Utils;
 using DBI_Grading.Utils.Dao;
 

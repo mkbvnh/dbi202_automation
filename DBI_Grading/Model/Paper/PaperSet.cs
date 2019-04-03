@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using DBI202_Creator.Entities.Question;
+using DBI_Grading.Model.Question;
 
-namespace DBI202_Creator.Entities.Paper
+namespace DBI_Grading.Model.Paper
 {
     [Serializable]
     public class PaperSet
@@ -13,7 +13,7 @@ namespace DBI202_Creator.Entities.Paper
         {
         }
 
-        public PaperSet(List<Paper> papers, List<string> dBScriptList, List<int> listPaperMatrixId,
+        public PaperSet(List<DBI_Grading.Model.Paper.Paper> papers, List<string> dBScriptList, List<int> listPaperMatrixId,
             QuestionSet questionSet)
         {
             Papers = papers;
@@ -22,7 +22,7 @@ namespace DBI202_Creator.Entities.Paper
             QuestionSet = questionSet;
         }
 
-        public List<Paper> Papers { get; set; }
+        public List<DBI_Grading.Model.Paper.Paper> Papers { get; set; }
         public List<string> DBScriptList { get; set; }
         public List<int> ListPaperMatrixId { get; set; }
         public QuestionSet QuestionSet { get; set; }

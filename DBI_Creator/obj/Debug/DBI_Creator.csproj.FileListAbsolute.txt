@@ -24,3 +24,9 @@ E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Debug\DBI_Creator.csproj.CoreCom
 E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Debug\DBI_Creator.csproj.CopyComplete
 E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Debug\DBI_Creator.exe
 E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Debug\DBI_Creator.pdb
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Debug\DBI_Creator.csprojAssemblyReference.cache
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Debug\DBI_Grading.exe
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Debug\System.IO.Compression.FileSystem.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Debug\System.IO.Compression.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Debug\DBI_Grading.pdb
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Debug\DBI_Grading.exe.config

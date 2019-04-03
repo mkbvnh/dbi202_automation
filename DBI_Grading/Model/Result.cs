@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DBI202_Creator.Entities.Candidate;
 using DBI_Grading.Common;
 using DBI_Grading.Utils;
 
@@ -15,7 +14,7 @@ namespace DBI_Grading.Model
         {
             Points = new double[Constant.PaperSet.QuestionSet.QuestionList.Count];
             ListAnswers = new List<string>();
-            ListCandidates = new List<Candidate>();
+            ListCandidates = new List<Candidate.Candidate>();
             Logs = new string[Constant.PaperSet.QuestionSet.QuestionList.Count];
         }
 
@@ -23,7 +22,7 @@ namespace DBI_Grading.Model
         public string PaperNo { get; set; }
         public string ExamCode { get; set; }
         public List<string> ListAnswers { get; set; }
-        public List<Candidate> ListCandidates { get; set; }
+        public List<Candidate.Candidate> ListCandidates { get; set; }
         public double[] Points { get; set; }
         public string[] Logs { get; set; }
 
@@ -55,7 +54,7 @@ namespace DBI_Grading.Model
         ///     if exception was found, throw it for GetPoint function to handle
         ///     <cref>SQLException</cref>
         /// </exception>
-        private Dictionary<string, string> GradeAnswer(Candidate candidate, string answer, int questionOrder)
+        private Dictionary<string, string> GradeAnswer(Candidate.Candidate candidate, string answer, int questionOrder)
         {
             // await TaskEx.Delay(100);
             if (string.IsNullOrEmpty(answer.Trim()))
@@ -63,19 +62,19 @@ namespace DBI_Grading.Model
             // Process by Question Type
             switch (candidate.QuestionType)
             {
-                case Candidate.QuestionTypes.Schema:
+                case Candidate.Candidate.QuestionTypes.Schema:
                     // Schema Question
                     return PaperUtils.SchemaType(candidate, StudentID, answer, questionOrder);
-                case Candidate.QuestionTypes.Select:
+                case Candidate.Candidate.QuestionTypes.Select:
                     //Select Question
                     return PaperUtils.SelectType(candidate, StudentID, answer, questionOrder);
-                case Candidate.QuestionTypes.DML:
+                case Candidate.Candidate.QuestionTypes.DML:
                     // DML: Insert/Delete/Update Question
                     return PaperUtils.TriggerProcedureType(candidate, StudentID, answer, questionOrder);
-                case Candidate.QuestionTypes.Procedure:
+                case Candidate.Candidate.QuestionTypes.Procedure:
                     // Procedure Question
                     return PaperUtils.TriggerProcedureType(candidate, StudentID, answer, questionOrder);
-                case Candidate.QuestionTypes.Trigger:
+                case Candidate.Candidate.QuestionTypes.Trigger:
                     // Trigger Question
                     return PaperUtils.TriggerProcedureType(candidate, StudentID, answer, questionOrder);
                 default:

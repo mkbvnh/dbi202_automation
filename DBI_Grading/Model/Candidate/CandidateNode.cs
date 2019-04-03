@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace DBI202_Creator.Entities.Candidate
+namespace DBI_Grading.Model.Candidate
 {
-    internal class CandidateNode
+    public class CandidateNode
     {
         public CandidateNode()
         {
@@ -11,7 +11,7 @@ namespace DBI202_Creator.Entities.Candidate
         }
 
         public List<CandidateNode> Children { get; set; }
-        public Candidate Candi { get; set; }
+        public DBI_Grading.Model.Candidate.Candidate Candi { get; set; }
         public List<List<CandidateNode>> paths { get; set; }
 
         public void AddPath(CandidateNode node, List<CandidateNode> candidatesPath)

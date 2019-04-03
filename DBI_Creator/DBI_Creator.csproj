@@ -90,10 +90,6 @@
     <Compile Include="UI\CreatorForm.Designer.cs">
       <DependentUpon>CreatorForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Candidate\CandidateNode.cs" />
-    <Compile Include="Entities\Paper\Paper.cs" />
-    <Compile Include="Entities\Paper\PaperSet.cs" />
-    <Compile Include="Entities\Question\QuestionSet.cs" />
     <Compile Include="Model\PaperModel.cs" />
     <Compile Include="Model\ShufflePaperModel.cs" />
     <Compile Include="UI\CandidateUI\CandidatePanel.cs">
@@ -104,8 +100,6 @@
       <DependentUpon>CandidatePanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Commons\Constants.cs" />
-    <Compile Include="Entities\Candidate\Candidate.cs" />
-    <Compile Include="Entities\Question\Question.cs" />
     <Compile Include="UI\ExportUI\ExportConfirm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,7 +136,7 @@
     <Compile Include="UI\VerifyForm.Designer.cs">
       <DependentUpon>VerifyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Utils\Grading\Result.cs" />
+    <Compile Include="Model\Result.cs" />
     <Compile Include="Utils\Grading\Utils\CompareUtils.cs" />
     <Compile Include="Utils\Grading\Utils\Dao\CompareDataTable.cs" />
     <Compile Include="Utils\Grading\Utils\Dao\General.cs" />
@@ -229,7 +223,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\Grading\" />
+    <ProjectReference Include="..\DBI_Grading\DBI_Grading.csproj">
+      <Project>{507d0910-96ec-426b-a87f-d5f0eccdf919}</Project>
+      <Name>DBI_Grading</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

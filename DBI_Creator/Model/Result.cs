@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows.Forms;
-using DBI202_Creator.Entities.Candidate;
-using DBI202_Creator.Entities.Question;
 using DBI202_Creator.UI;
 using DBI202_Creator.Utils.Grading.Utils;
+using DBI_Grading.Model.Candidate;
+using DBI_Grading.Model.Question;
 
-namespace DBI202_Creator.Utils.Grading
+namespace DBI202_Creator.Model
 {
     public class Result
     {

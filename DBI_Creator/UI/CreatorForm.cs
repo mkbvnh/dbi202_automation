@@ -4,13 +4,13 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using DBI202_Creator.Commons;
-using DBI202_Creator.Entities.Paper;
-using DBI202_Creator.Entities.Question;
 using DBI202_Creator.Model;
 using DBI202_Creator.UI.CandidateUI;
 using DBI202_Creator.UI.ExportUI;
 using DBI202_Creator.Utils;
 using DBI202_Creator.Utils.OfficeUtils;
+using DBI_Grading.Model.Paper;
+using DBI_Grading.Model.Question;
 
 namespace DBI202_Creator.UI
 {

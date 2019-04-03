@@ -5,7 +5,6 @@ using System.Threading;
 using System.Windows.Forms;
 using DBI_Grading.Common;
 using DBI_Grading.Model;
-using DBI_Grading.Model.Student;
 using DBI_Grading.Utils;
 
 namespace DBI_Grading.UI

@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using DBI_Grading.Model;
-using DBI_Grading.Model.Student;
 using Microsoft.Office.Interop.Excel;
 
 namespace DBI_Grading.Utils

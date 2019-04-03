@@ -4,9 +4,9 @@ using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
-using DBI202_Creator.Entities.Question;
-using DBI202_Creator.Utils.Grading;
+using DBI202_Creator.Model;
 using DBI202_Creator.Utils.Grading.Utils.Dao;
+using DBI_Grading.Model.Question;
 
 namespace DBI202_Creator.UI
 {
@@ -28,7 +28,7 @@ namespace DBI202_Creator.UI
         {
             Builder = General.CheckConnection(serverNameTextBox.Text, usernameTextBox.Text, passwordTextBox.Text,
                 "master");
-            if (Builder != null)
+            if (Builder != null && General.PrepareSpCompareDatabase(Builder))
             {
                 startBtn.Enabled = true;
                 checkConnectionButton.Enabled = false;

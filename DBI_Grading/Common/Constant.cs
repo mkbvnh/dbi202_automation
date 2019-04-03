@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.SqlClient;
-using DBI202_Creator.Entities.Paper;
+using DBI_Grading.Model.Paper;
 
 namespace DBI_Grading.Common
 {

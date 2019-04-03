@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DBI202_Creator.Entities.Candidate
+namespace DBI_Grading.Model.Candidate
 {
     [Serializable]
     public class Candidate

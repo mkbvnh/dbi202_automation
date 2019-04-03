@@ -3,8 +3,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using DBI202_Creator.Entities.Candidate;
-using DBI202_Creator.Entities.Paper;
+using DBI_Grading.Model.Candidate;
+using DBI_Grading.Model.Paper;
 using Microsoft.Office.Interop.Word;
 
 namespace DBI202_Creator.Utils.OfficeUtils
@@ -26,7 +26,7 @@ namespace DBI202_Creator.Utils.OfficeUtils
                 //Start new Word Application
                 wordApp = new Application
                 {
-                    Visible = false,
+                    Visible = true,
                     ShowAnimation = false
                 };
                 object missing = Missing.Value;

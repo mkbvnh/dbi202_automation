@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Windows.Forms;
 using DBI202_Creator.Commons;
-using DBI202_Creator.Entities.Candidate;
 using DBI202_Creator.UI.CandidateUI;
 using DBI202_Creator.Utils;
+using DBI_Grading.Model.Candidate;
 
 namespace DBI202_Creator.UI
 {

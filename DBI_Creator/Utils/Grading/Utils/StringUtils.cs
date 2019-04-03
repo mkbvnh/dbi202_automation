@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using DBI202_Creator.Entities.Candidate;
+using DBI_Grading.Model.Candidate;
 
 namespace DBI202_Creator.Utils.Grading.Utils
 {

@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using DBI202_Creator.Commons;
-using DBI202_Creator.Entities.Question;
 using DBI202_Creator.Model;
 using DBI202_Creator.Utils;
+using DBI_Grading.Model.Question;
 
 namespace DBI202_Creator.UI.ExportUI
 {
@@ -43,7 +43,7 @@ namespace DBI202_Creator.UI.ExportUI
             {
                 if (string.IsNullOrEmpty(OutPutPath))
                 {
-                    MessageBox.Show("You need to Browse first!!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(@"You need to Browse first!!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 foreach (var question in QuestionSet.QuestionList)
@@ -53,14 +53,14 @@ namespace DBI202_Creator.UI.ExportUI
                 Spm = new ShufflePaperModel(QuestionSet, Convert.ToInt32(papersNumberInput.Value));
 
                 if (!string.IsNullOrEmpty(FirstPagePath))
-                    File.Copy(FirstPagePath, @"\firstpage.docx", true);
+                    File.Copy(FirstPagePath, @".\firstpage.docx", true);
 
                 //Create Test
                 var paperModel = new PaperModel
                 {
                     Path = OutPutPath,
                     Spm = Spm,
-                    FirstPagePath = @"\firstpage.docx"
+                    FirstPagePath = @".\firstpage.docx"
                 };
                 Process.Start(OutPutPath);
                 paperModel.CreatePaperDat();
@@ -70,6 +70,7 @@ namespace DBI202_Creator.UI.ExportUI
                     {
                         progress.ShowDialog(this);
                     }
+                File.Delete(paperModel.FirstPagePath);
             }
             catch (Exception ex)
             {
@@ -91,6 +92,10 @@ namespace DBI202_Creator.UI.ExportUI
         private void importFirstPageBtn_Click(object sender, EventArgs e)
         {
             FirstPagePath = FileUtils.GetFileLocation(@"Document File|*.docx", @"Select a Document File");
+            if (!string.IsNullOrEmpty(FirstPagePath))
+            {
+                firstPagePathTextBox.Text = FirstPagePath;
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using DBI202_Creator.Entities.Candidate;
-using DBI202_Creator.Entities.Paper;
+using DBI_Grading.Model.Candidate;
+using DBI_Grading.Model.Paper;
 
 namespace DBI202_Creator.Commons
 {

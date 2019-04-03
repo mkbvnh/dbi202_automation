@@ -1,5 +1,5 @@
 ﻿using System;
-using DBI202_Creator.Entities.Paper;
+using DBI_Grading.Model.Paper;
 using Microsoft.Office.Interop.Word;
 
 namespace DBI202_Creator.Utils.OfficeUtils

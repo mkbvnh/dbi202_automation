@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DBI_Grading.Common;
 
-namespace DBI_Grading.Model.Student
+namespace DBI_Grading.Model
 {
     [Serializable]
     public class Submission

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
-using DBI202_Creator.Entities.Candidate;
-using DBI202_Creator.Entities.Question;
+using DBI_Grading.Model.Candidate;
+using DBI_Grading.Model.Question;
 
 namespace DBI202_Creator.UI
 {

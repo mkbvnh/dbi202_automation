@@ -2,8 +2,8 @@
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using DBI202_Creator.Entities.Candidate;
-using DBI202_Creator.Entities.Question;
+using DBI_Grading.Model.Candidate;
+using DBI_Grading.Model.Question;
 using Microsoft.Office.Interop.Word;
 
 namespace DBI202_Creator.Utils.OfficeUtils

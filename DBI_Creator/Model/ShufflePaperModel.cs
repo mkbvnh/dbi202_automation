@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using DBI202_Creator.Commons;
-using DBI202_Creator.Entities.Candidate;
-using DBI202_Creator.Entities.Paper;
-using DBI202_Creator.Entities.Question;
+using DBI_Grading.Model.Candidate;
+using DBI_Grading.Model.Paper;
+using DBI_Grading.Model.Question;
 
 namespace DBI202_Creator.Model
 {
