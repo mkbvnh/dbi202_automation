@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Newtonsoft.Json;
+
 namespace DBI202_Creator.Utils
 {
     internal class SerializeUtils

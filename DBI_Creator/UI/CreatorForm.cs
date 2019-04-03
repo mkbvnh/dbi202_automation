@@ -261,6 +261,7 @@ namespace DBI202_Creator.UI
         private void VerifySolutionBtn_Click(object sender, EventArgs e)
         {
             var verifyForm = new VerifyForm(questionSet);
+            verifyForm.Show();
         }
     }
 }

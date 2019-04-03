@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using DBI202_Creator.Commons;
 using DBI202_Creator.Entities.Question;
@@ -51,12 +52,17 @@ namespace DBI202_Creator.UI.ExportUI
 
                 Spm = new ShufflePaperModel(QuestionSet, Convert.ToInt32(papersNumberInput.Value));
 
+                if (!string.IsNullOrEmpty(FirstPagePath))
+                {
+                    File.Copy(FirstPagePath, @"\firstpage.docx", true);
+                }
+
                 //Create Test
                 var paperModel = new PaperModel
                 {
                     Path = OutPutPath,
                     Spm = Spm,
-                    FirstPagePath = FirstPagePath
+                    FirstPagePath = @"\firstpage.docx"
                 };
                 Process.Start(OutPutPath);
                 paperModel.CreatePaperDat();

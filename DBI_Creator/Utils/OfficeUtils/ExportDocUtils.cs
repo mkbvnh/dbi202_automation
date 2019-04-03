@@ -33,7 +33,7 @@ namespace DBI202_Creator.Utils.OfficeUtils
                 Document doc;
 
                 //Merge First Page
-                if (string.IsNullOrEmpty(firstPagePath))
+                if (!string.IsNullOrEmpty(firstPagePath))
                 {
                     doc = wordApp.Documents.Add(firstPagePath);
                     doc.Words.Last.InsertBreak(WdBreakType.wdPageBreak);

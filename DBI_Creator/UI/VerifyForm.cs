@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Configuration;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using DBI202_Creator.Entities.Question;
 using DBI202_Creator.Utils.Grading;
@@ -16,6 +18,9 @@ namespace DBI202_Creator.UI
         {
             InitializeComponent();
             QuestionSet = questionSet;
+            serverNameTextBox.Text = ConfigurationManager.AppSettings["serverName"];
+            usernameTextBox.Text = ConfigurationManager.AppSettings["username"];
+            passwordTextBox.Text = ConfigurationManager.AppSettings["password"];
         }
 
         private void checkConnectionButton_Click(object sender, EventArgs e)
@@ -38,8 +43,28 @@ namespace DBI202_Creator.UI
 
         private void startBtn_Click(object sender, EventArgs e)
         {
-            var result = new Result(QuestionSet, Builder, verifyText);
-            result.GetPoint();
+            verifyText.Text = "";
+            if (QuestionSet.DBScriptList.Count < 2 || string.IsNullOrEmpty(QuestionSet.DBScriptList[1]))
+            {
+                MessageBox.Show(this, @"Please add Database Script for Grading", @"Error");
+                return;
+            }
+            if (Regex.Replace(QuestionSet.DBScriptList[1], @"\s+", "").ToLower().Contains("createdatabase"))
+            {
+                MessageBox.Show(this, @"Database Script for Grading contains CREATE DATABASE\nDatabase for Grading should not contain CREATE DATABASE and USE!!!", @"Error");
+                return;
+            }
+            try
+            {
+                var result = new Result(QuestionSet, Builder, verifyText, this);
+                result.GetPoint();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(this, exception.Message, @"Error");
+                verifyText.Text = "Error: " + exception.Message;
+            }
+
         }
     }
 }

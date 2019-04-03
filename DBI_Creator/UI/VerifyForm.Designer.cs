@@ -45,7 +45,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.verifyText.BackColor = System.Drawing.Color.White;
-            this.verifyText.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.verifyText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.verifyText.Location = new System.Drawing.Point(12, 103);
             this.verifyText.Name = "verifyText";
             this.verifyText.ReadOnly = true;
@@ -155,8 +155,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.RichTextBox verifyText;
         private System.Windows.Forms.Button checkConnectionButton;
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Label label9;
@@ -165,5 +163,6 @@
         private System.Windows.Forms.TextBox serverNameTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button startBtn;
+        internal System.Windows.Forms.RichTextBox verifyText;
     }
 }

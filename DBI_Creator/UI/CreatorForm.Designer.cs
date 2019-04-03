@@ -222,7 +222,6 @@
             // VerifySolutionBtn
             // 
             this.VerifySolutionBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.VerifySolutionBtn.Enabled = false;
             this.VerifySolutionBtn.Location = new System.Drawing.Point(611, 29);
             this.VerifySolutionBtn.Name = "VerifySolutionBtn";
             this.VerifySolutionBtn.Size = new System.Drawing.Size(93, 23);

@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Windows.Forms;
 using DBI202_Creator.Entities.Candidate;
 using DBI202_Creator.Entities.Question;
+using DBI202_Creator.UI;
 using DBI202_Creator.Utils.Grading.Utils;
 
 namespace DBI202_Creator.Utils.Grading
@@ -12,14 +13,13 @@ namespace DBI202_Creator.Utils.Grading
     {
         private readonly SqlConnectionStringBuilder Builder;
         private readonly QuestionSet QuestionSet;
-        private readonly RichTextBox ResultTextBox;
+        private readonly VerifyForm ParentForm;
 
-        public Result(QuestionSet questionSet, SqlConnectionStringBuilder builder,
-            RichTextBox resultTextBoxresultTextBox)
+        public Result(QuestionSet questionSet, SqlConnectionStringBuilder builder, VerifyForm parentForm)
         {
             QuestionSet = questionSet;
             Builder = builder;
-            ResultTextBox = resultTextBoxresultTextBox;
+            ParentForm = parentForm;
         }
 
 
@@ -74,20 +74,29 @@ namespace DBI202_Creator.Utils.Grading
         {
             var countQs = 0;
             var countCandi = 0;
-            foreach (var question in QuestionSet.QuestionList)
+            try
             {
-                ResultTextBox.Text += @"Question " + ++countQs + ":\n";
-                foreach (var candidate in question.Candidates)
+                foreach (var question in QuestionSet.QuestionList)
                 {
-                    ResultTextBox.Text += "Candi " + ++countCandi + ":\n";
+                    ParentForm.verifyText.Text += @"Question " + ++countQs + ":\n";
+                    foreach (var candidate in question.Candidates)
+                    {
+                        ParentForm.verifyText.Text += "Candi " + ++countCandi + ":\n";
 
-                    var result = GradeAnswer(candidate, candidate.Solution, 0,
-                        QuestionSet.DBScriptList[1]);
-                    ResultTextBox.Text += "- Point: " + result["Point"];
-                    ResultTextBox.Text += "- Log: " + result["Comment"];
+                        var result = GradeAnswer(candidate, candidate.Solution, 0,
+                            QuestionSet.DBScriptList[1]);
+                        ParentForm.verifyText.Text += result["Comment"];
+                    }
+                    countCandi = 0;
+                    ParentForm.verifyText.Text += @"--------------------";
                 }
-                countCandi = 0;
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(ParentForm, e.Message, @"Error");
+                ParentForm.verifyText.Text = @"Error: " + e.Message;
+            }
+            
         }
     }
 }
