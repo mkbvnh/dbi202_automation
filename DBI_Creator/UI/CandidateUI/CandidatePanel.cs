@@ -239,5 +239,18 @@ namespace DBI202_Creator.UI
         }
 
         private delegate bool HandleDelete(Candidate c, TabPage tp);
+
+        private void insertTcBtn_Click(object sender, EventArgs e)
+        {
+            TestCase testCase = new TestCase();
+
+            TestCaseDialog tcDialog = new TestCaseDialog(testCase, tc => {
+                this.testQueryTxt.AppendText(tc.ToString());
+                return true;
+            });
+
+            tcDialog.Visible = true;
+            tcDialog.Show();
+        }
     }
 }

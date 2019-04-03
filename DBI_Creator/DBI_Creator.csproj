@@ -84,6 +84,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI\CandidateUI\TestCase.cs" />
+    <Compile Include="UI\CandidateUI\TestCaseDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\CandidateUI\TestCaseDialog.Designer.cs">
+      <DependentUpon>TestCaseDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\CreatorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,6 +161,9 @@
     <Compile Include="Utils\Utilities.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="UI\CandidateUI\TestCaseDialog.resx">
+      <DependentUpon>TestCaseDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CreatorForm.resx">
       <DependentUpon>CreatorForm.cs</DependentUpon>
     </EmbeddedResource>
