@@ -1,0 +1,16 @@
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\bin\Debug\DBI_Exam_Creator_Tool.exe
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\bin\Debug\DBI_Exam_Creator_Tool.pdb
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\bin\Debug\Microsoft.SqlServer.TransactSql.ScriptDom.dll
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.CreatorForm.resources
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.UI.CandidatePanel.resources
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.Properties.Resources.resources
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.UI.ExportConfirm.resources
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.UI.InputScriptForm.resources
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.UI.PicturePreview.resources
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.UI.QuestionPanel.resources
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.csproj.GenerateResource.cache
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.csproj.CoreCompileInputs.cache
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.csproj.CopyComplete
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.exe
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.pdb
+E:\Capstone\DBI_Exam_Creator_Tool\DBI_Exam_Creator_Tool\obj\Debug\DBI_Exam_Creator_Tool.csprojAssemblyReference.cache
