@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace DBI202_Creator.Utils.Grading.Utils
+namespace DBI202_Creator.Utils
 {
     internal class ThreadUtils
     {

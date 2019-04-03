@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using DBI202_Creator.Model;
 using DBI_Grading.Model.Candidate;
 
-namespace DBI_Grading.Utils
+namespace DBI202_Creator.Utils
 {
     internal static class StringUtils
     {
@@ -104,13 +105,6 @@ namespace DBI_Grading.Utils
                     RatePoint = candidate.Point
                 });
             return tcpList;
-        }
-
-        public class TestCase
-        {
-            public double RatePoint { get; set; }
-            public string Description { get; set; }
-            public string TestQuery { get; set; }
         }
     }
 }

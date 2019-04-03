@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using DBI202_Creator.Utils.Grading.Utils.Dao;
+using DBI202_Creator.Utils.Grading.Dao;
 using DBI_Grading.Model.Candidate;
 
-namespace DBI202_Creator.Utils.Grading.Utils
+namespace DBI202_Creator.Utils.Grading
 {
     internal class CompareUtils
     {

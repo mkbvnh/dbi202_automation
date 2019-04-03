@@ -7,7 +7,7 @@ using System.Resources;
 using Microsoft.SqlServer.Management.Common;
 using Microsoft.SqlServer.Management.Smo;
 
-namespace DBI202_Creator.Utils.Grading.Utils.Dao
+namespace DBI202_Creator.Utils.Grading.Dao
 {
     public partial class General
     {

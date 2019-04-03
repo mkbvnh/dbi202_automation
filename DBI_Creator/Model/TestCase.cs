@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace DBI202_Creator.UI.CandidateUI
+namespace DBI202_Creator.Model
 {
     public class TestCase
     {
@@ -13,7 +10,8 @@ namespace DBI202_Creator.UI.CandidateUI
 
         public override string ToString()
         {
-            return String.Format("/*{0}*/\n/*{1}*/\n{2}\n", RatePoint/100, Description, TestQuery).Replace("\n", Environment.NewLine);
+            return string.Format("\n/*{0}*/\n/*{1}*/\n{2}", RatePoint / 100, Description, TestQuery)
+                .Replace("\n", Environment.NewLine);
         }
     }
 }

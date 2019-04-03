@@ -250,8 +250,9 @@
             this.validateTcBtn.Name = "validateTcBtn";
             this.validateTcBtn.Size = new System.Drawing.Size(115, 23);
             this.validateTcBtn.TabIndex = 46;
-            this.validateTcBtn.Text = "Validate Point";
+            this.validateTcBtn.Text = "Validate TestQueries";
             this.validateTcBtn.UseVisualStyleBackColor = true;
+            this.validateTcBtn.Click += new System.EventHandler(this.validateTcBtn_Click);
             // 
             // CandidatePanel
             // 

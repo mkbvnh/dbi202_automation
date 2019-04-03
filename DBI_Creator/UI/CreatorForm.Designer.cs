@@ -121,7 +121,7 @@
             // addQuestionToolStripMenuItem
             // 
             this.addQuestionToolStripMenuItem.Name = "addQuestionToolStripMenuItem";
-            this.addQuestionToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.addQuestionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.addQuestionToolStripMenuItem.Text = "Add";
             this.addQuestionToolStripMenuItem.Click += new System.EventHandler(this.addQuestionToolStripMenuItem_Click);
             // 
@@ -129,7 +129,7 @@
             // 
             this.removeQuestionToolStripMenuItem.Enabled = false;
             this.removeQuestionToolStripMenuItem.Name = "removeQuestionToolStripMenuItem";
-            this.removeQuestionToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
+            this.removeQuestionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.removeQuestionToolStripMenuItem.Text = "Remove";
             // 
             // candidateToolStripMenuItem
@@ -222,7 +222,7 @@
             // VerifySolutionBtn
             // 
             this.VerifySolutionBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.VerifySolutionBtn.Location = new System.Drawing.Point(611, 29);
+            this.VerifySolutionBtn.Location = new System.Drawing.Point(798, 29);
             this.VerifySolutionBtn.Name = "VerifySolutionBtn";
             this.VerifySolutionBtn.Size = new System.Drawing.Size(93, 23);
             this.VerifySolutionBtn.TabIndex = 6;

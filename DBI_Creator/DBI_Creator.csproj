@@ -84,7 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UI\CandidateUI\TestCase.cs" />
+    <Compile Include="Model\TestCase.cs" />
     <Compile Include="UI\CandidateUI\TestCaseDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,12 +144,11 @@
       <DependentUpon>VerifyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Result.cs" />
-    <Compile Include="Utils\Grading\Utils\CompareUtils.cs" />
-    <Compile Include="Utils\Grading\Utils\Dao\CompareDataTable.cs" />
-    <Compile Include="Utils\Grading\Utils\Dao\General.cs" />
-    <Compile Include="Utils\Grading\Utils\PaperUtils.cs" />
-    <Compile Include="Utils\Grading\Utils\StringUtils.cs" />
-    <Compile Include="Utils\Grading\Utils\ThreadUtils.cs" />
+    <Compile Include="Utils\Grading\CompareUtils.cs" />
+    <Compile Include="Utils\Grading\Dao\CompareDataTable.cs" />
+    <Compile Include="Utils\Grading\Dao\General.cs" />
+    <Compile Include="Utils\Grading\PaperUtils.cs" />
+    <Compile Include="Utils\ThreadUtils.cs" />
     <Compile Include="Utils\OfficeUtils\DocUtils.cs" />
     <Compile Include="Utils\OfficeUtils\ExportDocUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />

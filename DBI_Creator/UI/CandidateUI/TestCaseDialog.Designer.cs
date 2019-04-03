@@ -80,7 +80,7 @@
             this.insertBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.insertBtn.Location = new System.Drawing.Point(565, 60);
             this.insertBtn.Name = "insertBtn";
-            this.insertBtn.Size = new System.Drawing.Size(106, 33);
+            this.insertBtn.Size = new System.Drawing.Size(106, 28);
             this.insertBtn.TabIndex = 50;
             this.insertBtn.Text = "Insert";
             this.insertBtn.UseVisualStyleBackColor = true;
@@ -90,9 +90,9 @@
             // 
             this.cancelBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.cancelBtn.Location = new System.Drawing.Point(565, 104);
+            this.cancelBtn.Location = new System.Drawing.Point(565, 124);
             this.cancelBtn.Name = "cancelBtn";
-            this.cancelBtn.Size = new System.Drawing.Size(106, 27);
+            this.cancelBtn.Size = new System.Drawing.Size(106, 28);
             this.cancelBtn.TabIndex = 51;
             this.cancelBtn.Text = "Cancel";
             this.cancelBtn.UseVisualStyleBackColor = false;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 using DBI202_Creator.UI;
-using DBI202_Creator.Utils.Grading.Utils;
+using DBI202_Creator.Utils.Grading;
 using DBI_Grading.Model.Candidate;
 using DBI_Grading.Model.Question;
 

@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using DBI202_Creator.Commons;
+using DBI202_Creator.Model;
 using DBI202_Creator.UI.CandidateUI;
 using DBI202_Creator.Utils;
 using DBI_Grading.Model.Candidate;
@@ -238,19 +239,37 @@ namespace DBI202_Creator.UI
             Dock = DockStyle.Fill; //Fill Usercontrol within the his parent layout
         }
 
-        private delegate bool HandleDelete(Candidate c, TabPage tp);
-
         private void insertTcBtn_Click(object sender, EventArgs e)
         {
-            TestCase testCase = new TestCase();
+            var testCase = new TestCase();
 
-            TestCaseDialog tcDialog = new TestCaseDialog(testCase, tc => {
-                this.testQueryTxt.AppendText(tc.ToString());
+            var tcDialog = new TestCaseDialog(testCase, tc =>
+            {
+                testQueryTxt.AppendText(tc.ToString());
                 return true;
             });
 
             tcDialog.Visible = true;
             tcDialog.Show();
         }
+
+        private void validateTcBtn_Click(object sender, EventArgs e)
+        {
+            var testCases = StringUtils.GetTestCases(testQueryTxt.Text, Candidate);
+            var mess = "";
+            var countTc = 0;
+            double rate = 0;
+            foreach (var testCase in testCases)
+            {
+                mess += "TC " + ++countTc + ":" + "[" + testCase.RatePoint + "] - " + testCase.Description + "\n" +
+                        testCase.TestQuery + "\n";
+                rate += testCase.RatePoint;
+            }
+            if (rate < 1)
+                mess += "WARNING: Total RatePoint is " + rate;
+            MessageBox.Show(this, mess);
+        }
+
+        private delegate bool HandleDelete(Candidate c, TabPage tp);
     }
 }
