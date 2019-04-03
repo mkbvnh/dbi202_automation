@@ -43,7 +43,8 @@ namespace DBI202_Creator.UI.ExportUI
             {
                 if (string.IsNullOrEmpty(OutPutPath))
                 {
-                    MessageBox.Show(@"You need to Browse first!!!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(@"You need to Browse first!!!", "Error", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                     return;
                 }
                 foreach (var question in QuestionSet.QuestionList)
@@ -93,9 +94,7 @@ namespace DBI202_Creator.UI.ExportUI
         {
             FirstPagePath = FileUtils.GetFileLocation(@"Document File|*.docx", @"Select a Document File");
             if (!string.IsNullOrEmpty(FirstPagePath))
-            {
                 firstPagePathTextBox.Text = FirstPagePath;
-            }
         }
     }
 }

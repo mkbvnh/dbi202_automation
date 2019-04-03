@@ -26,7 +26,7 @@ namespace DBI202_Creator.Utils.OfficeUtils
                 //Start new Word Application
                 wordApp = new Application
                 {
-                    Visible = false,
+                    Visible = false
                 };
                 object missing = Missing.Value;
                 Document doc;
