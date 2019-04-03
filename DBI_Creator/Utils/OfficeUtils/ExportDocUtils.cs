@@ -14,10 +14,11 @@ namespace DBI202_Creator.Utils.OfficeUtils
         /// <summary>
         ///     Export Doc in path
         /// </summary>
+        /// <param name="firstPagePath"></param>
         /// <param name="paper"></param>
         /// <param name="path">Save to location</param>
         /// <returns></returns>
-        public static void ExportDoc(Paper paper, string path)
+        public static void ExportDoc(string firstPagePath, Paper paper, string path)
         {
             Application wordApp = null;
             try
@@ -29,7 +30,19 @@ namespace DBI202_Creator.Utils.OfficeUtils
                     ShowAnimation = false
                 };
                 object missing = Missing.Value;
-                var doc = wordApp.Documents.Add(missing);
+                Document doc;
+
+                //Merge First Page
+                if (string.IsNullOrEmpty(firstPagePath))
+                {
+                    doc = wordApp.Documents.Add(firstPagePath);
+                    doc.Words.Last.InsertBreak(WdBreakType.wdPageBreak);
+                }
+                else
+                {
+                    doc = wordApp.Documents.Add(missing);
+                }
+
                 //Settings Page
                 DocUtils.SettingsPage(doc);
 
@@ -39,12 +52,9 @@ namespace DBI202_Creator.Utils.OfficeUtils
                 //Insert QuestionRequirement of the Exam
                 for (var i = 0; i < paper.CandidateSet.Count; i++)
                     AppendTestQuestion(paper.CandidateSet.ElementAt(i), doc, i + 1, ref missing);
+
                 //Saving file
                 DocUtils.SavingDocFile(doc, path, paper);
-            }
-            catch (Exception)
-            {
-                // skipped
             }
             finally
             {

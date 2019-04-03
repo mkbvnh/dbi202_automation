@@ -54,7 +54,7 @@ namespace DBI202_Creator.Model
                     File.WriteAllText(givenPath + @"\DBscript" + ".sql", Spm.PaperSet.DBScriptList[0]);
 
                     //Create word file
-                    ExportDocUtils.ExportDoc(paper, paperPath);
+                    ExportDocUtils.ExportDoc(FirstPagePath, paper, paperPath);
                 }
             }
             catch (Exception ex)

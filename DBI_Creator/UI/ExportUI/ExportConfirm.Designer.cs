@@ -127,6 +127,7 @@
             this.importFirstPageBtn.TabIndex = 9;
             this.importFirstPageBtn.Text = "Browse";
             this.importFirstPageBtn.UseVisualStyleBackColor = true;
+            this.importFirstPageBtn.Click += new System.EventHandler(this.importFirstPageBtn_Click);
             // 
             // label3
             // 

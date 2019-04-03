@@ -13,6 +13,7 @@ namespace DBI202_Creator.UI.ExportUI
         private readonly QuestionSet QuestionSet;
         private string OutPutPath;
         private ShufflePaperModel Spm;
+        private string FirstPagePath;
 
         public ExportConfirm(QuestionSet questionSet)
         {
@@ -54,7 +55,8 @@ namespace DBI202_Creator.UI.ExportUI
                 var paperModel = new PaperModel
                 {
                     Path = OutPutPath,
-                    Spm = Spm
+                    Spm = Spm,
+                    FirstPagePath = FirstPagePath
                 };
                 Process.Start(OutPutPath);
                 paperModel.CreatePaperDat();
@@ -82,6 +84,11 @@ namespace DBI202_Creator.UI.ExportUI
             papersNumberInput.Value = papersNumberInput.Maximum;
             papersNumberInput.Enabled = true;
             newBtn.Enabled = false;
+        }
+
+        private void importFirstPageBtn_Click(object sender, EventArgs e)
+        {
+            FirstPagePath = FileUtils.GetFileLocation(@"Document File|*.docx", @"Select a Document File");
         }
     }
 }
