@@ -100,7 +100,6 @@ namespace DBI202_Creator.UI
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
                 try
                 {
                     // Clear.
@@ -109,8 +108,7 @@ namespace DBI202_Creator.UI
 
                     // Load data.
                     var localPath = openFileDialog.FileName;
-                    var set = SerializeUtils.DeserializeObject(localPath);
-                    questionSet = set;
+                    questionSet = SerializeUtils.DeserializeObject<QuestionSet>(localPath);
                     questions = questionSet.QuestionList;
 
                     // Visualization.
@@ -122,7 +120,6 @@ namespace DBI202_Creator.UI
                 {
                     MessageBox.Show("Open question set faield.\n" + ex.Message);
                 }
-            }
         }
 
         // Export to .jon file.
@@ -132,7 +129,6 @@ namespace DBI202_Creator.UI
             saveQuestionSetDialog.FilterIndex = 2;
             saveQuestionSetDialog.RestoreDirectory = true;
             if (saveQuestionSetDialog.ShowDialog() == DialogResult.OK)
-            {
                 try
                 {
                     var saveFolder = Path.GetDirectoryName(saveQuestionSetDialog.FileName);
@@ -144,7 +140,6 @@ namespace DBI202_Creator.UI
                 {
                     MessageBox.Show("Save failed.\n" + ex.Message);
                 }
-            }
         }
 
         private void printQuestionNo()
@@ -222,7 +217,7 @@ namespace DBI202_Creator.UI
 
         private void importPaperSetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            openFileDialog.Filter = "Data (*.dat)|*.dat";
+            openFileDialog.Filter = @"Data (*.dat)|*.dat";
             openFileDialog.FilterIndex = 2;
             openFileDialog.RestoreDirectory = true;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -236,23 +231,19 @@ namespace DBI202_Creator.UI
 
                 try
                 {
-                    using (var stream = new FileStream(localPath, FileMode.Open, FileAccess.Read))
-                    {
-                        var formatter = new BinaryFormatter();
-                        Constants.PaperSet = (PaperSet)formatter.Deserialize(stream);
-                        questionSet = Constants.PaperSet.QuestionSet;
-                        questions = questionSet.QuestionList;
-                        questionSet.DBScriptList = Constants.PaperSet.DBScriptList;
+                    Constants.PaperSet = SerializeUtils.DeserializeObject<PaperSet>(localPath);
+                    questionSet = Constants.PaperSet.QuestionSet;
+                    questions = questionSet.QuestionList;
+                    questionSet.DBScriptList = Constants.PaperSet.DBScriptList;
 
-                        // Visualization.
-                        foreach (var q in questions)
-                            addQuestionTab(q);
-                        MessageBox.Show("Import data successfully.");
-                    }
+                    // Visualization.
+                    foreach (var q in questions)
+                        addQuestionTab(q);
+                    MessageBox.Show(@"Import data successfully.");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Import data failed.\n" + ex.Message);
+                    MessageBox.Show(@"Import data failed.\n" + ex.Message);
                 }
             }
         }
@@ -265,6 +256,11 @@ namespace DBI202_Creator.UI
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             save();
+        }
+
+        private void VerifySolutionBtn_Click(object sender, EventArgs e)
+        {
+            var verifyForm = new VerifyForm(questionSet);
         }
     }
 }

@@ -47,7 +47,12 @@
             this.checkColumnNameCheckbox = new System.Windows.Forms.CheckBox();
             this.separator1 = new System.Windows.Forms.Label();
             this.checkDistinctCheckbox = new System.Windows.Forms.CheckBox();
+            this.insertTcBtn = new System.Windows.Forms.Button();
+            this.validateTcBtn = new System.Windows.Forms.Button();
+            this.percentageNumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
             deleteCandidateBtn = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.percentageNumericUpDown)).BeginInit();
             this.SuspendLayout();
             // 
             // deleteCandidateBtn
@@ -169,7 +174,7 @@
             this.testQueryTxt.Multiline = true;
             this.testQueryTxt.Name = "testQueryTxt";
             this.testQueryTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.testQueryTxt.Size = new System.Drawing.Size(853, 136);
+            this.testQueryTxt.Size = new System.Drawing.Size(719, 136);
             this.testQueryTxt.TabIndex = 35;
             // 
             // label2
@@ -230,12 +235,61 @@
             this.checkDistinctCheckbox.Text = "Check Distinct";
             this.checkDistinctCheckbox.UseVisualStyleBackColor = true;
             // 
+            // insertTcBtn
+            // 
+            this.insertTcBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.insertTcBtn.Location = new System.Drawing.Point(808, 333);
+            this.insertTcBtn.Name = "insertTcBtn";
+            this.insertTcBtn.Size = new System.Drawing.Size(115, 23);
+            this.insertTcBtn.TabIndex = 46;
+            this.insertTcBtn.Text = "Insert TC";
+            this.insertTcBtn.UseVisualStyleBackColor = true;
+            // 
+            // validateTcBtn
+            // 
+            this.validateTcBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.validateTcBtn.Location = new System.Drawing.Point(808, 362);
+            this.validateTcBtn.Name = "validateTcBtn";
+            this.validateTcBtn.Size = new System.Drawing.Size(115, 23);
+            this.validateTcBtn.TabIndex = 46;
+            this.validateTcBtn.Text = "Validate Point";
+            this.validateTcBtn.UseVisualStyleBackColor = true;
+            // 
+            // percentageNumericUpDown
+            // 
+            this.percentageNumericUpDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.percentageNumericUpDown.Increment = new decimal(new int[] {
+            25,
+            0,
+            0,
+            0});
+            this.percentageNumericUpDown.Location = new System.Drawing.Point(808, 307);
+            this.percentageNumericUpDown.Name = "percentageNumericUpDown";
+            this.percentageNumericUpDown.Size = new System.Drawing.Size(84, 20);
+            this.percentageNumericUpDown.TabIndex = 47;
+            this.percentageNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(899, 309);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(21, 16);
+            this.label3.TabIndex = 48;
+            this.label3.Text = "%";
+            // 
             // CandidatePanel
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.White;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.percentageNumericUpDown);
+            this.Controls.Add(this.validateTcBtn);
+            this.Controls.Add(this.insertTcBtn);
             this.Controls.Add(this.browseImgBtn);
             this.Controls.Add(this.checkDistinctCheckbox);
             this.Controls.Add(this.checkColumnNameCheckbox);
@@ -257,6 +311,7 @@
             this.Name = "CandidatePanel";
             this.Size = new System.Drawing.Size(939, 451);
             this.Load += new System.EventHandler(this.CandidatePanel_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.percentageNumericUpDown)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,5 +335,9 @@
         private System.Windows.Forms.CheckBox checkColumnNameCheckbox;
         private System.Windows.Forms.Label separator1;
         private System.Windows.Forms.CheckBox checkDistinctCheckbox;
+        private System.Windows.Forms.Button insertTcBtn;
+        private System.Windows.Forms.Button validateTcBtn;
+        private System.Windows.Forms.NumericUpDown percentageNumericUpDown;
+        private System.Windows.Forms.Label label3;
     }
 }

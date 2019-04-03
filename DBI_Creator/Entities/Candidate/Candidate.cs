@@ -58,8 +58,7 @@ namespace DBI202_Creator.Entities.Candidate
 
         public override bool Equals(object obj)
         {
-            var candidate = obj as Candidate;
-            return candidate != null &&
+            return obj is Candidate candidate &&
                    CandidateId == candidate.CandidateId;
         }
 

@@ -8,6 +8,12 @@ namespace DBI202_Creator.Commons
     {
         public static PaperSet PaperSet;
 
+        //Configure SQL
+        public static int TimeOutInSecond;
+
+        public static int MaxThreadPoolSize = 1;
+        public static int MaxConnectionPoolSize = 100;
+
 
         public static Dictionary<string, Candidate.QuestionTypes> QuestionTypes()
         {
@@ -36,36 +42,6 @@ namespace DBI202_Creator.Commons
             public const string EFFECT = "Effect";
             public const string PARAMETER = "Parameter";
         }
-
-        //public static Dictionary<string, Requirement.RequirementTypes> GetRequirementTypes(Candidate.QuestionTypes questionType)
-        //{
-        //    Dictionary<string, Requirement.RequirementTypes> dictionary = new Dictionary<string, Requirement.RequirementTypes>();
-
-        //    switch (questionType)
-        //    {
-        //        case Candidate.QuestionTypes.Select:
-        //            dictionary.Add(RequirementType.RESULT_SET, Requirement.RequirementTypes.ResultSet);
-        //            break;
-        //        case Candidate.QuestionTypes.Procedure:
-        //            dictionary.Add(RequirementType.RESULT_SET, Requirement.RequirementTypes.ResultSet);
-        //            dictionary.Add(RequirementType.EFFECT, Requirement.RequirementTypes.Effect);
-        //            dictionary.Add(RequirementType.PARAMETER, Requirement.RequirementTypes.Parameter);
-        //            break;
-        //        case Candidate.QuestionTypes.Trigger:
-        //            dictionary.Add(RequirementType.RESULT_SET, Requirement.RequirementTypes.ResultSet);
-        //            dictionary.Add(RequirementType.EFFECT, Requirement.RequirementTypes.Effect);
-        //            break;
-        //        case Candidate.QuestionTypes.Schema:
-        //            dictionary.Add(RequirementType.RESULT_SET, Requirement.RequirementTypes.ResultSet);
-        //            break;
-        //        case Candidate.QuestionTypes.DML:
-        //            dictionary.Add(RequirementType.EFFECT, Requirement.RequirementTypes.Effect);
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //    return dictionary;
-        //}
 
         public class Size
         {

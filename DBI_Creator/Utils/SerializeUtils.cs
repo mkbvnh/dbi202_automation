@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using DBI202_Creator.Entities.Question;
-
 namespace DBI202_Creator.Utils
 {
     internal class SerializeUtils
@@ -35,14 +33,24 @@ namespace DBI202_Creator.Utils
         /// </summary>
         /// <param name="localPath"></param>
         /// <returns></returns>
-        public static QuestionSet DeserializeObject(string localPath)
+        public static T DeserializeObject<T>(string localPath) where T : new()
         {
-            // read file into a string and deserialize JSON to a type
-            var formatter = new BinaryFormatter();
-            using (var stream = new FileStream(localPath, FileMode.Open, FileAccess.Read))
+            T rez = new T();
+
+            try
             {
-                return formatter.Deserialize(stream) as QuestionSet;
+                using (Stream stream = File.Open(localPath, FileMode.Open))
+                {
+                    BinaryFormatter bin = new BinaryFormatter();
+                    rez = (T)bin.Deserialize(stream);
+                }
             }
+            catch (IOException e)
+            {
+                throw e;
+            }
+
+            return rez;
         }
     }
 }

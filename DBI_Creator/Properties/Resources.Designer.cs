@@ -81,6 +81,40 @@ namespace DBI202_Creator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PROC sp_CompareDb
+        ///(
+        ///	@SourceDB SYSNAME,
+        ///	@TargetDb SYSNAME
+        ///)
+        ///AS
+        ///BEGIN
+        ////*
+        ///	DECLARE @SourceDB SYSNAME=&apos;DB1&apos;,@TargetDb SYSNAME=&apos;DB2&apos;
+        ///*/
+        ///	SET NOCOUNT ON;
+        ///	SET ANSI_WARNINGS ON;
+        ///	SET ANSI_NULLS ON;   
+        ///
+        ///	DECLARE @sqlStr VARCHAR(8000)
+        ///	SET @SourceDB = RTRIM(LTRIM(@SourceDB))
+        ///	IF DB_ID(@SourceDB) IS NULL 
+        ///	BEGIN
+        ///		PRINT &apos;Error: Unable to find the database &apos;+ @SourceDB +&apos;!!!&apos;
+        ///		RETURN
+        ///	END
+        ///
+        ///	SET @TargetDb = RTRIM(LTRIM(@TargetDb))
+        ///	IF DB_ID(@SourceDB) IS NULL 
+        ///	BEGIN
+        ///		PRINT &apos;Error: Unable t [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string ImportMaterialStartCompareDb {
+            get {
+                return ResourceManager.GetString("ImportMaterialStartCompareDb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap left {

@@ -12,8 +12,8 @@ namespace DBI_Grading.UI
 {
     public partial class Grading : Form
     {
-        private int count;
         private readonly List<Submission> ListSubmissions;
+        private int count;
         private bool scored;
 
         public Grading(List<Submission> listsubmissions)

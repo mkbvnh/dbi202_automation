@@ -48,7 +48,7 @@
             this.addQuestionBtn = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.scriptBtn = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.VerifySolutionBtn = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,33 +79,33 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.openToolStripMenuItem.Text = "Open Question Set";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.saveToolStripMenuItem.Text = "Save Question Set";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
             // 
             // importPaperSetToolStripMenuItem
             // 
             this.importPaperSetToolStripMenuItem.Name = "importPaperSetToolStripMenuItem";
-            this.importPaperSetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importPaperSetToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.importPaperSetToolStripMenuItem.Text = "Import Paper Set";
             this.importPaperSetToolStripMenuItem.Click += new System.EventHandler(this.importPaperSetToolStripMenuItem_Click);
             // 
             // exportPaperSetToolStripMenuItem
             // 
             this.exportPaperSetToolStripMenuItem.Name = "exportPaperSetToolStripMenuItem";
-            this.exportPaperSetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportPaperSetToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.exportPaperSetToolStripMenuItem.Text = "Export Papers Folder";
             this.exportPaperSetToolStripMenuItem.Click += new System.EventHandler(this.exportPaperSetToolStripMenuItem_Click);
             // 
@@ -204,7 +204,7 @@
             this.addQuestionBtn.UseVisualStyleBackColor = true;
             this.addQuestionBtn.Click += new System.EventHandler(this.addQuestionBtn_Click);
             // 
-            // importDialog
+            // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
             // 
@@ -219,17 +219,17 @@
             this.scriptBtn.UseVisualStyleBackColor = true;
             this.scriptBtn.Click += new System.EventHandler(this.scriptBtn_Click);
             // 
-            // button1
+            // VerifySolutionBtn
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(798, 29);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(93, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Verify Solution";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.scriptBtn_Click);
+            this.VerifySolutionBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.VerifySolutionBtn.Enabled = false;
+            this.VerifySolutionBtn.Location = new System.Drawing.Point(611, 29);
+            this.VerifySolutionBtn.Name = "VerifySolutionBtn";
+            this.VerifySolutionBtn.Size = new System.Drawing.Size(93, 23);
+            this.VerifySolutionBtn.TabIndex = 6;
+            this.VerifySolutionBtn.Text = "Verify Solution";
+            this.VerifySolutionBtn.UseVisualStyleBackColor = true;
+            this.VerifySolutionBtn.Click += new System.EventHandler(this.VerifySolutionBtn_Click);
             // 
             // CreatorForm
             // 
@@ -238,7 +238,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1079, 632);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.VerifySolutionBtn);
             this.Controls.Add(this.scriptBtn);
             this.Controls.Add(this.removeQuestionBtn);
             this.Controls.Add(this.addQuestionBtn);
@@ -274,7 +274,7 @@
         private System.Windows.Forms.Button removeQuestionBtn;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button scriptBtn;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button VerifySolutionBtn;
         private System.Windows.Forms.ToolStripMenuItem exportPaperSetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importPaperSetToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;

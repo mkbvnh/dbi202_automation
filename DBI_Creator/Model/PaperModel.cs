@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using DBI202_Creator.Entities.Paper;
 using DBI202_Creator.Entities.Question;
@@ -17,29 +15,29 @@ namespace DBI202_Creator.Model
         public ShufflePaperModel Spm { get; set; }
         public string FirstPagePath { get; set; }
 
-        public void CreateTests()
+        public void CreatePaperDat()
         {
             //Remove Illustration in PaperSet
             var paperSet = Spm.PaperSet.CloneObjectSerializable<PaperSet>();
-            IFormatter formatter = new BinaryFormatter();
 
             //Saving Question Set
             var tmpQuestionSet = paperSet.QuestionSet.CloneObjectSerializable<QuestionSet>();
 
             foreach (var paper in paperSet.Papers)
-            foreach (var candidate in paper.CandidateSet)
-                candidate.Illustration = new List<string>();
+                foreach (var candidate in paper.CandidateSet)
+                    candidate.Illustration = new List<string>();
             //Adding Illustration into QuestionSet
             paperSet.QuestionSet = tmpQuestionSet;
 
             //Remove Duplicated database
             paperSet.QuestionSet.DBScriptList = new List<string>();
 
-            //  Binary
-            using (var stream = new FileStream(Path + @"\PaperSet.dat", FileMode.Create, FileAccess.Write))
-            {
-                formatter.Serialize(stream, paperSet);
-            }
+            //Create PaperSet
+            SerializeUtils.SerializeObject(paperSet, Path + @"\PaperSet.dat");
+        }
+
+        public void CreateAll()
+        {
 
             //Count PaperNo
             var countPaperNo = 0;

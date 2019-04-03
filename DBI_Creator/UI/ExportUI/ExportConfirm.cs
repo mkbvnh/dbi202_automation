@@ -57,10 +57,14 @@ namespace DBI202_Creator.UI.ExportUI
                     Spm = Spm
                 };
                 Process.Start(OutPutPath);
+                paperModel.CreatePaperDat();
 
-                using (var progress = new ProgressBarForm(paperModel.CreateTests))
+                if (DocCheckBox.Checked)
                 {
-                    progress.ShowDialog(this);
+                    using (var progress = new ProgressBarForm(paperModel.CreateAll))
+                    {
+                        progress.ShowDialog(this);
+                    }
                 }
             }
             catch (Exception ex)

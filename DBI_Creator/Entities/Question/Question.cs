@@ -30,5 +30,22 @@ namespace DBI202_Creator.Entities.Question
             return question != null &&
                    QuestionId == question.QuestionId;
         }
+
+        protected bool Equals(Question other)
+        {
+            return string.Equals(QuestionId, other.QuestionId) && Point == other.Point &&
+                   Equals(Candidates, other.Candidates);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = QuestionId != null ? QuestionId.GetHashCode() : 0;
+                hashCode = (hashCode * 397) ^ Point.GetHashCode();
+                hashCode = (hashCode * 397) ^ (Candidates != null ? Candidates.GetHashCode() : 0);
+                return hashCode;
+            }
+        }
     }
 }
