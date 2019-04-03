@@ -60,7 +60,7 @@ namespace DBI202_Creator.UI.ExportUI
                 {
                     Path = OutPutPath,
                     Spm = Spm,
-                    FirstPagePath = @".\firstpage.docx"
+                    FirstPagePath = Environment.CurrentDirectory + @"\firstpage.docx"
                 };
                 Process.Start(OutPutPath);
                 paperModel.CreatePaperDat();

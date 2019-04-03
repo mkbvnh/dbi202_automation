@@ -8,10 +8,10 @@ namespace DBI_Grading.Model.Question
     {
         public Question()
         {
-            Candidates = new List<DBI_Grading.Model.Candidate.Candidate>();
+            Candidates = new List<Candidate.Candidate>();
         }
 
-        public Question(string questionId, decimal point, List<DBI_Grading.Model.Candidate.Candidate> candidates)
+        public Question(string questionId, decimal point, List<Candidate.Candidate> candidates)
         {
             QuestionId = questionId;
             Point = point;
@@ -22,7 +22,7 @@ namespace DBI_Grading.Model.Question
 
         public string QuestionId { get; set; }
         public decimal Point { get; set; }
-        public List<DBI_Grading.Model.Candidate.Candidate> Candidates { get; set; }
+        public List<Candidate.Candidate> Candidates { get; set; }
 
         public override bool Equals(object obj)
         {

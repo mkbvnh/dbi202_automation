@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "e:\\Capstone\\Self\\DBI_Automation\\DBI_Grading\\DBI_Grading.csproj",
+  "TargetFramework": "v4.0",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}

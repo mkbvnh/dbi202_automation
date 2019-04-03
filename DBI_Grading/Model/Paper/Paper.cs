@@ -6,7 +6,7 @@ namespace DBI_Grading.Model.Paper
     [Serializable]
     public class Paper
     {
-        public Paper(string paperNo, List<DBI_Grading.Model.Candidate.Candidate> candidateSet)
+        public Paper(string paperNo, List<Candidate.Candidate> candidateSet)
         {
             PaperNo = paperNo;
             CandidateSet = candidateSet;
@@ -17,6 +17,6 @@ namespace DBI_Grading.Model.Paper
         }
 
         public string PaperNo { get; set; }
-        public List<DBI_Grading.Model.Candidate.Candidate> CandidateSet { get; set; }
+        public List<Candidate.Candidate> CandidateSet { get; set; }
     }
 }

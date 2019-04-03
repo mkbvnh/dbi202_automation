@@ -11,7 +11,7 @@ namespace DBI_Grading.Model.Candidate
         }
 
         public List<CandidateNode> Children { get; set; }
-        public DBI_Grading.Model.Candidate.Candidate Candi { get; set; }
+        public Candidate Candi { get; set; }
         public List<List<CandidateNode>> paths { get; set; }
 
         public void AddPath(CandidateNode node, List<CandidateNode> candidatesPath)
