@@ -18,6 +18,7 @@ namespace DBI_Grading.Utils
                 var bin = new BinaryFormatter();
                 rez = (T) bin.Deserialize(stream);
             }
+
             return rez;
         }
     }

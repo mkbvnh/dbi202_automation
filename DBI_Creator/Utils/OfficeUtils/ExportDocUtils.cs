@@ -107,6 +107,7 @@ namespace DBI202_Creator.Utils.OfficeUtils
                     paraImageDescription.Format.Alignment = WdParagraphAlignment.wdAlignParagraphCenter;
                     paraImageDescription.Range.InsertParagraphAfter();
                 }
+
             if (File.Exists(imageName)) File.Delete(imageName);
         }
     }

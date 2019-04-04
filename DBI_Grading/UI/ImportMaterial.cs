@@ -80,6 +80,7 @@ namespace DBI_Grading.UI
                 MessageBox.Show(@"Open question set successfully.");
                 return;
             }
+
             // Init List submissions
             _listsubmissions = new List<Submission>();
             try
@@ -192,6 +193,7 @@ namespace DBI_Grading.UI
                                         {
                                             // skip
                                         }
+
                                         // Extract zip
                                         try
                                         {
@@ -273,6 +275,7 @@ namespace DBI_Grading.UI
                                     {
                                         // Skip exception
                                     }
+
                                 // Delete Extract folder
                                 if (!string.IsNullOrEmpty(extractPath))
                                     Directory.Delete(extractPath, true);
@@ -282,6 +285,7 @@ namespace DBI_Grading.UI
                             {
                                 // Skip exception
                             }
+
                             _listsubmissions.Add(submission);
                         }
                     }

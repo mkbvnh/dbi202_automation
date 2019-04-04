@@ -21,6 +21,7 @@ namespace DBI202_Creator.Utils
                 {
                     ex = e;
                 }
+
                 reset.Set();
             });
 

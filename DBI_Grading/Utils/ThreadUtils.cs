@@ -21,6 +21,7 @@ namespace DBI_Grading.Utils
                 {
                     ex = e;
                 }
+
                 reset.Set();
             });
 

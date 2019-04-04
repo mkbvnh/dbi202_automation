@@ -90,10 +90,7 @@ namespace DBI_Grading.Model
         {
             foreach (var candidate in ListCandidates)
                 _maxPoint += candidate.Point;
-            if (_maxPoint > 10)
-                _maxPoint = Math.Floor(_maxPoint);
-            else
-                _maxPoint = Math.Ceiling(_maxPoint);
+            _maxPoint = _maxPoint > 10 ? Math.Floor(_maxPoint) : Math.Ceiling(_maxPoint);
             // Count number of candidate
             var numberOfQuestion = ListCandidates.Count;
             // Wrong PaperNo
@@ -104,6 +101,7 @@ namespace DBI_Grading.Model
                     Points[i] = 0;
                 return;
             }
+
             // Get mark one by one
             for (var questionOrder = 0; questionOrder < ListCandidates.Count; questionOrder++)
                 try

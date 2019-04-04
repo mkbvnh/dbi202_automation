@@ -66,12 +66,14 @@ namespace DBI202_Creator.Utils.Grading
             {
                 comment += "Same\n";
             }
+
             //Count Comparison
             int numOfComparison;
             using (var dtsNumOfComparison = General.GetDataSetFromReader(countComparisonQuery, builder))
             {
                 numOfComparison = dtsNumOfComparison.Tables[0].Rows.Count * 2 + dtsNumOfComparison.Tables[1].Rows.Count;
             }
+
             //Get Dataset compare result
             using (var dtsCompare = General.GetDataSetFromReader(compareQuery, builder))
             {
@@ -121,6 +123,7 @@ namespace DBI202_Creator.Utils.Grading
                                 "\n");
                         }
                     }
+
                     if (missingErrors.Any())
                     {
                         comment += "+ Column missing: ";
@@ -129,6 +132,7 @@ namespace DBI202_Creator.Utils.Grading
                         comment = string.Concat(comment.Remove(comment.Length - 2), "\n");
                     }
                 }
+
                 //About Constraints
                 if (errorsConstraintRows.Any())
                 {
@@ -137,6 +141,7 @@ namespace DBI202_Creator.Utils.Grading
                         comment += string.Concat("  Missing ", rowSolution["PK_COLUMNS"], "(", rowSolution["PK_TABLE"],
                             ") - ", rowSolution["FK_COLUMNS"], "(", rowSolution["FK_TABLE"], ")\n");
                 }
+
                 if (gradePoint > maxPoint) gradePoint = maxPoint;
                 return new Dictionary<string, string>
                 {
@@ -239,6 +244,7 @@ namespace DBI202_Creator.Utils.Grading
                             comment += "Not pass\n";
                         }
                     }
+
                     //3. Check if checkColumnName is required
                     if (candidate.CheckColumnName)
                     {
@@ -335,6 +341,7 @@ namespace DBI202_Creator.Utils.Grading
                                 "\n");
                             countTesting--;
                         }
+
                         gradePoint += maxTcPoint;
                         comment += string.Concat("Passed => +", maxTcPoint, "\n");
                         countTrueTc++;

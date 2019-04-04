@@ -87,6 +87,7 @@ namespace DBI202_Creator.Model
                             _questionSet.DBScriptList[1]);
                         AppendVerifyText(result["Comment"]);
                     }
+
                     countCandi = 0;
                     AppendVerifyText("--------------------\n");
                 }

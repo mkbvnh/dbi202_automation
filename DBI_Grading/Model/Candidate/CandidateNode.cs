@@ -21,6 +21,7 @@ namespace DBI_Grading.Model.Candidate
                 Paths.Add(candidatesPath);
                 return;
             }
+
             foreach (var child in node.Children)
             {
                 var tmp = new List<CandidateNode>();

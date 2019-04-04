@@ -64,12 +64,14 @@ namespace DBI_Grading.Utils
             {
                 comment += "Same\n";
             }
+
             //Count Comparison
             int numOfComparison;
             using (var dtsNumOfComparison = General.GetDataSetFromReader(countComparisonQuery))
             {
                 numOfComparison = dtsNumOfComparison.Tables[0].Rows.Count * 2 + dtsNumOfComparison.Tables[1].Rows.Count;
             }
+
             //Get Dataset compare result
             using (var dtsCompare = General.GetDataSetFromReader(compareQuery))
             {
@@ -119,6 +121,7 @@ namespace DBI_Grading.Utils
                                 "\n");
                         }
                     }
+
                     if (missingErrors.Any())
                     {
                         comment += "+ Column missing: ";
@@ -127,6 +130,7 @@ namespace DBI_Grading.Utils
                         comment = string.Concat(comment.Remove(comment.Length - 2), "\n");
                     }
                 }
+
                 //About Constraints
                 if (errorsConstraintRows.Any())
                 {
@@ -135,6 +139,7 @@ namespace DBI_Grading.Utils
                         comment += string.Concat("  Missing ", rowSolution["PK_COLUMNS"], "(", rowSolution["PK_TABLE"],
                             ") - ", rowSolution["FK_COLUMNS"], "(", rowSolution["FK_TABLE"], ")\n");
                 }
+
                 if (gradePoint > maxPoint) gradePoint = maxPoint;
                 return new Dictionary<string, string>
                 {
@@ -159,7 +164,7 @@ namespace DBI_Grading.Utils
         public static Dictionary<string, string> CompareSelectType(string dbAnswerName, string dbSolutionName,
             string answer, Candidate candidate)
         {
-            //Running answer query// index 0 as data table, index 1 as schema table
+            //Running answer query
             var dataTableAnswer = General.GetDataTableFromReader("USE [" + dbAnswerName + "];\n" + answer + "");
 
             //Running Tq 
@@ -235,6 +240,7 @@ namespace DBI_Grading.Utils
                             comment += "Not pass\n";
                         }
                     }
+
                     //3. Check if checkColumnName is required
                     if (candidate.CheckColumnName)
                     {
@@ -330,6 +336,7 @@ namespace DBI_Grading.Utils
                                 "\n");
                             countTesting--;
                         }
+
                         gradePoint += maxTcPoint;
                         comment += string.Concat("Passed => +", maxTcPoint, "\n");
                         countTrueTc++;

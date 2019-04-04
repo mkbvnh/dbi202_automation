@@ -10,93 +10,6 @@ namespace DBI_Grading.Utils.Dao
     public partial class General
     {
         /// <summary>
-        ///     Compare Columns Name of tables
-        /// </summary>
-        /// <param name="dataTableAnswer"></param>
-        /// <param name="dataTableSolution"></param>
-        /// <returns>"(Empty)" if true, "(comment)" if false</returns>
-        internal static string CompareColumnsName(DataTable dataTableAnswer, DataTable dataTableSolution)
-        {
-            for (var i = 0; i < dataTableSolution.Columns.Count; i++)
-                if (!dataTableSolution.Columns[i].ColumnName.ToLower()
-                    .Equals(dataTableAnswer.Columns[i].ColumnName.ToLower()))
-                    return "Column Name wrong - " + dataTableSolution.Columns[i].ColumnName;
-            return "";
-        }
-
-        internal static DataTable SortColumnNameTable(DataTable dt)
-        {
-            var columnArray = new DataColumn[dt.Columns.Count];
-            dt.Columns.CopyTo(columnArray, 0);
-            var ordinal = -1;
-            foreach (var orderedColumn in columnArray.OrderBy(c => c.ColumnName))
-                orderedColumn.SetOrdinal(++ordinal);
-            return dt;
-        }
-
-        public static DataTable SortDataTable(DataTable dt, string columnName)
-        {
-            dt.DefaultView.Sort = columnName;
-            return dt.DefaultView.ToTable();
-        }
-
-        public static bool CompareColumnName(DataTable dtSchemaAnswer, DataTable dtSchemaTq)
-        {
-            var columnNameListAnswer = GetColumnsName(dtSchemaAnswer);
-            var columnNameListTq = GetColumnsName(dtSchemaTq);
-            return !columnNameListTq.Except(columnNameListAnswer).Any();
-        }
-
-        public static List<string> GetColumnsName(DataTable dt)
-        {
-            var columnNameList = new List<string>();
-            for (var i = 0; i < dt.Columns.Count; i++)
-                columnNameList.Add(dt.Columns[i].ColumnName);
-            return columnNameList;
-        }
-
-        public static DataTable DistinctTable(DataTable dt, List<string> columns)
-        {
-            var dtUniqRecords = dt.DefaultView.ToTable(true, columns.ToArray());
-            return dtUniqRecords;
-        }
-
-        internal static bool CompareTwoDataTablesByExceptOneDirection(DataTable dataTableAnswer,
-            DataTable dataTableSolution)
-        {
-            return !dataTableAnswer.AsEnumerable().Except(dataTableSolution.AsEnumerable(), DataRowComparer.Default)
-                .Any();
-        }
-
-        public static DataTable RotateTable(DataTable dt)
-        {
-            var dt2 = new DataTable();
-            for (var i = 0; i < dt.Rows.Count; i++)
-                dt2.Columns.Add();
-            for (var i = 0; i < dt.Columns.Count; i++)
-                dt2.Rows.Add();
-            for (var i = 0; i < dt.Columns.Count; i++)
-            for (var j = 0; j < dt.Rows.Count; j++)
-                dt2.Rows[i][j] = dt.Rows[j][i];
-            return dt2;
-        }
-
-        internal static bool CheckDataTableSort(DataTable dataTableAnswer, DataTable dataTableTq)
-        {
-            var firstColumnName = dataTableTq.Columns[0].ColumnName;
-            return CompareTwoDataTablesByRow(
-                SortDataTable(DistinctTable(dataTableAnswer, GetColumnsName(dataTableAnswer)), firstColumnName),
-                SortDataTable(DistinctTable(dataTableTq, GetColumnsName(dataTableTq)), firstColumnName));
-        }
-
-        public static DataTable LowerCaseColumnName(DataTable dt)
-        {
-            foreach (DataColumn dataColumn in dt.Columns)
-                dataColumn.ColumnName = dataColumn.ColumnName.ToLower();
-            return dt;
-        }
-
-        /// <summary>
         ///     Check data
         /// </summary>
         /// <param name="dataTableAnswer"></param>
@@ -165,6 +78,7 @@ namespace DBI_Grading.Utils.Dao
                 if (!rowArraySolution.SequenceEqual(rowArrayAnswer))
                     return false;
             }
+
             return true;
         }
 
@@ -186,10 +100,147 @@ namespace DBI_Grading.Utils.Dao
                         break;
                     countComparison++;
                 }
+
                 if (countComparison == dataSetAnswer.Tables.Count)
                     return false;
             }
+
             return true;
+        }
+
+        /// <summary>
+        ///     Compare Columns Name of tables
+        /// </summary>
+        /// <param name="dataTableAnswer"></param>
+        /// <param name="dataTableSolution"></param>
+        /// <returns>"(Empty)" if true, "(comment)" if false</returns>
+        internal static string CompareColumnsName(DataTable dataTableAnswer, DataTable dataTableSolution)
+        {
+            for (var i = 0; i < dataTableSolution.Columns.Count; i++)
+                if (!dataTableSolution.Columns[i].ColumnName.ToLower()
+                    .Equals(dataTableAnswer.Columns[i].ColumnName.ToLower()))
+                    return "Column Name wrong - " + dataTableSolution.Columns[i].ColumnName;
+            return "";
+        }
+
+        /// <summary>
+        ///     Sort column by column name
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        internal static DataTable SortColumnNameTable(DataTable dt)
+        {
+            var columnArray = new DataColumn[dt.Columns.Count];
+            dt.Columns.CopyTo(columnArray, 0);
+            var ordinal = -1;
+            foreach (var orderedColumn in columnArray.OrderBy(c => c.ColumnName))
+                orderedColumn.SetOrdinal(++ordinal);
+            return dt;
+        }
+
+        /// <summary>
+        ///     Sort by a column
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="columnName"></param>
+        /// <returns></returns>
+        public static DataTable SortDataTable(DataTable dt, string columnName)
+        {
+            dt.DefaultView.Sort = columnName;
+            return dt.DefaultView.ToTable();
+        }
+
+        /// <summary>
+        ///     Compare columns name of 2 table data
+        /// </summary>
+        /// <param name="dtSchemaAnswer"></param>
+        /// <param name="dtSchemaTq"></param>
+        /// <returns></returns>
+        public static bool CompareColumnName(DataTable dtSchemaAnswer, DataTable dtSchemaTq)
+        {
+            var columnNameListAnswer = GetColumnsName(dtSchemaAnswer);
+            var columnNameListTq = GetColumnsName(dtSchemaTq);
+            return !columnNameListTq.Except(columnNameListAnswer).Any();
+        }
+
+        /// <summary>
+        ///     Get all column name in a list
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static List<string> GetColumnsName(DataTable dt)
+        {
+            var columnNameList = new List<string>();
+            for (var i = 0; i < dt.Columns.Count; i++)
+                columnNameList.Add(dt.Columns[i].ColumnName);
+            return columnNameList;
+        }
+
+        /// <summary>
+        ///     Distinct table data
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="columns"></param>
+        /// <returns></returns>
+        public static DataTable DistinctTable(DataTable dt, List<string> columns)
+        {
+            var dtUniqRecords = dt.DefaultView.ToTable(true, columns.ToArray());
+            return dtUniqRecords;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="dataTableAnswer"></param>
+        /// <param name="dataTableSolution"></param>
+        /// <returns></returns>
+        internal static bool CompareTwoDataTablesByExceptOneDirection(DataTable dataTableAnswer,
+            DataTable dataTableSolution)
+        {
+            return !dataTableAnswer.AsEnumerable().Except(dataTableSolution.AsEnumerable(), DataRowComparer.Default)
+                .Any();
+        }
+
+        /// <summary>
+        ///     Rotate column and row of a table
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable RotateTable(DataTable dt)
+        {
+            var dt2 = new DataTable();
+            for (var i = 0; i < dt.Rows.Count; i++)
+                dt2.Columns.Add();
+            for (var i = 0; i < dt.Columns.Count; i++)
+                dt2.Rows.Add();
+            for (var i = 0; i < dt.Columns.Count; i++)
+            for (var j = 0; j < dt.Rows.Count; j++)
+                dt2.Rows[i][j] = dt.Rows[j][i];
+            return dt2;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="dataTableAnswer"></param>
+        /// <param name="dataTableTq"></param>
+        /// <returns></returns>
+        internal static bool CheckDataTableSort(DataTable dataTableAnswer, DataTable dataTableTq)
+        {
+            var firstColumnName = dataTableTq.Columns[0].ColumnName;
+            return CompareTwoDataTablesByRow(
+                SortDataTable(DistinctTable(dataTableAnswer, GetColumnsName(dataTableAnswer)), firstColumnName),
+                SortDataTable(DistinctTable(dataTableTq, GetColumnsName(dataTableTq)), firstColumnName));
+        }
+
+        /// <summary>
+        ///     Lower case all column name
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public static DataTable LowerCaseColumnName(DataTable dt)
+        {
+            foreach (DataColumn dataColumn in dt.Columns)
+                dataColumn.ColumnName = dataColumn.ColumnName.ToLower();
+            return dt;
         }
     }
 }

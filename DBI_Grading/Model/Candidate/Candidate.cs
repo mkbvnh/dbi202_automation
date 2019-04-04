@@ -58,7 +58,8 @@ namespace DBI_Grading.Model.Candidate
 
         public override bool Equals(object obj)
         {
-            return obj is Candidate candidate &&
+            var candidate = obj as Candidate;
+            return candidate != null &&
                    CandidateId == candidate.CandidateId;
         }
 

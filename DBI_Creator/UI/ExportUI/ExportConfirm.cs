@@ -47,6 +47,7 @@ namespace DBI202_Creator.UI.ExportUI
                         MessageBoxIcon.Error);
                     return;
                 }
+
                 foreach (var question in _questionSet.QuestionList)
                 foreach (var candidate in question.Candidates)
                     candidate.Point = decimal.ToDouble(question.Point);
@@ -71,12 +72,14 @@ namespace DBI202_Creator.UI.ExportUI
                     {
                         progress.ShowDialog(this);
                     }
+
                 File.Delete(paperModel.FirstPagePath);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
             Dispose();
         }
 

@@ -34,6 +34,7 @@ namespace DBI202_Creator.UI.CandidateUI
                 MessageBox.Show(@"You need to input Test Query!", @"Error");
                 return;
             }
+
             _handleInsert(_testCase);
             Dispose();
         }

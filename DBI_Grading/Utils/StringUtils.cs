@@ -23,6 +23,7 @@ namespace DBI_Grading.Utils
                 if (!char.IsNumber(input[position]))
                     break;
             }
+
             return position == -1 ? input : input.Remove(0, position + 1);
         }
 
@@ -48,6 +49,7 @@ namespace DBI_Grading.Utils
                     list[i] = newValue;
                 output = string.Concat(output, "\n", list[i]);
             }
+
             return output;
         }
 
@@ -94,8 +96,10 @@ namespace DBI_Grading.Utils
                     tcpList.Add(tcp);
                     tcp = new TestCase();
                 }
+
                 matchPoint = matchPoint.NextMatch();
             }
+
             if (tcpList.Count == 0)
                 tcpList.Add(new TestCase
                 {

@@ -165,6 +165,7 @@ namespace DBI202_Creator.Utils.Grading.Dao
                 if (!rowArraySolution.SequenceEqual(rowArrayAnswer))
                     return false;
             }
+
             return true;
         }
 
@@ -186,9 +187,11 @@ namespace DBI202_Creator.Utils.Grading.Dao
                         break;
                     countComparison++;
                 }
+
                 if (countComparison == dataSetAnswer.Tables.Count)
                     return false;
             }
+
             return true;
         }
     }

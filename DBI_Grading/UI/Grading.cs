@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using DBI_Grading.Common;
 using DBI_Grading.Model;
 using DBI_Grading.Utils;
+using DBI_Grading.Utils.Dao;
 
 namespace DBI_Grading.UI
 {
@@ -14,18 +15,31 @@ namespace DBI_Grading.UI
         private readonly List<Submission> _listSubmissions;
         private int _count;
         private bool _scored;
+        private readonly string _serverDateTime;
 
-        public Grading(List<Submission> listsubmissions)
+        public Grading(List<Submission> submisstions)
         {
             InitializeComponent();
+            try
+            {
+                //Get server date and time
+                _serverDateTime = General.ExecuteScalarQuery(@"SELECT SYSDATETIME()").ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                //cannot run only if cannot connect to the server, then everything will stop here
+            }
+
+
             // Show Scoring Form and generate Score here
-            _listSubmissions = listsubmissions;
+            _listSubmissions = submisstions;
             ListResults = new List<Result>();
             //Prepare();
             SetupUi();
 
             // Merge Question and submission to ListResults
-            foreach (var submission in listsubmissions)
+            foreach (var submission in submisstions)
             {
                 var result = new Result
                 {
@@ -51,6 +65,7 @@ namespace DBI_Grading.UI
                 // Add to List to get score
                 ListResults.Add(result);
             }
+
             Show();
             StartGrading();
         }
@@ -121,6 +136,7 @@ namespace DBI_Grading.UI
                     var input = new Input(row, currentResult);
                     ThreadPool.QueueUserWorkItem(callBack => Grade(input));
                 }
+
                 _scored = true;
             }
             else
@@ -152,6 +168,10 @@ namespace DBI_Grading.UI
             _count++;
             if (_count == ListResults.Count)
             {
+                //drop any database has created after grading
+                General.DropAllDatabaseCreated(_serverDateTime);
+
+                //Enable export button
                 exportButton.Invoke((MethodInvoker) (() => { exportButton.Enabled = true; }));
 
                 // Done

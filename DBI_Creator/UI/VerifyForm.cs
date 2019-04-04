@@ -50,6 +50,7 @@ namespace DBI202_Creator.UI
                 MessageBox.Show(this, @"Please add Database Script for Grading", @"Error");
                 return;
             }
+
             if (Regex.Replace(_questionSet.DBScriptList[1], @"\s+", "").ToLower().Contains("createdatabase"))
             {
                 MessageBox.Show(this,
@@ -57,6 +58,7 @@ namespace DBI202_Creator.UI
                     @"Error");
                 return;
             }
+
             var result = new Result(_questionSet, _builder, this);
             var getPointThread = new Thread(result.GetPoint);
             getPointThread.Start();

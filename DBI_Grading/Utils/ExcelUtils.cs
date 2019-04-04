@@ -90,6 +90,7 @@ namespace DBI_Grading.Utils
                         sheetAnswerPath.Rows[lastRow].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
                 }
             }
+
             //Fit columns
             sheetAnswerPath.Columns.AutoFit();
             sheetAnswerPath.Range["A:X"].VerticalAlignment = XlVAlign.xlVAlignTop;
@@ -131,8 +132,10 @@ namespace DBI_Grading.Utils
                     else
                         sheetDetail.Cells[lastRow, i + 5] = "Empty Answer";
                 }
+
                 sheetDetail.Cells[lastRow, 4] = comment.Trim();
             }
+
             //Fit columns
             sheetDetail.Columns.AutoFit();
             sheetDetail.Range["A:X"].VerticalAlignment = XlVAlign.xlVAlignTop;
@@ -159,6 +162,7 @@ namespace DBI_Grading.Utils
                 sheetDataAnalyze.Cells[lastRow, 2] = _wsf.CountIfs(scoreRange, string.Concat(">=", i), scoreRange,
                     string.Concat("<", i + 1));
             }
+
             //Add Score Line Chart
             AddChart(sheetDataAnalyze, sheetDataAnalyze.Range["A1", "B12"], 200, 15, "Score Line", "Amount", "Score");
             //Add Paper Score
@@ -215,7 +219,7 @@ namespace DBI_Grading.Utils
                 var totalPoints = Math.Round(result.SumOfPoint(), 2);
                 sheetResult.Cells[lastRow, 5] = totalPoints;
                 sheetResult.Cells[lastRow, 6] = maxPoint;
-                sheetResult.Cells[lastRow, 7].Formula = $"=E{lastRow}/F{lastRow}*10";
+                sheetResult.Cells[lastRow, 7] = Math.Round(totalPoints / maxPoint * 10, 2);
                 for (var i = 8; i < 8 + numOfQuestion; i++)
                 {
                     var hyper = "02_Detail!" + (char) (61 + i) + lastRow + "";
@@ -228,6 +232,7 @@ namespace DBI_Grading.Utils
                         sheetResult.Cells[lastRow, numOfQuestion + 10] = "Answer includes GO statement";
                     }
                 }
+
                 sheetResult.Cells[lastRow, numOfQuestion + 8] = "View Details";
                 sheetResult.Hyperlinks.Add(sheetResult.Cells[lastRow, numOfQuestion + 8], "",
                     "02_Detail!D" + lastRow + "", "View Details");
@@ -245,6 +250,7 @@ namespace DBI_Grading.Utils
                     }
                 }
             }
+
             //Fit columns
             sheetResult.Columns.AutoFit();
             LastRowOfResultSheet = lastRow;

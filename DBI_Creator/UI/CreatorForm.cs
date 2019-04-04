@@ -220,6 +220,7 @@ namespace DBI202_Creator.UI
                 exportConfirm.papersNumberInput.Enabled = true;
                 exportConfirm.newBtn.Enabled = false;
             }
+
             exportConfirm.Show(this);
         }
 

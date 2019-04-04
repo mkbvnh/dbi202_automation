@@ -48,6 +48,7 @@ namespace DBI202_Creator.Utils.Grading
                     else
                         errorMessage = string.Concat("Answer query error: ", e.Message, "\n");
                 }
+
                 try
                 {
                     General.ExecuteSingleQuery(querySolution, "master", builder);
@@ -57,6 +58,7 @@ namespace DBI202_Creator.Utils.Grading
                 {
                     throw new Exception("Compare error: " + e.Message);
                 }
+
                 // Execute query
                 return ThreadUtils.WithTimeout(
                     () => CompareUtils.CompareSchemaType(dbAnswerName, dbSolutionName, dbEmptyName, candidate,
@@ -143,6 +145,7 @@ namespace DBI202_Creator.Utils.Grading
                     //Still grading for student even error
                     //Student still right at some testcase, need to keep grading
                 }
+
                 try
                 {
                     General.ExecuteSingleQuery(candidate.Solution, dbSolutionName, builder);
@@ -152,6 +155,7 @@ namespace DBI202_Creator.Utils.Grading
                     if (e.InnerException != null) throw new Exception("Compare error: " + e.InnerException.Message);
                     throw new Exception("Compare error: " + e.Message);
                 }
+
                 return ThreadUtils.WithTimeout(
                     () => CompareUtils.CompareSpAndTrigger(dbAnswerName, dbSolutionName, candidate, errorMessage,
                         builder), 10);

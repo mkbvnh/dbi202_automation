@@ -239,6 +239,7 @@ namespace DBI202_Creator.UI.CandidateUI
                         testCase.TestQuery + "\n";
                 rate += testCase.RatePoint;
             }
+
             if (rate < 1)
                 mess += "WARNING: Total RatePoint is " + rate;
             MessageBox.Show(this, mess);

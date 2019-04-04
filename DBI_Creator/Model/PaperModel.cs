@@ -71,6 +71,7 @@ namespace DBI202_Creator.Model
                     continue;
                 count *= question.Candidates.Count;
             }
+
             if (count < 1) count = 1;
             return count;
         }

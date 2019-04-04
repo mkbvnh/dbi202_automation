@@ -62,11 +62,14 @@ namespace DBI202_Creator.Utils.Grading.Dao
                         {
                             sqlDataAdapter.Fill(dts);
                         }
+
                         return dts;
                     }
+
                     throw;
                 }
             }
+
             return dts;
         }
 
@@ -101,10 +104,13 @@ namespace DBI202_Creator.Utils.Grading.Dao
                                 dataTable.Load(sqlCommandAnswerBackup.ExecuteReader());
                                 return dataTable;
                             }
+
                         throw;
                     }
+
                     dataTable.Load(sqlReaderAnswer);
                 }
+
                 return dataTable;
             }
         }
@@ -124,6 +130,7 @@ namespace DBI202_Creator.Utils.Grading.Dao
                 // ProcCompareDbsCreate has been created
                 ExecuteSingleQuery("CREATE " + rm.GetString("ImportMaterialStartCompareDb"), "master", builder);
             }
+
             return true;
         }
 
@@ -268,6 +275,7 @@ namespace DBI202_Creator.Utils.Grading.Dao
                             }
                         }
                     }
+
                     using (var command = new SqlCommand(queryKill, conn))
                     {
                         command.ExecuteNonQuery();

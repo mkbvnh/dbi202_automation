@@ -15,7 +15,8 @@ namespace DBI202_Creator.Utils
         public static string FormatSqlCode(string query)
         {
             var parser = new TSql110Parser(false);
-            var parsedQuery = parser.Parse(new StringReader(query), out _);
+            IList<ParseError> errors;
+            var parsedQuery = parser.Parse(new StringReader(query), out errors);
 
             var generator = new Sql110ScriptGenerator(new SqlScriptGeneratorOptions
             {
@@ -26,7 +27,8 @@ namespace DBI202_Creator.Utils
                 NewLineBeforeWhereClause = true,
                 AlignClauseBodies = false
             });
-            generator.GenerateScript(parsedQuery, out var formattedQuery);
+            string formattedQuery;
+            generator.GenerateScript(parsedQuery, out formattedQuery);
             return formattedQuery;
         }
 
@@ -48,6 +50,7 @@ namespace DBI202_Creator.Utils
                 if (!char.IsNumber(input[position]))
                     break;
             }
+
             return position == -1 ? input : input.Remove(0, position + 1);
         }
 
@@ -78,6 +81,7 @@ namespace DBI202_Creator.Utils
                     list[i] = newValue;
                 output = string.Concat(output, "\n", list[i]);
             }
+
             return output;
         }
 
@@ -134,8 +138,10 @@ namespace DBI202_Creator.Utils
                     tcpList.Add(tcp);
                     tcp = new TestCase();
                 }
+
                 matchPoint = matchPoint.NextMatch();
             }
+
             if (tcpList.Count == 0)
                 tcpList.Add(new TestCase
                 {

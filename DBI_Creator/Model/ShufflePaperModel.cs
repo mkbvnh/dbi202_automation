@@ -71,6 +71,7 @@ namespace DBI202_Creator.Model
                     new List<List<CandidateNode>> {allCases.ElementAt(new Random().Next(allCases.Count))};
                 return oneCase;
             }
+
             var newList = new List<List<CandidateNode>>();
             var jump = (allCases.Count - 1) / (numOfCases - 1);
 

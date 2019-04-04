@@ -42,6 +42,7 @@ namespace DBI202_Creator.UI.CandidateUI
                 var script = ((RichTextBox) tab.Controls["scriptTextBox"]).Text;
                 scriptList.Add(script);
             }
+
             _handleClose(scriptList);
         }
 

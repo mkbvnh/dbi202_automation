@@ -18,6 +18,7 @@ namespace DBI202_Creator.Utils
             {
                 formatter.Serialize(stream, obj);
             }
+
             return true;
         }
 

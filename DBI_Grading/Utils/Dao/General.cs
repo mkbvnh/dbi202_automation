@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -63,11 +64,14 @@ namespace DBI_Grading.Utils.Dao
                         {
                             sqlDataAdapter.Fill(dts);
                         }
+
                         return dts;
                     }
+
                     throw;
                 }
             }
+
             return dts;
         }
 
@@ -103,10 +107,13 @@ namespace DBI_Grading.Utils.Dao
                                 dataTable.Load(sqlCommandAnswerBackup.ExecuteReader());
                                 return dataTable;
                             }
+
                         throw;
                     }
+
                     dataTable.Load(sqlReaderAnswer);
                 }
+
                 return dataTable;
             }
         }
@@ -126,6 +133,7 @@ namespace DBI_Grading.Utils.Dao
                 // ProcCompareDbsCreate has been created
                 ExecuteSingleQuery("CREATE " + rm.GetString("ImportMaterialStartCompareDb"), "master");
             }
+
             return true;
         }
 
@@ -229,6 +237,44 @@ namespace DBI_Grading.Utils.Dao
             }
         }
 
+        public static bool DropAllDatabaseCreated(string afterTime)
+        {
+            var databases = new List<string>();
+            var query = $"select name from sys.databases where create_date >= '{afterTime}'";
+            using (var connection = new SqlConnection(Constant.SqlConnectionStringBuilder.ConnectionString))
+            {
+                connection.Open();
+                using (var sqlCommand = new SqlCommand(query, connection))
+                {
+                    using (var reader = sqlCommand.ExecuteReader())
+                    {
+                        while (reader.Read()) databases.Add(reader.GetString(0));
+                    }
+                }
+            }
+
+            KillAllSessionSql();
+            foreach (var dbName in databases) DropDatabase(dbName);
+            return true;
+        }
+
+        /// <summary>
+        ///     Execute scalar query
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public static object ExecuteScalarQuery(string query)
+        {
+            using (var connection = new SqlConnection(Constant.SqlConnectionStringBuilder.ConnectionString))
+            {
+                connection.Open();
+                using (var sqlCommand = new SqlCommand(query, connection))
+                {
+                    return sqlCommand.ExecuteScalar();
+                }
+            }
+        }
+
         /// <summary>
         ///     To kill all session connected to sql server from the tool
         /// </summary>
@@ -265,6 +311,7 @@ namespace DBI_Grading.Utils.Dao
                             }
                         }
                     }
+
                     using (var command = new SqlCommand(queryKill, conn))
                     {
                         command.ExecuteNonQuery();
