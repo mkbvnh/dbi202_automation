@@ -53,24 +53,6 @@ namespace DBI202_Creator.Utils
             }
         }
 
-        public static string ImageToBase64(string filePath)
-        {
-            using (var image = Image.FromFile(filePath))
-            {
-                using (var m = new MemoryStream())
-                {
-                    image.Save(m, image.RawFormat);
-                    var imageBytes = m.ToArray();
-
-                    m.Close();
-
-                    // Convert byte[] to Base64 String
-                    var base64String = Convert.ToBase64String(imageBytes);
-                    return base64String;
-                }
-            }
-        }
-
         /// <summary>
         ///     Encode a "in-memory" Image to Base64 string
         /// </summary>
@@ -80,16 +62,22 @@ namespace DBI202_Creator.Utils
         {
             using (var image = img)
             {
-                using (var m = new MemoryStream())
+                MemoryStream m = null;
+                try
                 {
-                    image.Save(m, ImageFormat.Bmp);
-                    var imageBytes = m.ToArray();
-
-                    m.Close();
-
-                    // Convert byte[] to Base64 String
-                    var base64String = Convert.ToBase64String(imageBytes);
-                    return base64String;
+                    using (m = new MemoryStream())
+                    {
+                        image.Save(m, ImageFormat.Bmp);
+                        var imageBytes = m.ToArray();
+                        m.Close();
+                        // Convert byte[] to Base64 String
+                        var base64String = Convert.ToBase64String(imageBytes);
+                        return base64String;
+                    }
+                }
+                finally
+                {
+                    m?.Dispose();
                 }
             }
         }

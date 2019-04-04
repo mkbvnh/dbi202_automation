@@ -8,7 +8,7 @@ namespace DBI_Grading.Model
 {
     public class Result
     {
-        private double MaxPoint;
+        private double _maxPoint;
 
         public Result()
         {
@@ -18,7 +18,7 @@ namespace DBI_Grading.Model
             Logs = new string[Constant.PaperSet.QuestionSet.QuestionList.Count];
         }
 
-        public string StudentID { get; set; }
+        public string StudentId { get; set; }
         public string PaperNo { get; set; }
         public string ExamCode { get; set; }
         public List<string> ListAnswers { get; set; }
@@ -36,7 +36,7 @@ namespace DBI_Grading.Model
             foreach (var point in Points)
                 sum += point;
             sum = Math.Round(sum, 2);
-            if (sum >= MaxPoint) sum = MaxPoint;
+            if (sum >= _maxPoint) sum = _maxPoint;
             return sum;
         }
 
@@ -64,19 +64,19 @@ namespace DBI_Grading.Model
             {
                 case Candidate.Candidate.QuestionTypes.Schema:
                     // Schema Question
-                    return PaperUtils.SchemaType(candidate, StudentID, answer, questionOrder);
+                    return PaperUtils.SchemaType(candidate, StudentId, answer, questionOrder);
                 case Candidate.Candidate.QuestionTypes.Select:
                     //Select Question
-                    return PaperUtils.SelectType(candidate, StudentID, answer, questionOrder);
+                    return PaperUtils.SelectType(candidate, StudentId, answer, questionOrder);
                 case Candidate.Candidate.QuestionTypes.DML:
                     // DML: Insert/Delete/Update Question
-                    return PaperUtils.TriggerProcedureType(candidate, StudentID, answer, questionOrder);
+                    return PaperUtils.TriggerProcedureType(candidate, StudentId, answer, questionOrder);
                 case Candidate.Candidate.QuestionTypes.Procedure:
                     // Procedure Question
-                    return PaperUtils.TriggerProcedureType(candidate, StudentID, answer, questionOrder);
+                    return PaperUtils.TriggerProcedureType(candidate, StudentId, answer, questionOrder);
                 case Candidate.Candidate.QuestionTypes.Trigger:
                     // Trigger Question
-                    return PaperUtils.TriggerProcedureType(candidate, StudentID, answer, questionOrder);
+                    return PaperUtils.TriggerProcedureType(candidate, StudentId, answer, questionOrder);
                 default:
                     // Not supported yet
                     throw new Exception("This question type has not been supported yet.");
@@ -89,11 +89,11 @@ namespace DBI_Grading.Model
         public void GetPoint()
         {
             foreach (var candidate in ListCandidates)
-                MaxPoint += candidate.Point;
-            if (MaxPoint > 10)
-                MaxPoint = Math.Floor(MaxPoint);
+                _maxPoint += candidate.Point;
+            if (_maxPoint > 10)
+                _maxPoint = Math.Floor(_maxPoint);
             else
-                MaxPoint = Math.Ceiling(MaxPoint);
+                _maxPoint = Math.Ceiling(_maxPoint);
             // Count number of candidate
             var numberOfQuestion = ListCandidates.Count;
             // Wrong PaperNo

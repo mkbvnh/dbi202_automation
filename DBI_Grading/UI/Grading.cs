@@ -11,18 +11,18 @@ namespace DBI_Grading.UI
 {
     public partial class Grading : Form
     {
-        private readonly List<Submission> ListSubmissions;
-        private int count;
-        private bool scored;
+        private readonly List<Submission> _listSubmissions;
+        private int _count;
+        private bool _scored;
 
         public Grading(List<Submission> listsubmissions)
         {
             InitializeComponent();
             // Show Scoring Form and generate Score here
-            ListSubmissions = listsubmissions;
+            _listSubmissions = listsubmissions;
             ListResults = new List<Result>();
             //Prepare();
-            SetupUI();
+            SetupUi();
 
             // Merge Question and submission to ListResults
             foreach (var submission in listsubmissions)
@@ -32,7 +32,7 @@ namespace DBI_Grading.UI
                     // Add PaperNo
                     PaperNo = submission.PaperNo,
                     // Add StudentID
-                    StudentID = submission.StudentID
+                    StudentId = submission.StudentId
                 };
 
                 // Add Answers
@@ -57,7 +57,7 @@ namespace DBI_Grading.UI
 
         private List<Result> ListResults { get; }
 
-        private void SetupUI()
+        private void SetupUi()
         {
             // Initialize the DataGridView.
             scoreGridView.AutoGenerateColumns = false;
@@ -92,8 +92,6 @@ namespace DBI_Grading.UI
         ///     Setup Min Max Threads in ThreadPool
         ///     Show Point procedure
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void StartGrading()
         {
             // Setup Min Max Threads in ThreadPool
@@ -105,10 +103,10 @@ namespace DBI_Grading.UI
             ThreadPool.SetMaxThreads(workerThreads, completionPortThreads);
 
             // Get Point
-            if (!scored)
+            if (!_scored)
             {
                 // Reset to count how many results has been marked.
-                count = 0;
+                _count = 0;
                 // Populate the data source.
                 for (var row = 0; row < ListResults.Count; row++)
                 {
@@ -117,13 +115,13 @@ namespace DBI_Grading.UI
                     scoreGridView.Invoke((MethodInvoker) (() =>
                     {
                         scoreGridView.Rows.Add(1);
-                        scoreGridView.Rows[row].Cells[0].Value = currentResult.StudentID;
+                        scoreGridView.Rows[row].Cells[0].Value = currentResult.StudentId;
                         scoreGridView.Rows[row].Cells[1].Value = currentResult.PaperNo;
                     }));
                     var input = new Input(row, currentResult);
                     ThreadPool.QueueUserWorkItem(callBack => Grade(input));
                 }
-                scored = true;
+                _scored = true;
             }
             else
             {
@@ -151,13 +149,14 @@ namespace DBI_Grading.UI
         /// </summary>
         private void CountDown()
         {
-            count++;
-            if (count == ListResults.Count)
+            _count++;
+            if (_count == ListResults.Count)
             {
                 exportButton.Invoke((MethodInvoker) (() => { exportButton.Enabled = true; }));
 
                 // Done
-                var dialogResult = MessageBox.Show("Do you want to export result?", "Result", MessageBoxButtons.YesNo);
+                var dialogResult =
+                    MessageBox.Show(@"Do you want to export result?", @"Result", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     //do something
@@ -177,12 +176,12 @@ namespace DBI_Grading.UI
                 double maxPoint = 0;
                 foreach (var candidate in ListResults.ElementAt(0).ListCandidates)
                     maxPoint += candidate.Point;
-                ExcelUtils.ExportResultsExcel(ListResults, ListSubmissions, maxPoint,
+                ExcelUtils.ExportResultsExcel(ListResults, _listSubmissions, maxPoint,
                     ListResults.ElementAt(0).ListCandidates.Count);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, @"Error");
             }
         }
 

@@ -19,15 +19,15 @@ namespace DBI_Grading.Model
             }
         }
 
-        public Submission(string studentID, string paperNo)
+        public Submission(string studentId, string paperNo)
         {
-            StudentID = studentID;
+            StudentId = studentId;
             PaperNo = paperNo;
             ListAnswer = new List<string>();
             AnswerPaths = new List<string>();
         }
 
-        public string StudentID { get; set; }
+        public string StudentId { get; set; }
         public string PaperNo { get; set; }
         public List<string> ListAnswer { get; set; }
         public List<string> AnswerPaths { get; set; }

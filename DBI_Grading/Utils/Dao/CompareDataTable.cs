@@ -40,11 +40,11 @@ namespace DBI_Grading.Utils.Dao
             return dt.DefaultView.ToTable();
         }
 
-        public static bool CompareColumnName(DataTable dtSchemaAnswer, DataTable dtSchemaTQ)
+        public static bool CompareColumnName(DataTable dtSchemaAnswer, DataTable dtSchemaTq)
         {
             var columnNameListAnswer = GetColumnsName(dtSchemaAnswer);
-            var columnNameListTQ = GetColumnsName(dtSchemaTQ);
-            return !columnNameListTQ.Except(columnNameListAnswer).Any();
+            var columnNameListTq = GetColumnsName(dtSchemaTq);
+            return !columnNameListTq.Except(columnNameListAnswer).Any();
         }
 
         public static List<string> GetColumnsName(DataTable dt)
@@ -57,8 +57,7 @@ namespace DBI_Grading.Utils.Dao
 
         public static DataTable DistinctTable(DataTable dt, List<string> columns)
         {
-            var dtUniqRecords = new DataTable();
-            dtUniqRecords = dt.DefaultView.ToTable(true, columns.ToArray());
+            var dtUniqRecords = dt.DefaultView.ToTable(true, columns.ToArray());
             return dtUniqRecords;
         }
 
@@ -102,6 +101,7 @@ namespace DBI_Grading.Utils.Dao
         /// </summary>
         /// <param name="dataTableAnswer"></param>
         /// <param name="dataTableTq"></param>
+        /// <param name="isRotate"></param>
         /// <returns>
         ///     true = same
         /// </returns>

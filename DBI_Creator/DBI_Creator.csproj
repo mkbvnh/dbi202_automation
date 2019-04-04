@@ -84,6 +84,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\TestCase.cs" />
     <Compile Include="UI\CandidateUI\TestCaseDialog.cs">
       <SubType>Form</SubType>
@@ -155,9 +156,7 @@
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\SerializeUtils.cs" />
     <Compile Include="Utils\OfficeUtils\PreviewDocUtils.cs" />
-    <Compile Include="Utils\SqlUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
-    <Compile Include="Utils\Utilities.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\CandidateUI\TestCaseDialog.resx">
@@ -195,6 +194,7 @@
       <DependentUpon>VerifyForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>

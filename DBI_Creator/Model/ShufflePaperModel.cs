@@ -68,7 +68,7 @@ namespace DBI202_Creator.Model
             if (numOfCases == 1)
             {
                 var oneCase =
-                    new List<List<CandidateNode>> { allCases.ElementAt(new Random().Next(allCases.Count)) };
+                    new List<List<CandidateNode>> {allCases.ElementAt(new Random().Next(allCases.Count))};
                 return oneCase;
             }
             var newList = new List<List<CandidateNode>>();
@@ -102,7 +102,7 @@ namespace DBI202_Creator.Model
         {
             var root = SetCandidateNode(null, 0, BuildingTree());
             root.AddPath(root, new List<CandidateNode>());
-            return root.paths;
+            return root.Paths;
         }
 
         /// <summary>

@@ -16,7 +16,7 @@ namespace DBI202_Creator.UI.CandidateUI
         public InputScriptForm(Func<List<string>, bool> handleClose, List<string> scriptList)
         {
             InitializeComponent();
-            this._handleClose = new HandleClose(handleClose);
+            _handleClose = new HandleClose(handleClose);
 
             for (var i = 0; i < tabControl.TabPages.Count; i++)
             {
@@ -38,7 +38,7 @@ namespace DBI202_Creator.UI.CandidateUI
             var scriptList = new List<string>();
             for (var index = 0; index < tabControl.TabPages.Count; index++)
             {
-                TabPage tab = tabControl.TabPages[index];
+                var tab = tabControl.TabPages[index];
                 var script = ((RichTextBox) tab.Controls["scriptTextBox"]).Text;
                 scriptList.Add(script);
             }

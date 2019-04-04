@@ -78,7 +78,7 @@ namespace DBI_Grading.Utils
                 lastRow++;
                 sheetAnswerPath.Cells[lastRow, 1] = lastRow - 1;
                 sheetAnswerPath.Cells[lastRow, 2] = submission.PaperNo;
-                sheetAnswerPath.Cells[lastRow, 3] = submission.StudentID;
+                sheetAnswerPath.Cells[lastRow, 3] = submission.StudentId;
                 for (var j = 0; j < submission.AnswerPaths.Count; j++)
                     sheetAnswerPath.Cells[lastRow, j + 4] = submission.AnswerPaths[j];
                 var countEmpty = 0;
@@ -115,7 +115,7 @@ namespace DBI_Grading.Utils
                 lastRow++;
                 sheetDetail.Cells[lastRow, 1] = lastRow - 1;
                 sheetDetail.Cells[lastRow, 2] = result.PaperNo;
-                sheetDetail.Cells[lastRow, 3] = result.StudentID;
+                sheetDetail.Cells[lastRow, 3] = result.StudentId;
 
                 var comment = "";
                 for (var i = 0; i < result.ListCandidates.Count; i++)
@@ -210,7 +210,7 @@ namespace DBI_Grading.Utils
                 lastRow++;
                 sheetResult.Cells[lastRow, 1] = lastRow - 1;
                 sheetResult.Cells[lastRow, 2] = result.PaperNo;
-                sheetResult.Cells[lastRow, 3] = result.StudentID;
+                sheetResult.Cells[lastRow, 3] = result.StudentId;
                 sheetResult.Cells[lastRow, 4] = result.ExamCode;
                 var totalPoints = Math.Round(result.SumOfPoint(), 2);
                 sheetResult.Cells[lastRow, 5] = totalPoints;

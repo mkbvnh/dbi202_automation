@@ -28,7 +28,7 @@ namespace DBI202_Creator.Utils
         /// <returns></returns>
         public static T DeserializeObject<T>(string localPath) where T : new()
         {
-            T rez = new T();
+            var rez = new T();
             using (Stream stream = File.Open(localPath, FileMode.Open))
             {
                 var bin = new BinaryFormatter();

@@ -97,7 +97,7 @@ namespace DBI202_Creator.UI.CandidateUI
         // Close current Tab.
         private void DeleteCandidateBtn_Click(object sender, EventArgs e)
         {
-            _handleDelete(Candidate, (TabPage)Parent);
+            _handleDelete(Candidate, (TabPage) Parent);
         }
 
         private void QuestionTypeComboBox_SelectedValueChanged(object sender, EventArgs e)

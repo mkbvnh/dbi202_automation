@@ -57,7 +57,7 @@ namespace DBI202_Creator.Utils.Grading.Dao
 
         public static DataTable DistinctTable(DataTable dt, List<string> columns)
         {
-            DataTable dtUniqRecords = dt.DefaultView.ToTable(true, columns.ToArray());
+            var dtUniqRecords = dt.DefaultView.ToTable(true, columns.ToArray());
             return dtUniqRecords;
         }
 

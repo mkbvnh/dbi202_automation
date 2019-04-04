@@ -1,16 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DBI202_Creator.Model;
 using DBI_Grading.Model.Candidate;
+using Microsoft.SqlServer.TransactSql.ScriptDom;
 
 namespace DBI202_Creator.Utils
 {
-    internal static class StringUtils
+    public static class StringUtils
     {
-        internal static string GetNumbers(this string input)
+        public static string FormatSqlCode(string query)
+        {
+            var parser = new TSql110Parser(false);
+            var parsedQuery = parser.Parse(new StringReader(query), out _);
+
+            var generator = new Sql110ScriptGenerator(new SqlScriptGeneratorOptions
+            {
+                KeywordCasing = KeywordCasing.Uppercase,
+                IncludeSemicolons = true,
+                NewLineBeforeFromClause = true,
+                NewLineBeforeOrderByClause = true,
+                NewLineBeforeWhereClause = true,
+                AlignClauseBodies = false
+            });
+            generator.GenerateScript(parsedQuery, out var formattedQuery);
+            return formattedQuery;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string GetNumbers(this string input)
         {
             while (input.Length > 0 && !char.IsDigit(input[input.Length - 1]))
                 input = input.RemoveAt(input.Length - 1);
@@ -27,7 +51,12 @@ namespace DBI202_Creator.Utils
             return position == -1 ? input : input.Remove(0, position + 1);
         }
 
-        internal static string RemoveAt(this string s, int index)
+        /// <summary>
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public static string RemoveAt(this string s, int index)
         {
             return s.Remove(index, 1);
         }
@@ -52,6 +81,11 @@ namespace DBI202_Creator.Utils
             return output;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="t"></param>
+        /// <returns></returns>
         internal static int GetHammingDistance(string s, string t)
         {
             if (s.Length != t.Length)
@@ -65,6 +99,11 @@ namespace DBI202_Creator.Utils
             return distance;
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="candidate"></param>
+        /// <returns></returns>
         public static List<TestCase> GetTestCases(string input, Candidate candidate)
         {
             var matchPoint = Regex.Match(input, @"(/\*(.|[\r\n])*?\*/)|(--(.*|[\r\n]))",

@@ -17,7 +17,7 @@ namespace DBI_Grading.UI
 {
     public partial class ImportMaterial : Form
     {
-        private List<Submission> Listsubmissions;
+        private List<Submission> _listsubmissions;
 
         public ImportMaterial()
         {
@@ -33,7 +33,8 @@ namespace DBI_Grading.UI
             }
             catch (Exception e)
             {
-                MessageBox.Show("Load config error: " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(@"Load config error: " + e.Message, @"Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 Application.Exit();
             }
 
@@ -46,7 +47,7 @@ namespace DBI_Grading.UI
         //public List<string> DBScriptList { get; set; }
         public string AnswerPath { get; set; }
 
-        private bool IsConnectedToDB => statusConnectCheckBox.Checked;
+        private bool IsConnectedToDb => statusConnectCheckBox.Checked;
 
         private void BrowseQuestionButton_Click(object sender, EventArgs e)
         {
@@ -66,7 +67,7 @@ namespace DBI_Grading.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, @"Error");
                 if (Visible)
                     questionTextBox.Text = "";
             }
@@ -80,7 +81,7 @@ namespace DBI_Grading.UI
                 return;
             }
             // Init List submissions
-            Listsubmissions = new List<Submission>();
+            _listsubmissions = new List<Submission>();
             try
             {
                 // Get directory where student's submittion was saved
@@ -88,7 +89,7 @@ namespace DBI_Grading.UI
                 if (string.IsNullOrEmpty(AnswerPath))
                     return;
                 Application.UseWaitCursor = true;
-                Text = "Import Material - Importing";
+                Text = @"Import Material - Importing";
                 ImportAnswerButton.Enabled = false;
                 GetMarkButton.Enabled = false;
                 var t = new Thread(() => SafeThreadCaller(() => GetAnswers(), ExceptionHandler));
@@ -98,7 +99,7 @@ namespace DBI_Grading.UI
             {
                 if (Visible)
                     answerTextBox.Text = "";
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, @"Error");
             }
         }
 
@@ -157,12 +158,11 @@ namespace DBI_Grading.UI
                             var submission = new Submission
                             {
                                 PaperNo = paperNo,
-                                StudentID = rollNumber
+                                StudentId = rollNumber
                             };
                             try
                             {
                                 var errorLog = "Answer not found.\n";
-                                var answerPaths = new string[0];
                                 var extractPath = "";
                                 // Student co nop answers khong
                                 if (!Directory.Exists(rollNumberPath + @"\0"))
@@ -218,7 +218,7 @@ namespace DBI_Grading.UI
                                 }
 
                                 // Get all sql file
-                                answerPaths = FileUtils.GetAllSql(rollNumberPath);
+                                var answerPaths = FileUtils.GetAllSql(rollNumberPath);
                                 if (answerPaths.Length == 0)
                                     throw new Exception(errorLog);
                                 // Add the answer
@@ -282,7 +282,7 @@ namespace DBI_Grading.UI
                             {
                                 // Skip exception
                             }
-                            Listsubmissions.Add(submission);
+                            _listsubmissions.Add(submission);
                         }
                     }
                 }
@@ -291,16 +291,12 @@ namespace DBI_Grading.UI
                     throw new Exception("StudentSolution not found in " + AnswerPath);
                 }
             }
-            catch (Exception e)
-            {
-                throw e;
-            }
             finally
             {
                 Invoke((MethodInvoker) (() =>
                 {
                     Application.UseWaitCursor = false;
-                    Text = "Import Material";
+                    Text = @"Import Material";
                     ImportAnswerButton.Enabled = true;
                     GetMarkButton.Enabled = true;
                 }));
@@ -311,22 +307,22 @@ namespace DBI_Grading.UI
         {
             try
             {
-                if (Listsubmissions == null || Listsubmissions.Count == 0)
+                if (_listsubmissions == null || _listsubmissions.Count == 0)
                 {
-                    MessageBox.Show("Please import students' answers", "Error");
+                    MessageBox.Show(@"Please import students' answers", @"Error");
                 }
                 else if (Constant.PaperSet == null || Constant.PaperSet.Papers.Count == 0)
                 {
-                    MessageBox.Show("Please import Paper Set", "Error");
+                    MessageBox.Show(@"Please import Paper Set", @"Error");
                 }
-                else if (!IsConnectedToDB)
+                else if (!IsConnectedToDb)
                 {
-                    MessageBox.Show("Please test connect to Sql Server", "Error");
+                    MessageBox.Show(@"Please test connect to Sql Server", @"Error");
                 }
                 else
                 {
                     General.PrepareSpCompareDatabase();
-                    new Grading(Listsubmissions);
+                    var grading = new Grading(_listsubmissions);
                     Hide();
                 }
             }
@@ -349,20 +345,21 @@ namespace DBI_Grading.UI
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Can not connect, check again.\n" + ex.Message, "Error");
+                // ReSharper disable once LocalizableElement
+                MessageBox.Show("Can not connect, check again.\n" + ex.Message, @"Error");
             }
         }
 
         private void StatusConnectCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (IsConnectedToDB)
+            if (IsConnectedToDb)
             {
                 usernameTextBox.Enabled = false;
                 passwordTextBox.Enabled = false;
                 serverNameTextBox.Enabled = false;
                 initialCatalogTextBox.Enabled = false;
                 statusConnectCheckBox.ForeColor = Color.Green;
-                statusConnectCheckBox.Text = "Sql Connected";
+                statusConnectCheckBox.Text = @"Sql Connected";
                 checkConnectionButton.Enabled = false;
             }
         }
