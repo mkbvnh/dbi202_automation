@@ -182,13 +182,9 @@ namespace DBI_Grading.UI
                     //do something
                     ExportButton_Click(null, null);
                 }
-                else if (dialogResult == DialogResult.No)
-                {
-                }
             }
         }
 
-        // sau khi add xong thuc hien cham diem, cham den dau in diem den day!
         private void ExportButton_Click(object sender, EventArgs e)
         {
             try
