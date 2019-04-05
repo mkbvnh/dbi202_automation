@@ -2,8 +2,9 @@
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using DBI_Grading.Model.Candidate;
-using DBI_Grading.Model.Question;
+using dbi_grading_module.Entity.Candidate;
+using dbi_grading_module.Entity.Question;
+using dbi_grading_module.Utils;
 using Microsoft.Office.Interop.Word;
 
 namespace DBI202_Creator.Utils.OfficeUtils
@@ -52,9 +53,30 @@ namespace DBI202_Creator.Utils.OfficeUtils
         private static void AppendSection(Candidate q, Section section, int questionNumber, int candidateNumber,
             ref object missing)
         {
+            var questionType = "";
+            switch (q.QuestionType)
+            {
+                case Candidate.QuestionTypes.DML:
+                    questionType = "DML";
+                    break;
+                case Candidate.QuestionTypes.Select:
+                    questionType = "Select";
+                    break;
+                case Candidate.QuestionTypes.Procedure:
+                    questionType = "Procedure";
+                    break;
+                case Candidate.QuestionTypes.Schema:
+                    questionType = "Schema";
+                    break;
+                case Candidate.QuestionTypes.Trigger:
+                    questionType = "Trigger";
+                    break;
+            }
+
             //Insert Title of question
             var paraTitle = section.Range.Paragraphs.Add(ref missing);
-            paraTitle.Range.Text = "Question " + questionNumber + "." + candidateNumber + ":";
+            paraTitle.Range.Text =
+                $"Question {questionNumber}.{candidateNumber} - Point: {q.Point} - Question Type: {questionType}";
             paraTitle.Range.Font.Name = "Arial";
             paraTitle.Range.Font.Bold = 1;
             paraTitle.Range.Font.Underline = WdUnderline.wdUnderlineSingle;
@@ -67,7 +89,6 @@ namespace DBI202_Creator.Utils.OfficeUtils
             {
                 var paraRequirement = section.Range.Paragraphs.Add(ref missing);
                 q.QuestionRequirement = q.QuestionRequirement.Trim();
-                //if (!q.QuestionRequirement.EndsWith(".")) q.QuestionRequirement = string.Concat(q.QuestionRequirement, ".");
                 paraRequirement.Range.Text = q.QuestionRequirement;
                 paraRequirement.Range.Font.Name = "Arial";
                 paraRequirement.Range.Font.Bold = 0;

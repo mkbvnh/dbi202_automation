@@ -10,7 +10,7 @@ using Microsoft.SqlServer.Management.Smo;
 
 namespace dbi_grading_module.Configuration
 {
-    internal class DatabaseConfig
+    public class DatabaseConfig
     {
         /// <summary>
         /// </summary>
@@ -27,7 +27,7 @@ namespace dbi_grading_module.Configuration
                 connection.Open();
                 using (var command = new SqlCommand(query, connection))
                 {
-                    return (int)command.ExecuteScalar();
+                    return (int) command.ExecuteScalar();
                 }
             }
         }
@@ -120,7 +120,7 @@ namespace dbi_grading_module.Configuration
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        internal bool PrepareSpCompareDatabase()
+        public static bool PrepareSpCompareDatabase()
         {
             var rm = new ResourceManager("dbi_grading_module.Properties.Resources", Assembly.GetExecutingAssembly());
             try
@@ -136,7 +136,7 @@ namespace dbi_grading_module.Configuration
             return true;
         }
 
-        internal void GenerateDatabase(string dbSolutionName, string dbAnswerName, string dbScript)
+        internal static bool GenerateDatabase(string dbSolutionName, string dbAnswerName, string dbScript)
         {
             try
             {
@@ -157,6 +157,8 @@ namespace dbi_grading_module.Configuration
             {
                 throw new Exception("Generate databases error: " + e.Message + "\n");
             }
+
+            return true;
         }
 
         /// <summary>
@@ -167,16 +169,18 @@ namespace dbi_grading_module.Configuration
         ///     "message error" if error
         ///     "" if done
         /// </returns>
-        internal void DropDatabase(string dbName)
+        internal static bool DropDatabase(string dbName)
         {
             var dropQuery = "DROP DATABASE [" + dbName + "]";
             ExecuteSingleQuery(dropQuery, "master");
+            return true;
         }
 
-        public SqlConnectionStringBuilder CheckConnection(string dataSource, string userId, string password, string initialCatalog)
+        public static SqlConnectionStringBuilder CheckConnection(string dataSource, string userId, string password,
+            string initialCatalog)
         {
             // Save to Grading
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder
+            var builder = new SqlConnectionStringBuilder
             {
                 DataSource = dataSource,
                 UserID = userId,
@@ -189,6 +193,7 @@ namespace dbi_grading_module.Configuration
             using (var connection = new SqlConnection(builder.ConnectionString))
             {
                 connection.Open();
+                Grading.SqlConnectionStringBuilder = builder;
                 return builder;
             }
         }
@@ -198,7 +203,7 @@ namespace dbi_grading_module.Configuration
         /// </summary>
         /// <param name="query">Query to execute</param>
         /// <param name="catalog"></param>
-        public bool ExecuteSingleQuery(string query, string catalog)
+        public static bool ExecuteSingleQuery(string query, string catalog)
         {
             query = "Use " + "[" + catalog + "];\nGO\n" + query + "";
             using (var connection = new SqlConnection(Grading.SqlConnectionStringBuilder.ConnectionString))
@@ -219,7 +224,7 @@ namespace dbi_grading_module.Configuration
             }
         }
 
-        public bool DropAllDatabaseCreated(string afterTime)
+        public static bool DropAllDatabaseCreated(string afterTime)
         {
             var databases = new List<string>();
             var query = $"select name from sys.databases where create_date >= '{afterTime}'";
@@ -245,7 +250,7 @@ namespace dbi_grading_module.Configuration
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
-        public object ExecuteScalarQuery(string query)
+        public static object ExecuteScalarQuery(string query)
         {
             using (var connection = new SqlConnection(Grading.SqlConnectionStringBuilder.ConnectionString))
             {
@@ -260,7 +265,7 @@ namespace dbi_grading_module.Configuration
         /// <summary>
         ///     To kill all session connected to sql server from the tool
         /// </summary>
-        public void KillAllSessionSql()
+        public static bool KillAllSessionSql()
         {
             try
             {
@@ -304,6 +309,8 @@ namespace dbi_grading_module.Configuration
             {
                 Console.WriteLine(e.Message);
             }
+
+            return true;
         }
     }
 }

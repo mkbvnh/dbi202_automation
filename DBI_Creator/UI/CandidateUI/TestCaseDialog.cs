@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using DBI202_Creator.Model;
+using dbi_grading_module.Entity;
 
 namespace DBI202_Creator.UI.CandidateUI
 {

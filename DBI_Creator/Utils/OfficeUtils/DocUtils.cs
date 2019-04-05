@@ -1,4 +1,4 @@
-﻿using DBI_Grading.Model.Paper;
+﻿using dbi_grading_module.Entity.Paper;
 using Microsoft.Office.Interop.Word;
 
 namespace DBI202_Creator.Utils.OfficeUtils

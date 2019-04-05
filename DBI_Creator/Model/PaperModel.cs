@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using dbi_grading_module.Entity.Paper;
+using dbi_grading_module.Entity.Question;
 using DBI202_Creator.Utils;
 using DBI202_Creator.Utils.OfficeUtils;
-using DBI_Grading.Model.Paper;
-using DBI_Grading.Model.Question;
 
 namespace DBI202_Creator.Model
 {
@@ -40,7 +40,6 @@ namespace DBI202_Creator.Model
         {
             //Count PaperNo
             var countPaperNo = 0;
-
             //Write Paper Image
             try
             {
@@ -50,6 +49,7 @@ namespace DBI202_Creator.Model
 
                     //Write DbScript
                     var givenPath = FileUtils.CreateNewDirectory(paperPath, "Given");
+
                     File.WriteAllText(givenPath + @"\DBscript" + ".sql", Spm.PaperSet.DBScriptList[0]);
 
                     //Create word file

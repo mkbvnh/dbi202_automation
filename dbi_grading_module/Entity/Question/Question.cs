@@ -15,6 +15,11 @@ namespace dbi_grading_module.Entity.Question
             Candidates = candidates;
         }
 
+        public Question()
+        {
+            Candidates = new List<Candidate.Candidate>();
+        }
+
         public string QuestionId { get; set; }
         public decimal Point { get; set; }
         public List<Candidate.Candidate> Candidates { get; set; }
@@ -29,7 +34,7 @@ namespace dbi_grading_module.Entity.Question
         {
             unchecked
             {
-                var hashCode = (QuestionId != null ? QuestionId.GetHashCode() : 0);
+                var hashCode = QuestionId != null ? QuestionId.GetHashCode() : 0;
                 hashCode = (hashCode * 397) ^ Point.GetHashCode();
                 hashCode = (hashCode * 397) ^ (Candidates != null ? Candidates.GetHashCode() : 0);
                 return hashCode;

@@ -13,9 +13,9 @@ namespace DBI_Grading.UI
     public partial class Grading : Form
     {
         private readonly List<Submission> _listSubmissions;
+        private readonly string _serverDateTime;
         private int _count;
         private bool _scored;
-        private readonly string _serverDateTime;
 
         public Grading(List<Submission> submisstions)
         {
@@ -177,11 +177,7 @@ namespace DBI_Grading.UI
                 // Done
                 var dialogResult =
                     MessageBox.Show(@"Do you want to export result?", @"Result", MessageBoxButtons.YesNo);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    //do something
-                    ExportButton_Click(null, null);
-                }
+                if (dialogResult == DialogResult.Yes) ExportButton_Click(null, null);
             }
         }
 

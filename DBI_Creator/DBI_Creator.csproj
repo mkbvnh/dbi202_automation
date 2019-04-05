@@ -28,7 +28,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -54,22 +54,6 @@
       <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="microsoft.sqlserver.batchparser, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dut\DBI_Grading\packages\x64\microsoft.sqlserver.batchparser.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.BatchParserClient, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dut\DBI_Grading\packages\Microsoft.SqlServer.BatchParserClient.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.ConnectionInfo, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.SqlServer.Management.Sdk.Sfc, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.SqlServer.Smo, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.SqlServer.SqlClrProvider, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Dut\DBI_Grading\packages\Microsoft.SqlServer.SqlClrProvider.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.SqlServer.TransactSql.ScriptDom, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -85,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Model\TestCase.cs" />
+    <Compile Include="Model\QuestionModel.cs" />
     <Compile Include="UI\CandidateUI\TestCaseDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,18 +129,12 @@
       <DependentUpon>VerifyForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Result.cs" />
-    <Compile Include="Utils\Grading\CompareUtils.cs" />
-    <Compile Include="Utils\Grading\Dao\CompareDataTable.cs" />
-    <Compile Include="Utils\Grading\Dao\General.cs" />
-    <Compile Include="Utils\Grading\PaperUtils.cs" />
-    <Compile Include="Utils\ThreadUtils.cs" />
     <Compile Include="Utils\OfficeUtils\DocUtils.cs" />
     <Compile Include="Utils\OfficeUtils\ExportDocUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\SerializeUtils.cs" />
     <Compile Include="Utils\OfficeUtils\PreviewDocUtils.cs" />
-    <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\CandidateUI\TestCaseDialog.resx">
@@ -232,9 +210,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DBI_Grading\DBI_Grading.csproj">
-      <Project>{507d0910-96ec-426b-a87f-d5f0eccdf919}</Project>
-      <Name>DBI_Grading</Name>
+    <ProjectReference Include="..\dbi_grading_module\dbi_grading_module.csproj">
+      <Project>{d0dcc091-921b-4325-93a3-41b9402c0039}</Project>
+      <Name>dbi_grading_module</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

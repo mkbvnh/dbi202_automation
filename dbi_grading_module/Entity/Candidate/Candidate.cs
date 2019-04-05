@@ -69,7 +69,7 @@ namespace dbi_grading_module.Entity.Candidate
 
         public override int GetHashCode()
         {
-            return (CandidateId != null ? CandidateId.GetHashCode() : 0);
+            return CandidateId != null ? CandidateId.GetHashCode() : 0;
         }
     }
 }

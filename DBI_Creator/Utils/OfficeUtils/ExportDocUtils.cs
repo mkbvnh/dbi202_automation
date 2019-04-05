@@ -3,8 +3,8 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using DBI_Grading.Model.Candidate;
-using DBI_Grading.Model.Paper;
+using dbi_grading_module.Entity.Candidate;
+using dbi_grading_module.Entity.Paper;
 using Microsoft.Office.Interop.Word;
 
 namespace DBI202_Creator.Utils.OfficeUtils

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using dbi_grading_module.Entity.Paper;
+using dbi_grading_module.Entity.Question;
 using DBI202_Creator.Commons;
 using DBI202_Creator.Model;
 using DBI202_Creator.UI.CandidateUI;
 using DBI202_Creator.UI.ExportUI;
 using DBI202_Creator.Utils;
 using DBI202_Creator.Utils.OfficeUtils;
-using DBI_Grading.Model.Paper;
-using DBI_Grading.Model.Question;
 
 namespace DBI202_Creator.UI
 {
@@ -204,6 +204,16 @@ namespace DBI202_Creator.UI
 
         private void ExportPaperSetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            try
+            {
+                QuestionModel.VerifyQuestionSet(_questionSet);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var exportConfirm = new ExportConfirm(_questionSet);
             //exportConfirm.Visible = true;
             if (Constants.PaperSet != null && Constants.PaperSet.ListPaperMatrixId != null &&

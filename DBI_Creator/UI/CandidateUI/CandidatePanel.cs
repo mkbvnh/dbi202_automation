@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using dbi_grading_module.Entity;
+using dbi_grading_module.Entity.Candidate;
+using dbi_grading_module.Utils;
 using DBI202_Creator.Commons;
-using DBI202_Creator.Model;
 using DBI202_Creator.Utils;
-using DBI_Grading.Model.Candidate;
 
 namespace DBI202_Creator.UI.CandidateUI
 {

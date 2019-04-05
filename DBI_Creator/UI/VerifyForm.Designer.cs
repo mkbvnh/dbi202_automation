@@ -46,16 +46,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.verifyText.BackColor = System.Drawing.Color.White;
             this.verifyText.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.verifyText.Location = new System.Drawing.Point(12, 103);
+            this.verifyText.Location = new System.Drawing.Point(12, 135);
             this.verifyText.Name = "verifyText";
             this.verifyText.ReadOnly = true;
-            this.verifyText.Size = new System.Drawing.Size(514, 335);
+            this.verifyText.Size = new System.Drawing.Size(514, 303);
             this.verifyText.TabIndex = 0;
             this.verifyText.Text = "";
             // 
             // checkConnectionButton
             // 
-            this.checkConnectionButton.Location = new System.Drawing.Point(409, 9);
+            this.checkConnectionButton.Location = new System.Drawing.Point(409, 46);
             this.checkConnectionButton.Name = "checkConnectionButton";
             this.checkConnectionButton.Size = new System.Drawing.Size(117, 39);
             this.checkConnectionButton.TabIndex = 49;
@@ -66,7 +66,7 @@
             // passwordTextBox
             // 
             this.passwordTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.passwordTextBox.Location = new System.Drawing.Point(135, 64);
+            this.passwordTextBox.Location = new System.Drawing.Point(135, 101);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(255, 20);
             this.passwordTextBox.TabIndex = 44;
@@ -76,7 +76,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(12, 67);
+            this.label9.Location = new System.Drawing.Point(12, 104);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(104, 15);
             this.label9.TabIndex = 48;
@@ -85,7 +85,7 @@
             // usernameTextBox
             // 
             this.usernameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usernameTextBox.Location = new System.Drawing.Point(135, 36);
+            this.usernameTextBox.Location = new System.Drawing.Point(135, 73);
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(255, 20);
             this.usernameTextBox.TabIndex = 43;
@@ -95,7 +95,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(12, 38);
+            this.label8.Location = new System.Drawing.Point(12, 75);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(108, 15);
             this.label8.TabIndex = 47;
@@ -104,7 +104,7 @@
             // serverNameTextBox
             // 
             this.serverNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.serverNameTextBox.Location = new System.Drawing.Point(135, 8);
+            this.serverNameTextBox.Location = new System.Drawing.Point(135, 45);
             this.serverNameTextBox.Name = "serverNameTextBox";
             this.serverNameTextBox.Size = new System.Drawing.Size(255, 20);
             this.serverNameTextBox.TabIndex = 42;
@@ -114,7 +114,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(12, 9);
+            this.label6.Location = new System.Drawing.Point(12, 46);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(79, 15);
             this.label6.TabIndex = 46;
@@ -125,7 +125,7 @@
             this.startBtn.AccessibleName = "";
             this.startBtn.Enabled = false;
             this.startBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startBtn.Location = new System.Drawing.Point(410, 53);
+            this.startBtn.Location = new System.Drawing.Point(410, 90);
             this.startBtn.Name = "startBtn";
             this.startBtn.Size = new System.Drawing.Size(117, 31);
             this.startBtn.TabIndex = 45;

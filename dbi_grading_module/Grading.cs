@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using dbi_grading_module.Configuration;
 using dbi_grading_module.Entity.Candidate;
+using dbi_grading_module.Entity.Controller;
 using dbi_grading_module.Entity.Paper;
 using dbi_grading_module.Utils;
 
 namespace dbi_grading_module
 {
-    public class Grading
+    public static class Grading
     {
         public static PaperSet PaperSet;
 
@@ -21,12 +22,7 @@ namespace dbi_grading_module
         public static SqlConnectionStringBuilder SqlConnectionStringBuilder;
 
         //Database Config
-        private static DatabaseConfig _databaseConfig;
-
-        public Grading(string dataSource, string userId, string password, string initialCatalog)
-        {
-            SqlConnectionStringBuilder = _databaseConfig.CheckConnection(dataSource, userId, password, initialCatalog);
-        }
+        public static StringUtils StringUtils = new StringUtils();
 
         /// <summary>
         ///     Test Schema of 2 DBs.
@@ -57,7 +53,7 @@ namespace dbi_grading_module
                 // Execute query
                 try
                 {
-                    _databaseConfig.ExecuteSingleQuery(queryAnswer, "master");
+                    DatabaseConfig.ExecuteSingleQuery(queryAnswer, "master");
                 }
                 catch (Exception e)
                 {
@@ -70,8 +66,8 @@ namespace dbi_grading_module
 
                 try
                 {
-                    _databaseConfig.ExecuteSingleQuery(querySolution, "master");
-                    _databaseConfig.ExecuteSingleQuery(queryEmptyDb, "master");
+                    DatabaseConfig.ExecuteSingleQuery(querySolution, "master");
+                    DatabaseConfig.ExecuteSingleQuery(queryEmptyDb, "master");
                 }
                 catch (Exception e)
                 {
@@ -80,16 +76,16 @@ namespace dbi_grading_module
 
                 // Execute query
                 return ThreadUtils.WithTimeout(
-                    () => CompareUtils.CompareSchemaType(dbAnswerName, dbSolutionName, dbEmptyName, candidate,
+                    () => CompareController.CompareSchemaType(dbAnswerName, dbSolutionName, dbEmptyName, candidate,
                         errorMessage),
                     TimeOutInSecond);
             }
             finally
             {
-                _databaseConfig.KillAllSessionSql();
-                _databaseConfig.DropDatabase(dbAnswerName);
-                _databaseConfig.DropDatabase(dbSolutionName);
-                _databaseConfig.DropDatabase(dbEmptyName);
+                DatabaseConfig.KillAllSessionSql();
+                DatabaseConfig.DropDatabase(dbAnswerName);
+                DatabaseConfig.DropDatabase(dbSolutionName);
+                DatabaseConfig.DropDatabase(dbEmptyName);
             }
         }
 
@@ -113,17 +109,17 @@ namespace dbi_grading_module
             try
             {
                 //Generate 2 new DB for student's answer and solution
-                _databaseConfig.GenerateDatabase(dbSolutionName, dbAnswerName, PaperSet.DBScriptList[1]);
+                DatabaseConfig.GenerateDatabase(dbSolutionName, dbAnswerName, PaperSet.DBScriptList[1]);
                 //Compare
                 return ThreadUtils.WithTimeout(
-                    () => CompareUtils.CompareSelectType(dbAnswerName, dbSolutionName, answer, candidate),
+                    () => CompareController.CompareSelectType(dbAnswerName, dbSolutionName, answer, candidate),
                     TimeOutInSecond);
             }
             finally
             {
-                _databaseConfig.KillAllSessionSql();
-                _databaseConfig.DropDatabase(dbSolutionName);
-                _databaseConfig.DropDatabase(dbAnswerName);
+                DatabaseConfig.KillAllSessionSql();
+                DatabaseConfig.DropDatabase(dbSolutionName);
+                DatabaseConfig.DropDatabase(dbAnswerName);
             }
         }
 
@@ -145,14 +141,14 @@ namespace dbi_grading_module
             var dbAnswerName = studentId.Replace(" ", "") + questionOrder + "_Answer" + "_" + new Random().Next();
 
             //Generate 2 new DB for student's answer and solution
-            _databaseConfig.GenerateDatabase(dbSolutionName, dbAnswerName, PaperSet.DBScriptList[1]);
+            DatabaseConfig.GenerateDatabase(dbSolutionName, dbAnswerName, PaperSet.DBScriptList[1]);
             try
             {
                 var errorMessage = "";
                 // Execute query
                 try
                 {
-                    _databaseConfig.ExecuteSingleQuery(answer, dbAnswerName);
+                    DatabaseConfig.ExecuteSingleQuery(answer, dbAnswerName);
                 }
                 catch (Exception e)
                 {
@@ -165,7 +161,7 @@ namespace dbi_grading_module
 
                 try
                 {
-                    _databaseConfig.ExecuteSingleQuery(candidate.Solution, dbSolutionName);
+                    DatabaseConfig.ExecuteSingleQuery(candidate.Solution, dbSolutionName);
                 }
                 catch (Exception e)
                 {
@@ -174,14 +170,14 @@ namespace dbi_grading_module
                 }
 
                 return ThreadUtils.WithTimeout(
-                    () => CompareUtils.CompareOthersType(dbAnswerName, dbSolutionName, candidate, errorMessage),
+                    () => CompareController.CompareOthersType(dbAnswerName, dbSolutionName, candidate, errorMessage),
                     TimeOutInSecond);
             }
             finally
             {
-                _databaseConfig.KillAllSessionSql();
-                _databaseConfig.DropDatabase(dbSolutionName);
-                _databaseConfig.DropDatabase(dbAnswerName);
+                DatabaseConfig.KillAllSessionSql();
+                DatabaseConfig.DropDatabase(dbSolutionName);
+                DatabaseConfig.DropDatabase(dbAnswerName);
             }
         }
     }

@@ -1,24 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Windows.Forms;
+using dbi_grading_module;
+using dbi_grading_module.Entity.Candidate;
+using dbi_grading_module.Entity.Question;
 using DBI202_Creator.UI;
-using DBI202_Creator.Utils.Grading;
-using DBI_Grading.Model.Candidate;
-using DBI_Grading.Model.Question;
 
 namespace DBI202_Creator.Model
 {
     public class Result
     {
-        private readonly SqlConnectionStringBuilder _builder;
         private readonly VerifyForm _parentForm;
         private readonly QuestionSet _questionSet;
 
-        public Result(QuestionSet questionSet, SqlConnectionStringBuilder builder, VerifyForm parentForm)
+        public Result(QuestionSet questionSet, VerifyForm parentForm)
         {
             _questionSet = questionSet;
-            _builder = builder;
             _parentForm = parentForm;
         }
 
@@ -38,8 +35,7 @@ namespace DBI202_Creator.Model
         ///     if exception was found, throw it for GetPoint function to handle
         ///     <cref>SQLException</cref>
         /// </exception>
-        private Dictionary<string, string> GradeAnswer(Candidate candidate, string answer, int questionOrder,
-            string dbScript)
+        private Dictionary<string, string> GradeAnswer(Candidate candidate, string answer, int questionOrder)
         {
             if (string.IsNullOrEmpty(answer.Trim()))
                 throw new Exception("Empty.");
@@ -48,19 +44,19 @@ namespace DBI202_Creator.Model
             {
                 case Candidate.QuestionTypes.Schema:
                     // Schema Question
-                    return PaperUtils.SchemaType(candidate, "Test", answer, questionOrder, _builder);
+                    return Grading.SchemaType(candidate, "Test", answer, questionOrder);
                 case Candidate.QuestionTypes.Select:
                     //Select Question
-                    return PaperUtils.SelectType(candidate, "Test", answer, questionOrder, dbScript, _builder);
+                    return Grading.SelectType(candidate, "Test", answer, questionOrder);
                 case Candidate.QuestionTypes.DML:
                     // DML: Insert/Delete/Update Question
-                    return PaperUtils.OthersType(candidate, "Test", answer, questionOrder, dbScript, _builder);
+                    return Grading.OthersType(candidate, "Test", answer, questionOrder);
                 case Candidate.QuestionTypes.Procedure:
                     // Procedure Question
-                    return PaperUtils.OthersType(candidate, "Test", answer, questionOrder, dbScript, _builder);
+                    return Grading.OthersType(candidate, "Test", answer, questionOrder);
                 case Candidate.QuestionTypes.Trigger:
                     // Trigger Question
-                    return PaperUtils.OthersType(candidate, "Test", answer, questionOrder, dbScript, _builder);
+                    return Grading.OthersType(candidate, "Test", answer, questionOrder);
                 default:
                     // Not supported yet
                     throw new Exception("This question type has not been supported yet.");
@@ -83,8 +79,7 @@ namespace DBI202_Creator.Model
                     {
                         AppendVerifyText("Candi " + ++countCandi + ":\n");
 
-                        var result = GradeAnswer(candidate, candidate.Solution, 0,
-                            _questionSet.DBScriptList[1]);
+                        var result = GradeAnswer(candidate, candidate.Solution, 0);
                         AppendVerifyText(result["Comment"]);
                     }
 

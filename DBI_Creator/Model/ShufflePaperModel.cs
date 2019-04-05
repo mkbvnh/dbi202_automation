@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using dbi_grading_module.Entity.Candidate;
+using dbi_grading_module.Entity.Paper;
+using dbi_grading_module.Entity.Question;
 using DBI202_Creator.Commons;
-using DBI_Grading.Model.Candidate;
-using DBI_Grading.Model.Paper;
-using DBI_Grading.Model.Question;
 
 namespace DBI202_Creator.Model
 {
@@ -47,7 +47,7 @@ namespace DBI202_Creator.Model
                 //Adding candidate into a Test
 
                 foreach (var candidateNode in c)
-                    candidateList.Add(candidateNode.Candi);
+                    candidateList.Add(candidateNode.Candidate);
                 var paper = new Paper
                 {
                     PaperNo = (++codeTestCount).ToString(),
@@ -130,7 +130,7 @@ namespace DBI202_Creator.Model
         {
             var child = new CandidateNode
             {
-                Candi = value
+                Candidate = value
             };
             if (pos < quizs.Length)
                 foreach (var candi in QuestionSet.QuestionList.ElementAt(pos).Candidates)

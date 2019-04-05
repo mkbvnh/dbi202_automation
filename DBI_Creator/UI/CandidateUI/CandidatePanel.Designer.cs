@@ -32,15 +32,15 @@
             System.Windows.Forms.Button deleteCandidateBtn;
             this.browseImgBtn = new System.Windows.Forms.Button();
             this.imgLabel = new System.Windows.Forms.Label();
-            this.contentTxt = new System.Windows.Forms.TextBox();
+            this.contentTxt = new System.Windows.Forms.RichTextBox();
             this.contentLabel = new System.Windows.Forms.Label();
             this.questionTypeComboBox = new System.Windows.Forms.ComboBox();
             this.typeLabel = new System.Windows.Forms.Label();
             this.imgPreview = new System.Windows.Forms.LinkLabel();
             this.browseImgDialog = new System.Windows.Forms.OpenFileDialog();
             this.label1 = new System.Windows.Forms.Label();
-            this.solutionTxt = new System.Windows.Forms.TextBox();
-            this.testQueryTxt = new System.Windows.Forms.TextBox();
+            this.solutionTxt = new System.Windows.Forms.RichTextBox();
+            this.testQueryTxt = new System.Windows.Forms.RichTextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.requireSortCheckBox = new System.Windows.Forms.CheckBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -91,11 +91,10 @@
             this.contentTxt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.contentTxt.Location = new System.Drawing.Point(83, 51);
-            this.contentTxt.Multiline = true;
             this.contentTxt.Name = "contentTxt";
-            this.contentTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.contentTxt.Size = new System.Drawing.Size(853, 79);
             this.contentTxt.TabIndex = 22;
+            this.contentTxt.Text = "";
             // 
             // contentLabel
             // 
@@ -156,11 +155,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.solutionTxt.Location = new System.Drawing.Point(83, 169);
-            this.solutionTxt.Multiline = true;
             this.solutionTxt.Name = "solutionTxt";
-            this.solutionTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.solutionTxt.Size = new System.Drawing.Size(853, 113);
             this.solutionTxt.TabIndex = 34;
+            this.solutionTxt.Text = "";
             // 
             // testQueryTxt
             // 
@@ -168,11 +166,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.testQueryTxt.Enabled = false;
             this.testQueryTxt.Location = new System.Drawing.Point(83, 307);
-            this.testQueryTxt.Multiline = true;
             this.testQueryTxt.Name = "testQueryTxt";
-            this.testQueryTxt.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.testQueryTxt.Size = new System.Drawing.Size(719, 136);
             this.testQueryTxt.TabIndex = 35;
+            this.testQueryTxt.Text = "";
             // 
             // label2
             // 
@@ -239,7 +236,7 @@
             this.insertTcBtn.Name = "insertTcBtn";
             this.insertTcBtn.Size = new System.Drawing.Size(115, 23);
             this.insertTcBtn.TabIndex = 46;
-            this.insertTcBtn.Text = "Insert TC";
+            this.insertTcBtn.Text = "Insert Testcase";
             this.insertTcBtn.UseVisualStyleBackColor = true;
             this.insertTcBtn.Click += new System.EventHandler(this.InsertTcBtn_Click);
             // 
@@ -291,15 +288,15 @@
         #endregion
         private System.Windows.Forms.Button browseImgBtn;
         private System.Windows.Forms.Label imgLabel;
-        private System.Windows.Forms.TextBox contentTxt;
+        private System.Windows.Forms.RichTextBox contentTxt;
         private System.Windows.Forms.Label contentLabel;
         private System.Windows.Forms.ComboBox questionTypeComboBox;
         private System.Windows.Forms.Label typeLabel;
         private System.Windows.Forms.LinkLabel imgPreview;
         private System.Windows.Forms.OpenFileDialog browseImgDialog;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox solutionTxt;
-        private System.Windows.Forms.TextBox testQueryTxt;
+        private System.Windows.Forms.RichTextBox solutionTxt;
+        private System.Windows.Forms.RichTextBox testQueryTxt;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox requireSortCheckBox;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using dbi_grading_module.Configuration;
-using dbi_grading_module.Entity.Candidate;
+using dbi_grading_module.Utils;
 using dbi_grading_module.Utils.Base;
 
-namespace dbi_grading_module.Utils
+namespace dbi_grading_module.Entity.Controller
 {
-    internal class CompareUtils
+    internal class CompareController
     {
         /// <summary>
         ///     Compare 2 databases
@@ -24,7 +24,7 @@ namespace dbi_grading_module.Utils
         ///     message error from sqlserver if error
         /// </returns>
         internal static Dictionary<string, string> CompareSchemaType(string dbAnswerName, string dbSolutionName,
-            string dbEmptyName, Candidate candidate, string errorMessage)
+            string dbEmptyName, Candidate.Candidate candidate, string errorMessage)
         {
             //Prepare query
             var compareQuery = "exec sp_CompareDb [" + dbSolutionName + "], [" + dbAnswerName + "]";
@@ -83,11 +83,11 @@ namespace dbi_grading_module.Utils
                     .Where(myRow => myRow.Field<string>("DATABASENAME").Contains("Solution"));
                 var errorsConstraintRows = dtsCompare.Tables[1].AsEnumerable()
                     .Where(myRow => myRow.Field<string>("DATABASENAME").Contains("Solution"));
-                //Sumary point
-                var totalErros = errorsConstraintRows.Count() + errorsConstructureRows.Count();
-                var gradePoint = Math.Round(maxPoint * (numOfComparison - totalErros) / numOfComparison, 4);
-                comment += string.Concat("Correct ", numOfComparison - totalErros, "/", numOfComparison,
-                    " comparison => Point = ", gradePoint, totalErros != 0 ? ", details:" : "", "\n");
+                //Init point
+                var totalErrors = errorsConstraintRows.Count() + errorsConstructureRows.Count();
+                var gradePoint = Math.Round(maxPoint * (numOfComparison - totalErrors) / numOfComparison, 4);
+                comment += string.Concat("Correct ", numOfComparison - totalErrors, "/", numOfComparison,
+                    " comparison => Point = ", gradePoint, totalErrors != 0 ? ", details:" : "", "\n");
 
                 //Details
                 //About constructure
@@ -163,7 +163,7 @@ namespace dbi_grading_module.Utils
         ///     message error from sqlserver if error
         /// </returns>
         internal static Dictionary<string, string> CompareSelectType(string dbAnswerName, string dbSolutionName,
-            string answer, Candidate candidate)
+            string answer, Candidate.Candidate candidate)
         {
             //Running answer query
             var dataTableAnswer = DatabaseConfig.GetDataTableFromReader("USE [" + dbAnswerName + "];\n" + answer + "");
@@ -197,8 +197,8 @@ namespace dbi_grading_module.Utils
             var tcCount = 0;
 
             //Format column name
-            CompareDataTable.LowerCaseColumnName(dataTableAnswer);
-            CompareDataTable.LowerCaseColumnName(dataTableSolution);
+            DataTableBase.LowerCaseColumnName(dataTableAnswer);
+            DataTableBase.LowerCaseColumnName(dataTableSolution);
 
             //STARTING FOR GRADING
             comment += "- Check Data: ";
@@ -230,7 +230,8 @@ namespace dbi_grading_module.Utils
                     {
                         comment += "- Check sort: ";
                         //Compare row by row
-                        if (CompareDataTable.CompareTwoDataTablesByRow(dataTableAnswer.Copy(), dataTableSolution.Copy()))
+                        if (CompareDataTable.CompareTwoDataTablesByRow(dataTableAnswer.Copy(), dataTableSolution.Copy())
+                        )
                         {
                             tcCount++;
                             comment += string.Concat("Passed => +", tcPoint, "\n");
@@ -264,7 +265,12 @@ namespace dbi_grading_module.Utils
             }
             catch (Exception e)
             {
-                throw new Exception(comment + e.Message + " => Point = 0");
+                comment += e.Message + " => Point = 0";
+                return new Dictionary<string, string>
+                {
+                    {"Point", 0.ToString()},
+                    {"Comment", comment}
+                };
             }
 
 
@@ -296,12 +302,12 @@ namespace dbi_grading_module.Utils
         ///     message error from sqlserver if error
         /// </returns>
         internal static Dictionary<string, string> CompareOthersType(string dbAnswerName, string dbSolutionName,
-            Candidate candidate, string errorMessage)
+            Candidate.Candidate candidate, string errorMessage)
         {
             //Get testcases from comment in test query
             var testCases = StringUtils.GetTestCases(candidate.TestQuery, candidate);
 
-            //Commnet
+            //Init comment
             var comment = errorMessage;
             var countTesting = 0;
             var countTrueTc = 0;
@@ -349,7 +355,7 @@ namespace dbi_grading_module.Utils
             }
             catch (Exception e)
             {
-                comment += e.Message +"\n";
+                comment += e.Message + "\n";
             }
 
             comment = string.Concat("Total Point: ", gradePoint, "/", candidate.Point, "\n", comment);

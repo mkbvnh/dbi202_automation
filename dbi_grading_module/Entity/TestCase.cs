@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DBI202_Creator.Model
+namespace dbi_grading_module.Entity
 {
     public class TestCase
     {

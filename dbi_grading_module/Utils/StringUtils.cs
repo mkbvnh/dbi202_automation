@@ -1,15 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using dbi_grading_module.Entity;
 using dbi_grading_module.Entity.Candidate;
-using DBI202_Creator.Model;
+using Microsoft.SqlServer.TransactSql.ScriptDom;
 
 namespace dbi_grading_module.Utils
 {
-    internal class StringUtils
+    public class StringUtils
     {
+        /// <summary>
+        ///     Format query
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public static string FormatSqlCode(string query)
+        {
+            var parser = new TSql110Parser(false);
+            IList<ParseError> errors;
+            var parsedQuery = parser.Parse(new StringReader(query), out errors);
+
+            var generator = new Sql110ScriptGenerator(new SqlScriptGeneratorOptions
+            {
+                KeywordCasing = KeywordCasing.Uppercase,
+                IncludeSemicolons = true,
+                NewLineBeforeFromClause = true,
+                NewLineBeforeOrderByClause = true,
+                NewLineBeforeWhereClause = true,
+                AlignClauseBodies = false
+            });
+            string formattedQuery;
+            generator.GenerateScript(parsedQuery, out formattedQuery);
+            return formattedQuery;
+        }
+
         /// <summary>
         /// </summary>
         /// <param name="input"></param>

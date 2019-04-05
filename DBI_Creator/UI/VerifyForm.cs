@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Configuration;
-using System.Data.SqlClient;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using dbi_grading_module.Configuration;
+using dbi_grading_module.Entity.Question;
 using DBI202_Creator.Model;
-using DBI202_Creator.Utils.Grading.Dao;
-using DBI_Grading.Model.Question;
 
 namespace DBI202_Creator.UI
 {
     public partial class VerifyForm : Form
     {
         private readonly QuestionSet _questionSet;
-        private SqlConnectionStringBuilder _builder;
 
         public VerifyForm(QuestionSet questionSet)
         {
@@ -26,9 +23,21 @@ namespace DBI202_Creator.UI
 
         private void CheckConnectionButton_Click(object sender, EventArgs e)
         {
-            _builder = General.CheckConnection(serverNameTextBox.Text, usernameTextBox.Text, passwordTextBox.Text,
-                "master");
-            if (_builder != null && General.PrepareSpCompareDatabase(_builder))
+            try
+            {
+                DatabaseConfig.CheckConnection(serverNameTextBox.Text, usernameTextBox.Text, passwordTextBox.Text,
+                    "master");
+                ConfigurationManager.AppSettings["serverName"] = serverNameTextBox.Text;
+                ConfigurationManager.AppSettings["username"] = usernameTextBox.Text;
+                ConfigurationManager.AppSettings["password"] = passwordTextBox.Text;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (DatabaseConfig.PrepareSpCompareDatabase())
             {
                 startBtn.Enabled = true;
                 checkConnectionButton.Enabled = false;
@@ -38,28 +47,81 @@ namespace DBI202_Creator.UI
             }
             else
             {
-                MessageBox.Show(this, @"Cannot connect to Sql Server", @"Error");
+                MessageBox.Show(@"Cannot connect to Sql Server", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void StartBtn_Click(object sender, EventArgs e)
         {
             verifyText.Text = "";
-            if (_questionSet.DBScriptList.Count < 2 || string.IsNullOrEmpty(_questionSet.DBScriptList[1]))
+            try
             {
-                MessageBox.Show(this, @"Please add Database Script for Grading", @"Error");
+                QuestionModel.VerifyQuestionSet(_questionSet);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (Regex.Replace(_questionSet.DBScriptList[1], @"\s+", "").ToLower().Contains("createdatabase"))
+            string serverDateTime = null;
+            try
             {
-                MessageBox.Show(this,
-                    @"Database Script for Grading contains CREATE DATABASE\nDatabase for Grading should not contain CREATE DATABASE and USE!!!",
-                    @"Error");
+                //Get server date and time
+                serverDateTime = DatabaseConfig.ExecuteScalarQuery(@"SELECT SYSDATETIME()").ToString();
+                DatabaseConfig.ExecuteSingleQuery(_questionSet.DBScriptList[0], "master");
+                DatabaseConfig.DropAllDatabaseCreated(serverDateTime);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($@"Error at DBScript for Student: {exception.Message}", @"Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
                 return;
             }
+            finally
+            {
+                if (!string.IsNullOrEmpty(serverDateTime))
+                    try
+                    {
+                        DatabaseConfig.DropAllDatabaseCreated(serverDateTime);
+                    }
+                    catch
+                    {
+                        //ignored
+                    }
+            }
 
-            var result = new Result(_questionSet, _builder, this);
+            var dbName = $"CheckDB{new Random().Next()}";
+            try
+            {
+                //Get server date and time
+                var query = "CREATE DATABASE [" + dbName + "]\n" +
+                            "GO\n" +
+                            "USE " + "[" + dbName + "]\n" + _questionSet.DBScriptList[1] + "";
+                serverDateTime = DatabaseConfig.ExecuteScalarQuery(@"SELECT SYSDATETIME()").ToString();
+                DatabaseConfig.ExecuteSingleQuery(query, "master");
+                DatabaseConfig.DropAllDatabaseCreated(serverDateTime);
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show($@"Error at DBScript for Teacher: {exception.Message}", @"Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
+            finally
+            {
+                if (!string.IsNullOrEmpty(serverDateTime))
+                    try
+                    {
+                        DatabaseConfig.DropAllDatabaseCreated(serverDateTime);
+                    }
+                    catch
+                    {
+                        //ignored
+                    }
+            }
+
+            var result = new Result(_questionSet, this);
             var getPointThread = new Thread(result.GetPoint);
             getPointThread.Start();
         }

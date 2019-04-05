@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using DBI_Grading.Model.Candidate;
-using DBI_Grading.Model.Paper;
+using dbi_grading_module.Entity.Candidate;
+using dbi_grading_module.Entity.Paper;
 
 namespace DBI202_Creator.Commons
 {
@@ -33,13 +33,6 @@ namespace DBI202_Creator.Commons
             public const string TRIGGER = "Trigger";
             public const string SCHEMA = "Schema";
             public const string DML = "Insert Delete Update";
-        }
-
-        public class RequirementType
-        {
-            public const string RESULT_SET = "Result Set";
-            public const string EFFECT = "Effect";
-            public const string PARAMETER = "Parameter";
         }
 
         public class Size
