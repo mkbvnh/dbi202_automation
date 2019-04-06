@@ -171,9 +171,17 @@ namespace dbi_grading_module.Configuration
         /// </returns>
         internal static bool DropDatabase(string dbName)
         {
-            var dropQuery = "DROP DATABASE [" + dbName + "]";
-            ExecuteSingleQuery(dropQuery, "master");
-            return true;
+            try
+            {
+                var dropQuery = "DROP DATABASE [" + dbName + "]";
+                ExecuteSingleQuery(dropQuery, "master");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            
         }
 
         public static SqlConnectionStringBuilder CheckConnection(string dataSource, string userId, string password,

@@ -46,7 +46,7 @@ namespace dbi_grading_module.Utils
             //Rotate table
             var rotateTableTq = DataTableBase.RotateTable(distinctTableTq);
             var rotateTableAnswer = DataTableBase.RotateTable(distinctTableAnswer);
-            return DataTableBase.CompareTwoDataTablesByExceptOneDirection(rotateTableAnswer, rotateTableTq);
+            return DataTableBase.CompareTwoDataTablesByExceptOneDirection(rotateTableTq, rotateTableAnswer);
         }
 
         /// <summary>

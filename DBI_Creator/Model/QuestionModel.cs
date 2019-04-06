@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using dbi_grading_module.Entity.Question;
 
 namespace DBI202_Creator.Model
@@ -9,7 +10,25 @@ namespace DBI202_Creator.Model
         {
             //Validate Total point
             decimal totalPoint = 0;
-            foreach (var question in questionSet.QuestionList) totalPoint += question.Point;
+            if (questionSet.QuestionList.Count == 0)
+            {
+                throw new Exception($"Please add question!!!");
+            }
+            if (questionSet.QuestionList.Count == 0)
+            {
+                throw new Exception($"Please add question!!!");
+            }
+
+            int countQuestion = 0;
+            foreach (var question in questionSet.QuestionList)
+            {
+                countQuestion++;
+                if (question.Candidates.Count == 0)
+                {
+                    throw new Exception($"Please add candidate into question {countQuestion} !!!");
+                }
+                totalPoint += question.Point;
+            }
             if (totalPoint < 10) throw new Exception($"Total Point must equal 10 (Current Point: {totalPoint})");
 
             //Validate DBScript

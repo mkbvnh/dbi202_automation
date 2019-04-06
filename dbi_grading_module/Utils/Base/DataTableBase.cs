@@ -60,13 +60,13 @@ namespace dbi_grading_module.Utils.Base
 
         /// <summary>
         /// </summary>
-        /// <param name="dataTableAnswer"></param>
-        /// <param name="dataTableSolution"></param>
+        /// <param name="table1"></param>
+        /// <param name="table2"></param>
         /// <returns></returns>
-        internal static bool CompareTwoDataTablesByExceptOneDirection(DataTable dataTableAnswer,
-            DataTable dataTableSolution)
+        internal static bool CompareTwoDataTablesByExceptOneDirection(DataTable table1,
+            DataTable table2)
         {
-            return !dataTableAnswer.AsEnumerable().Except(dataTableSolution.AsEnumerable(), DataRowComparer.Default)
+            return !table1.AsEnumerable().Except(table2.AsEnumerable(), DataRowComparer.Default)
                 .Any();
         }
 

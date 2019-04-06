@@ -4,17 +4,14 @@ using System.Data.SqlClient;
 using dbi_grading_module.Configuration;
 using dbi_grading_module.Entity.Candidate;
 using dbi_grading_module.Entity.Controller;
-using dbi_grading_module.Entity.Paper;
 using dbi_grading_module.Utils;
 
 namespace dbi_grading_module
 {
     public static class Grading
     {
-        public static PaperSet PaperSet;
-
         //Configure SQL
-        public static int TimeOutInSecond = 10;
+        public static int TimeOutInSecond = 1000;
 
         public static int MaxConnectionPoolSize = 100;
 
@@ -101,7 +98,7 @@ namespace dbi_grading_module
         ///     When something's wrong, throw exception to log error
         /// </exception>
         public static Dictionary<string, string> SelectType(Candidate candidate, string studentId, string answer,
-            int questionOrder)
+            int questionOrder, string dbScript)
         {
             var dbSolutionName = studentId.Replace(" ", "") + questionOrder + "_Solution" + "_" + new Random().Next();
             var dbAnswerName = studentId.Replace(" ", "") + questionOrder + "_Answer" + "_" + new Random().Next();
@@ -109,7 +106,7 @@ namespace dbi_grading_module
             try
             {
                 //Generate 2 new DB for student's answer and solution
-                DatabaseConfig.GenerateDatabase(dbSolutionName, dbAnswerName, PaperSet.DBScriptList[1]);
+                DatabaseConfig.GenerateDatabase(dbSolutionName, dbAnswerName, dbScript);
                 //Compare
                 return ThreadUtils.WithTimeout(
                     () => CompareController.CompareSelectType(dbAnswerName, dbSolutionName, answer, candidate),
@@ -135,13 +132,13 @@ namespace dbi_grading_module
         ///     When something's wrong, throw exception to log
         /// </exception>
         public static Dictionary<string, string> OthersType(Candidate candidate, string studentId,
-            string answer, int questionOrder)
+            string answer, int questionOrder, string dbScript)
         {
             var dbSolutionName = studentId.Replace(" ", "") + questionOrder + "_Solution" + "_" + new Random().Next();
             var dbAnswerName = studentId.Replace(" ", "") + questionOrder + "_Answer" + "_" + new Random().Next();
 
             //Generate 2 new DB for student's answer and solution
-            DatabaseConfig.GenerateDatabase(dbSolutionName, dbAnswerName, PaperSet.DBScriptList[1]);
+            DatabaseConfig.GenerateDatabase(dbSolutionName, dbAnswerName, dbScript);
             try
             {
                 var errorMessage = "";

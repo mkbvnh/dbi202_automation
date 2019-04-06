@@ -35,21 +35,6 @@ namespace DBI202_Creator.Commons
             };
         }
 
-        public class AuthenticationType
-        {
-            public const string WINDOWS_AUTHENTICATION = "Windows Authentication";
-            public const string SQL_SERVER_AUTHENTICATION = "SQL Server Authentication";
-        }
-
-        public static Dictionary<string, string> AuthenticationTypes()
-        {
-            return new Dictionary<string, string>
-            {
-                { AuthenticationType.WINDOWS_AUTHENTICATION, AuthenticationType.WINDOWS_AUTHENTICATION },
-                { AuthenticationType.SQL_SERVER_AUTHENTICATION, AuthenticationType.SQL_SERVER_AUTHENTICATION }
-            };
-        }
-
         public class Size
         {
             public const int IMAGE_WIDTH = 669;

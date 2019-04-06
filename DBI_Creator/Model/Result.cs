@@ -47,16 +47,16 @@ namespace DBI202_Creator.Model
                     return Grading.SchemaType(candidate, "Test", answer, questionOrder);
                 case Candidate.QuestionTypes.Select:
                     //Select Question
-                    return Grading.SelectType(candidate, "Test", answer, questionOrder);
+                    return Grading.SelectType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
                 case Candidate.QuestionTypes.DML:
                     // DML: Insert/Delete/Update Question
-                    return Grading.OthersType(candidate, "Test", answer, questionOrder);
+                    return Grading.OthersType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
                 case Candidate.QuestionTypes.Procedure:
                     // Procedure Question
-                    return Grading.OthersType(candidate, "Test", answer, questionOrder);
+                    return Grading.OthersType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
                 case Candidate.QuestionTypes.Trigger:
                     // Trigger Question
-                    return Grading.OthersType(candidate, "Test", answer, questionOrder);
+                    return Grading.OthersType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
                 default:
                     // Not supported yet
                     throw new Exception("This question type has not been supported yet.");
@@ -89,7 +89,6 @@ namespace DBI202_Creator.Model
             }
             catch (Exception e)
             {
-                MessageBox.Show(_parentForm, e.Message, @"Error");
                 AppendVerifyText(@"Error: " + e.Message);
             }
         }
