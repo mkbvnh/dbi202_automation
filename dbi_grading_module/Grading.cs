@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using dbi_grading_module.Configuration;
+using dbi_grading_module.Controller;
 using dbi_grading_module.Entity.Candidate;
-using dbi_grading_module.Entity.Controller;
 using dbi_grading_module.Utils;
 
 namespace dbi_grading_module
@@ -14,6 +14,9 @@ namespace dbi_grading_module
         public static int TimeOutInSecond = 1000;
 
         public static int MaxConnectionPoolSize = 100;
+
+        //Configure Point for Schema
+        public static double RateStructure = 0.5;
 
         // This will be configured in DatabaseConfig.cs when user check connection to sql.
         public static SqlConnectionStringBuilder SqlConnectionStringBuilder;

@@ -70,9 +70,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Entity\Controller\CompareController.cs" />
+    <Compile Include="Controller\CompareController.cs" />
     <Compile Include="Utils\Base\DataTableBase.cs" />
-    <Compile Include="Utils\DataTableUtils.cs" />
+    <Compile Include="Utils\CompareDataTableUtils.cs" />
     <Compile Include="Configuration\DatabaseConfig.cs" />
     <Compile Include="Grading.cs" />
     <Compile Include="Utils\StringUtils.cs" />

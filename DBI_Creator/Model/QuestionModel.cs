@@ -10,7 +10,6 @@ namespace DBI202_Creator.Model
             //Validate Total point
             decimal totalPoint = 0;
             if (questionSet.QuestionList.Count == 0) throw new Exception("Please add question!!!");
-            if (questionSet.QuestionList.Count == 0) throw new Exception("Please add question!!!");
 
             var countQuestion = 0;
             foreach (var question in questionSet.QuestionList)

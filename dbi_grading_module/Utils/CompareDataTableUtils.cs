@@ -7,7 +7,7 @@ using dbi_grading_module.Utils.Base;
 
 namespace dbi_grading_module.Utils
 {
-    internal class CompareDataTable
+    internal class CompareDataTableUtils
     {
         /// <summary>
         ///     Check data

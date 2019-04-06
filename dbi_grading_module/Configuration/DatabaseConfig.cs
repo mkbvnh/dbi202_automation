@@ -27,7 +27,7 @@ namespace dbi_grading_module.Configuration
                 connection.Open();
                 using (var command = new SqlCommand(query, connection))
                 {
-                    return (int) command.ExecuteScalar();
+                    return (int)command.ExecuteScalar();
                 }
             }
         }
@@ -231,6 +231,11 @@ namespace dbi_grading_module.Configuration
             }
         }
 
+        /// <summary>
+        ///     Drop all database has been created after {afterTime}
+        /// </summary>
+        /// <param name="afterTime">time start</param>
+        /// <returns></returns>
         public static bool DropAllDatabaseCreated(string afterTime)
         {
             var databases = new List<string>();
@@ -265,6 +270,20 @@ namespace dbi_grading_module.Configuration
                 using (var sqlCommand = new SqlCommand(query, connection))
                 {
                     return sqlCommand.ExecuteScalar();
+                }
+            }
+        }
+
+        internal static DataTable ExecuteQueryReader(string query)
+        {
+            using (var connection = new SqlConnection(Grading.SqlConnectionStringBuilder.ConnectionString))
+            {
+                connection.Open();
+                using (var sqlCommand = new SqlCommand(query, connection))
+                {
+                    DataTable dt = new DataTable();
+                    dt.Load(sqlCommand.ExecuteReader());
+                    return dt;
                 }
             }
         }

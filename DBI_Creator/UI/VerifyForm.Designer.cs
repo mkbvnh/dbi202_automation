@@ -52,6 +52,7 @@
             this.verifyText.Size = new System.Drawing.Size(514, 338);
             this.verifyText.TabIndex = 0;
             this.verifyText.Text = "";
+            this.verifyText.TextChanged += new System.EventHandler(this.VerifyText_TextChanged);
             // 
             // checkConnectionButton
             // 

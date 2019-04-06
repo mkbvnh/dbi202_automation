@@ -127,5 +127,13 @@ namespace DBI202_Creator.UI
             var getPointThread = new Thread(result.GetPoint);
             getPointThread.Start();
         }
+
+        private void VerifyText_TextChanged(object sender, EventArgs e)
+        {
+            // set the current caret position to the end
+            verifyText.SelectionStart = verifyText.Text.Length;
+            // scroll it automatically
+            verifyText.ScrollToCaret();
+        }
     }
 }
