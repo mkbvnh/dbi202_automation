@@ -37,6 +37,8 @@
             this.serverNameTextBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.startBtn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.authenticationComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // verifyText
@@ -76,7 +78,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(12, 104);
+            this.label9.Location = new System.Drawing.Point(12, 102);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(104, 15);
             this.label9.TabIndex = 48;
@@ -85,7 +87,7 @@
             // usernameTextBox
             // 
             this.usernameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.usernameTextBox.Location = new System.Drawing.Point(135, 73);
+            this.usernameTextBox.Location = new System.Drawing.Point(135, 70);
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(255, 20);
             this.usernameTextBox.TabIndex = 43;
@@ -95,7 +97,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(12, 75);
+            this.label8.Location = new System.Drawing.Point(12, 71);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(108, 15);
             this.label8.TabIndex = 47;
@@ -104,7 +106,7 @@
             // serverNameTextBox
             // 
             this.serverNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.serverNameTextBox.Location = new System.Drawing.Point(135, 45);
+            this.serverNameTextBox.Location = new System.Drawing.Point(135, 40);
             this.serverNameTextBox.Name = "serverNameTextBox";
             this.serverNameTextBox.Size = new System.Drawing.Size(255, 20);
             this.serverNameTextBox.TabIndex = 42;
@@ -114,7 +116,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(12, 46);
+            this.label6.Location = new System.Drawing.Point(12, 40);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(79, 15);
             this.label6.TabIndex = 46;
@@ -133,11 +135,33 @@
             this.startBtn.UseVisualStyleBackColor = true;
             this.startBtn.Click += new System.EventHandler(this.StartBtn_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(84, 15);
+            this.label1.TabIndex = 50;
+            this.label1.Text = "Authentication";
+            // 
+            // authenticationComboBox
+            // 
+            this.authenticationComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.authenticationComboBox.FormattingEnabled = true;
+            this.authenticationComboBox.Location = new System.Drawing.Point(135, 8);
+            this.authenticationComboBox.Name = "authenticationComboBox";
+            this.authenticationComboBox.Size = new System.Drawing.Size(255, 21);
+            this.authenticationComboBox.TabIndex = 51;
+            this.authenticationComboBox.SelectedIndexChanged += new System.EventHandler(this.authenticationComboBox_SelectedIndexChanged);
+            // 
             // VerifyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(539, 450);
+            this.Controls.Add(this.authenticationComboBox);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.checkConnectionButton);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.label9);
@@ -165,5 +189,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button startBtn;
         internal System.Windows.Forms.RichTextBox verifyText;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox authenticationComboBox;
     }
 }

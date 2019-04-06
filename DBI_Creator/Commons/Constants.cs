@@ -14,6 +14,15 @@ namespace DBI202_Creator.Commons
         public static int MaxThreadPoolSize = 1;
         public static int MaxConnectionPoolSize = 100;
 
+        public class QuestionType
+        {
+            public const string SELECT = "Select Query";
+            public const string PROCUDURE = "Procedure";
+            public const string TRIGGER = "Trigger";
+            public const string SCHEMA = "Schema";
+            public const string DML = "Insert Delete Update";
+        }
+
         public static Dictionary<string, Candidate.QuestionTypes> QuestionTypes()
         {
             return new Dictionary<string, Candidate.QuestionTypes>
@@ -26,13 +35,19 @@ namespace DBI202_Creator.Commons
             };
         }
 
-        public class QuestionType
+        public class AuthenticationType
         {
-            public const string SELECT = "Select Query";
-            public const string PROCUDURE = "Procedure";
-            public const string TRIGGER = "Trigger";
-            public const string SCHEMA = "Schema";
-            public const string DML = "Insert Delete Update";
+            public const string WINDOWS_AUTHENTICATION = "Windows Authentication";
+            public const string SQL_SERVER_AUTHENTICATION = "SQL Server Authentication";
+        }
+
+        public static Dictionary<string, string> AuthenticationTypes()
+        {
+            return new Dictionary<string, string>
+            {
+                { AuthenticationType.WINDOWS_AUTHENTICATION, AuthenticationType.WINDOWS_AUTHENTICATION },
+                { AuthenticationType.SQL_SERVER_AUTHENTICATION, AuthenticationType.SQL_SERVER_AUTHENTICATION }
+            };
         }
 
         public class Size

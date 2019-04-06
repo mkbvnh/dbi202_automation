@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using dbi_grading_module.Configuration;
 using dbi_grading_module.Entity.Question;
 using DBI202_Creator.Model;
+using DBI202_Creator.Commons;
 
 namespace DBI202_Creator.UI
 {
@@ -19,6 +20,12 @@ namespace DBI202_Creator.UI
             serverNameTextBox.Text = ConfigurationManager.AppSettings["serverName"];
             usernameTextBox.Text = ConfigurationManager.AppSettings["username"];
             passwordTextBox.Text = ConfigurationManager.AppSettings["password"];
+
+            authenticationComboBox.DataSource = new BindingSource(Constants.AuthenticationTypes(), null);
+            authenticationComboBox.DisplayMember = "Key";
+            authenticationComboBox.ValueMember = "Value";
+            //authenticationComboBox.SelectedValue = ConfigurationManager.AppSettings["authentication"];
+            authenticationComboBox_SelectedIndexChanged(null, null);
         }
 
         private void CheckConnectionButton_Click(object sender, EventArgs e)
@@ -124,6 +131,20 @@ namespace DBI202_Creator.UI
             var result = new Result(_questionSet, this);
             var getPointThread = new Thread(result.GetPoint);
             getPointThread.Start();
+        }
+
+        private void authenticationComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (authenticationComboBox.SelectedValue.ToString())
+            {
+                case Constants.AuthenticationType.WINDOWS_AUTHENTICATION:
+                    usernameTextBox.Enabled = passwordTextBox.Enabled = false;
+                    break;
+                case Constants.AuthenticationType.SQL_SERVER_AUTHENTICATION:
+                    usernameTextBox.Enabled = passwordTextBox.Enabled = true;
+                    break;
+            }
+            ConfigurationManager.AppSettings["authentication"] = authenticationComboBox.SelectedValue.ToString();
         }
     }
 }
