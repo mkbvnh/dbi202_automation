@@ -24,7 +24,7 @@ namespace DBI202_Creator.UI
             authenticationComboBox.DataSource = new BindingSource(Constants.AuthenticationTypes(), null);
             authenticationComboBox.DisplayMember = "Key";
             authenticationComboBox.ValueMember = "Value";
-            authenticationComboBox.SelectedValue = ConfigurationManager.AppSettings["authentication"];
+            //authenticationComboBox.SelectedValue = ConfigurationManager.AppSettings["authentication"];
             authenticationComboBox_SelectedIndexChanged(null, null);
         }
 
@@ -34,16 +34,9 @@ namespace DBI202_Creator.UI
             {
                 DatabaseConfig.CheckConnection(serverNameTextBox.Text, usernameTextBox.Text, passwordTextBox.Text,
                     "master");
-                //ConfigurationManager.AppSettings["serverName"] = serverNameTextBox.Text;
-                //ConfigurationManager.AppSettings["username"] = usernameTextBox.Text;
-                //ConfigurationManager.AppSettings["password"] = passwordTextBox.Text;
-
-                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                config.AppSettings.Settings["authentication"].Value = authenticationComboBox.SelectedValue.ToString();
-                config.AppSettings.Settings["serverName"].Value = serverNameTextBox.Text;
-                config.AppSettings.Settings["username"].Value = usernameTextBox.Text;
-                config.AppSettings.Settings["password"].Value = passwordTextBox.Text;
-                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.AppSettings["serverName"] = serverNameTextBox.Text;
+                ConfigurationManager.AppSettings["username"] = usernameTextBox.Text;
+                ConfigurationManager.AppSettings["password"] = passwordTextBox.Text;
             }
             catch (Exception exception)
             {
@@ -146,14 +139,12 @@ namespace DBI202_Creator.UI
             {
                 case Constants.AuthenticationType.WINDOWS_AUTHENTICATION:
                     usernameTextBox.Enabled = passwordTextBox.Enabled = false;
-                    usernameTextBox.Text = passwordTextBox.Text = "";
                     break;
                 case Constants.AuthenticationType.SQL_SERVER_AUTHENTICATION:
                     usernameTextBox.Enabled = passwordTextBox.Enabled = true;
-                    usernameTextBox.Text = ConfigurationManager.AppSettings["username"];
-                    passwordTextBox.Text = ConfigurationManager.AppSettings["password"];
                     break;
             }
+            ConfigurationManager.AppSettings["authentication"] = authenticationComboBox.SelectedValue.ToString();
         }
     }
 }
