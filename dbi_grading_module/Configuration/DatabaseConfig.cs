@@ -181,7 +181,6 @@ namespace dbi_grading_module.Configuration
             {
                 return false;
             }
-            
         }
 
         public static SqlConnectionStringBuilder CheckConnection(string dataSource, string userId, string password,

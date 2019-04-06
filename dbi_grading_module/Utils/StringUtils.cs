@@ -55,10 +55,7 @@ namespace dbi_grading_module.Utils
             }
 
             output = output.Trim();
-            if (output.ToLower().EndsWith(oldValue))
-            {
-                output = output.Substring(0, output.Length - 2);
-            }
+            if (output.ToLower().EndsWith(oldValue)) output = output.Substring(0, output.Length - 2);
             return output;
         }
 

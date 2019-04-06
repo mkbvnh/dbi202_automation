@@ -2,11 +2,9 @@
 using System.Configuration;
 using System.Threading;
 using System.Windows.Forms;
-using dbi_grading_module;
 using dbi_grading_module.Configuration;
 using dbi_grading_module.Entity.Question;
 using DBI202_Creator.Model;
-using DBI202_Creator.Commons;
 
 namespace DBI202_Creator.UI
 {

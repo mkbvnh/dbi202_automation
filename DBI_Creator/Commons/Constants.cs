@@ -14,15 +14,6 @@ namespace DBI202_Creator.Commons
         public static int MaxThreadPoolSize = 1;
         public static int MaxConnectionPoolSize = 100;
 
-        public class QuestionType
-        {
-            public const string SELECT = "Select Query";
-            public const string PROCUDURE = "Procedure";
-            public const string TRIGGER = "Trigger";
-            public const string SCHEMA = "Schema";
-            public const string DML = "Insert Delete Update";
-        }
-
         public static Dictionary<string, Candidate.QuestionTypes> QuestionTypes()
         {
             return new Dictionary<string, Candidate.QuestionTypes>
@@ -33,6 +24,15 @@ namespace DBI202_Creator.Commons
                 {QuestionType.SCHEMA, Candidate.QuestionTypes.Schema},
                 {QuestionType.DML, Candidate.QuestionTypes.DML}
             };
+        }
+
+        public class QuestionType
+        {
+            public const string SELECT = "Select Query";
+            public const string PROCUDURE = "Procedure";
+            public const string TRIGGER = "Trigger";
+            public const string SCHEMA = "Schema";
+            public const string DML = "Insert Delete Update";
         }
 
         public class Size
