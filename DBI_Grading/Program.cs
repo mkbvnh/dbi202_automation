@@ -14,7 +14,7 @@ namespace DBI_Grading
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ImportMaterial());
+            Application.Run(new ImportForm());
         }
     }
 }

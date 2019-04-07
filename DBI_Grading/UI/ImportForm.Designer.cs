@@ -1,9 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace DBI_Grading.UI
 {
-    partial class ImportMaterial
+    partial class ImportForm
     {
         /// <summary>
         /// Required designer variable.
@@ -154,7 +155,7 @@ namespace DBI_Grading.UI
             this.checkConnectionButton.TabIndex = 40;
             this.checkConnectionButton.Text = "Check Connection";
             this.checkConnectionButton.UseVisualStyleBackColor = true;
-            this.checkConnectionButton.Click += new System.EventHandler(this.CheckConnectionButton_Click);
+            this.checkConnectionButton.Click += new EventHandler(this.CheckConnectionButton_Click);
             // 
             // passwordTextBox
             // 

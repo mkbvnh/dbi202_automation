@@ -11,7 +11,7 @@ namespace dbi_grading_module
     public static class Grading
     {
         //Configure SQL
-        public static int TimeOutInSecond = 1000;
+        public static int TimeOutInSecond;
 
         public static int MaxConnectionPoolSize = 100;
 
@@ -134,7 +134,7 @@ namespace dbi_grading_module
         /// <exception cref="Exception">
         ///     When something's wrong, throw exception to log
         /// </exception>
-        public static Dictionary<string, string> OthersType(Candidate candidate, string studentId,
+        public static Dictionary<string, string> DmlSpTriggerType(Candidate candidate, string studentId,
             string answer, int questionOrder, string dbScript)
         {
             var dbSolutionName = studentId.Replace(" ", "") + questionOrder + "_Solution" + "_" + new Random().Next();

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace DBI_Grading.UI
 {
-    partial class Grading
+    partial class GradingForm
     {
         /// <summary>
         /// Required designer variable.

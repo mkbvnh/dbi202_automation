@@ -119,7 +119,7 @@ namespace DBI_Grading.Utils
                 sheetDetail.Cells[lastRow, 3] = result.StudentId;
 
                 var comment = "";
-                for (var i = 0; i < result.ListCandidates.Count; i++)
+                for (var i = 0; i < result.ListAnswers.Count; i++)
                 {
                     comment = string.Concat(comment, "[QN=", i + 1, ", Mark=", result.Points[i], "] => ");
 
@@ -127,7 +127,7 @@ namespace DBI_Grading.Utils
                         comment = string.Concat(comment, result.Logs[i], "\n");
                     if (!string.IsNullOrEmpty(result.ListAnswers.ElementAt(i).Trim()))
                         sheetDetail.Cells[lastRow, i + 5] = string.Concat(
-                            result.ListCandidates.ElementAt(i).QuestionRequirement,
+                            result.ListRequirement.ElementAt(i),
                             "\nAnswer:\n", result.ListAnswers.ElementAt(i));
                     else
                         sheetDetail.Cells[lastRow, i + 5] = "Empty Answer";

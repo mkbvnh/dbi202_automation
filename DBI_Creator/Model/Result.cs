@@ -49,13 +49,13 @@ namespace DBI202_Creator.Model
                     return Grading.SelectType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
                 case Candidate.QuestionTypes.DML:
                     // DML: Insert/Delete/Update Question
-                    return Grading.OthersType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
+                    return Grading.DmlSpTriggerType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
                 case Candidate.QuestionTypes.Procedure:
                     // Procedure Question
-                    return Grading.OthersType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
+                    return Grading.DmlSpTriggerType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
                 case Candidate.QuestionTypes.Trigger:
                     // Trigger Question
-                    return Grading.OthersType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
+                    return Grading.DmlSpTriggerType(candidate, "Test", answer, questionOrder, _questionSet.DBScriptList[1]);
                 default:
                     // Not supported yet
                     throw new Exception("This question type has not been supported yet.");

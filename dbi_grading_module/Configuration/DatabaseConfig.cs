@@ -27,7 +27,7 @@ namespace dbi_grading_module.Configuration
                 connection.Open();
                 using (var command = new SqlCommand(query, connection))
                 {
-                    return (int)command.ExecuteScalar();
+                    return (int) command.ExecuteScalar();
                 }
             }
         }
@@ -193,7 +193,6 @@ namespace dbi_grading_module.Configuration
                 UserID = userId,
                 Password = password,
                 InitialCatalog = initialCatalog,
-                MinPoolSize = Grading.MaxConnectionPoolSize,
                 MaxPoolSize = Grading.MaxConnectionPoolSize,
                 ConnectTimeout = Grading.TimeOutInSecond
             };
@@ -281,7 +280,7 @@ namespace dbi_grading_module.Configuration
                 connection.Open();
                 using (var sqlCommand = new SqlCommand(query, connection))
                 {
-                    DataTable dt = new DataTable();
+                    var dt = new DataTable();
                     dt.Load(sqlCommand.ExecuteReader());
                     return dt;
                 }

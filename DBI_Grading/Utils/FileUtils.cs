@@ -48,7 +48,7 @@ namespace DBI_Grading.Utils
             // a .DAT file was selected, take the local path of it.  
             if (ofd.ShowDialog() == DialogResult.OK)
                 return ofd.FileName;
-            throw new Exception("No file was found");
+            return null;
         }
 
 
@@ -72,7 +72,7 @@ namespace DBI_Grading.Utils
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     //Get Files in folder
                     return fbd.SelectedPath;
-                throw new Exception("No folder was found");
+                return null;
             }
         }
     }

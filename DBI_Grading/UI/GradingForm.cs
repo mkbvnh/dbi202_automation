@@ -3,65 +3,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using dbi_grading_module.Configuration;
+using dbi_grading_module.Entity.Paper;
 using DBI_Grading.Common;
 using DBI_Grading.Model;
 using DBI_Grading.Utils;
-using DBI_Grading.Utils.Dao;
 
 namespace DBI_Grading.UI
 {
-    public partial class Grading : Form
+    public partial class GradingForm : Form
     {
         private readonly List<Submission> _listSubmissions;
+        private readonly PaperSet _paperSet;
         private readonly string _serverDateTime;
         private int _count;
         private bool _scored;
 
-        public Grading(List<Submission> submisstions)
+
+        public GradingForm(List<Submission> submissions, PaperSet paperSet)
         {
             InitializeComponent();
             try
             {
                 //Get server date and time
-                _serverDateTime = General.ExecuteScalarQuery(@"SELECT SYSDATETIME()").ToString();
+                _serverDateTime = DatabaseConfig.ExecuteScalarQuery(@"SELECT SYSDATETIME()").ToString();
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                //cannot run only if cannot connect to the server, then everything will stop here
+                //Cannot connect to the server, then everything will stop here
             }
 
+            //Set PaperSet
+            _paperSet = paperSet;
 
             // Show Scoring Form and generate Score here
-            _listSubmissions = submisstions;
+            _listSubmissions = submissions;
             ListResults = new List<Result>();
             //Prepare();
             SetupUi();
 
             // Merge Question and submission to ListResults
-            foreach (var submission in submisstions)
+            foreach (var submission in submissions)
             {
-                var result = new Result
+                var result = new Result(_paperSet, submission)
                 {
                     // Add PaperNo
                     PaperNo = submission.PaperNo,
                     // Add StudentID
                     StudentId = submission.StudentId
                 };
-
-                // Add Answers
-                foreach (var answer in submission.ListAnswer)
-                    result.ListAnswers.Add(answer);
-
-                // Add Candidates
-                foreach (var paper in Constant.PaperSet.Papers)
-                    if (paper.PaperNo.Equals(result.PaperNo))
-                    {
-                        foreach (var candidate in paper.CandidateSet)
-                            result.ListCandidates.Add(candidate);
-                        break;
-                    }
-
                 // Add to List to get score
                 ListResults.Add(result);
             }
@@ -71,6 +62,7 @@ namespace DBI_Grading.UI
         }
 
         private List<Result> ListResults { get; }
+
 
         private void SetupUi()
         {
@@ -95,7 +87,7 @@ namespace DBI_Grading.UI
                 SortMode = DataGridViewColumnSortMode.NotSortable
             });
             // Initialize and add a text box column for score of each answer
-            for (var i = 0; i < Constant.PaperSet.QuestionSet.QuestionList.Count; i++)
+            for (var i = 0; i < _paperSet.QuestionSet.QuestionList.Count; i++)
                 scoreGridView.Columns.Add(new DataGridViewTextBoxColumn
                 {
                     Name = "Question " + (i + 1),
@@ -153,7 +145,7 @@ namespace DBI_Grading.UI
             scoreGridView.Invoke((MethodInvoker) (() =>
             {
                 scoreGridView.Rows[input.Row].Cells[2].Value = input.Result.SumOfPoint();
-                for (var questionOrder = 0; questionOrder < input.Result.ListCandidates.Count; questionOrder++)
+                for (var questionOrder = 0; questionOrder < input.Result.Paper.CandidateSet.Count; questionOrder++)
                     scoreGridView.Rows[input.Row].Cells[3 + questionOrder].Value =
                         input.Result.Points[questionOrder].ToString();
             }));
@@ -169,7 +161,7 @@ namespace DBI_Grading.UI
             if (_count == ListResults.Count)
             {
                 //drop any database has created after grading
-                General.DropAllDatabaseCreated(_serverDateTime);
+                DatabaseConfig.DropAllDatabaseCreated(_serverDateTime);
 
                 //Enable export button
                 exportButton.Invoke((MethodInvoker) (() => { exportButton.Enabled = true; }));
@@ -186,10 +178,9 @@ namespace DBI_Grading.UI
             try
             {
                 double maxPoint = 0;
-                foreach (var candidate in ListResults.ElementAt(0).ListCandidates)
-                    maxPoint += candidate.Point;
+                foreach (var candidate in _paperSet.Papers[0].CandidateSet) maxPoint += candidate.Point;
                 ExcelUtils.ExportResultsExcel(ListResults, _listSubmissions, maxPoint,
-                    ListResults.ElementAt(0).ListCandidates.Count);
+                    _paperSet.Papers[0].CandidateSet.Count);
             }
             catch (Exception ex)
             {

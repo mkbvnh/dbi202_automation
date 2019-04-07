@@ -7,19 +7,20 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using DBI_Grading.Common;
+using dbi_grading_module;
+using dbi_grading_module.Configuration;
+using dbi_grading_module.Entity.Paper;
 using DBI_Grading.Model;
-using DBI_Grading.Model.Paper;
 using DBI_Grading.Utils;
-using DBI_Grading.Utils.Dao;
 
 namespace DBI_Grading.UI
 {
-    public partial class ImportMaterial : Form
+    public partial class ImportForm : Form
     {
-        private List<Submission> _listsubmissions;
+        private PaperSet _paperSet;
+        private List<Submission> _submissions;
 
-        public ImportMaterial()
+        public ImportForm()
         {
             InitializeComponent();
             // Get sql connection information from App.config
@@ -29,7 +30,7 @@ namespace DBI_Grading.UI
                 passwordTextBox.Text = ConfigurationManager.AppSettings["password"];
                 serverNameTextBox.Text = ConfigurationManager.AppSettings["serverName"];
                 initialCatalogTextBox.Text = ConfigurationManager.AppSettings["initialCatalog"];
-                Constant.TimeOutInSecond = int.Parse(ConfigurationManager.AppSettings["timeOutInSecond"]);
+                Grading.TimeOutInSecond = int.Parse(ConfigurationManager.AppSettings["timeOutInSecond"]);
             }
             catch (Exception e)
             {
@@ -37,9 +38,6 @@ namespace DBI_Grading.UI
                     MessageBoxIcon.Error);
                 Application.Exit();
             }
-
-            // Auto Check connection import DB Question set and Answer of student for debug cho nhanh
-            CheckConnectionButton_Click(null, null);
         }
 
         public string QuestionPath { get; set; }
@@ -60,9 +58,9 @@ namespace DBI_Grading.UI
                 //Set Number of Questions
 
                 // Get QuestionPackage from file
-                Constant.PaperSet = SerializationUtils.DeserializeObject<PaperSet>(QuestionPath);
+                _paperSet = SerializationUtils.DeserializeObject<PaperSet>(QuestionPath);
 
-                if (Constant.PaperSet == null || Constant.PaperSet.Papers.Count == 0)
+                if (_paperSet == null || _paperSet.Papers.Count == 0)
                     throw new Exception("No question was found!");
             }
             catch (Exception ex)
@@ -75,14 +73,14 @@ namespace DBI_Grading.UI
 
         private void BrowseAnswerButton_Click(object sender, EventArgs e)
         {
-            if (Constant.PaperSet == null)
+            if (_paperSet == null)
             {
-                MessageBox.Show(@"Open question set successfully.");
+                MessageBox.Show(@"Please import PaperSet first.");
                 return;
             }
 
             // Init List submissions
-            _listsubmissions = new List<Submission>();
+            _submissions = new List<Submission>();
             try
             {
                 // Get directory where student's submittion was saved
@@ -93,7 +91,7 @@ namespace DBI_Grading.UI
                 Text = @"Import Material - Importing";
                 ImportAnswerButton.Enabled = false;
                 GetMarkButton.Enabled = false;
-                var t = new Thread(() => SafeThreadCaller(() => GetAnswers(), ExceptionHandler));
+                var t = new Thread(() => SafeThreadCaller(GetAnswers, ExceptionHandler));
                 t.Start();
             }
             catch (Exception ex)
@@ -156,7 +154,7 @@ namespace DBI_Grading.UI
                         {
                             var rollNumber = new DirectoryInfo(rollNumberPath).Name;
                             // Init submission for student to add to list
-                            var submission = new Submission
+                            var submission = new Submission(_paperSet)
                             {
                                 PaperNo = paperNo,
                                 StudentId = rollNumber
@@ -286,7 +284,7 @@ namespace DBI_Grading.UI
                                 // Skip exception
                             }
 
-                            _listsubmissions.Add(submission);
+                            _submissions.Add(submission);
                         }
                     }
                 }
@@ -311,11 +309,11 @@ namespace DBI_Grading.UI
         {
             try
             {
-                if (_listsubmissions == null || _listsubmissions.Count == 0)
+                if (_submissions == null || _submissions.Count == 0)
                 {
                     MessageBox.Show(@"Please import students' answers", @"Error");
                 }
-                else if (Constant.PaperSet == null || Constant.PaperSet.Papers.Count == 0)
+                else if (_paperSet == null || _paperSet.Papers.Count == 0)
                 {
                     MessageBox.Show(@"Please import Paper Set", @"Error");
                 }
@@ -325,8 +323,7 @@ namespace DBI_Grading.UI
                 }
                 else
                 {
-                    General.PrepareSpCompareDatabase();
-                    var grading = new Grading(_listsubmissions);
+                    new GradingForm(_submissions, _paperSet).Show();
                     Hide();
                 }
             }
@@ -338,19 +335,37 @@ namespace DBI_Grading.UI
 
         private void CheckConnectionButton_Click(object sender, EventArgs e)
         {
-            var username = usernameTextBox.Text;
-            var password = passwordTextBox.Text;
-            var serverName = serverNameTextBox.Text;
-            var initialCatalog = initialCatalogTextBox.Text;
             try
             {
-                if (General.CheckConnection(serverName, username, password, initialCatalog))
-                    statusConnectCheckBox.Checked = true;
+                DatabaseConfig.CheckConnection(serverNameTextBox.Text, usernameTextBox.Text, passwordTextBox.Text,
+                    "master");
+                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.AppSettings.Settings["serverName"].Value = serverNameTextBox.Text;
+                config.AppSettings.Settings["username"].Value = usernameTextBox.Text;
+                config.AppSettings.Settings["password"].Value = passwordTextBox.Text;
+                config.AppSettings.Settings["initialCatalog"].Value = initialCatalogTextBox.Text;
+                config.Save(ConfigurationSaveMode.Modified);
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                // ReSharper disable once LocalizableElement
-                MessageBox.Show("Can not connect, check again.\n" + ex.Message, @"Error");
+                MessageBox.Show(exception.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            if (DatabaseConfig.PrepareSpCompareDatabase())
+            {
+                checkConnectionButton.Enabled = false;
+                serverNameTextBox.Enabled = false;
+                usernameTextBox.Enabled = false;
+                passwordTextBox.Enabled = false;
+                initialCatalogTextBox.Enabled = false;
+                statusConnectCheckBox.Text = @"Connected";
+                statusConnectCheckBox.ForeColor = Color.Green;
+                statusConnectCheckBox.Checked = true;
+            }
+            else
+            {
+                MessageBox.Show(@"Cannot connect to Sql Server", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
