@@ -19,6 +19,7 @@ namespace DBI_Grading.UI
     {
         private PaperSet _paperSet;
         private List<Submission> _submissions;
+        private string _examCode;
 
         public ImportForm()
         {
@@ -83,10 +84,11 @@ namespace DBI_Grading.UI
             _submissions = new List<Submission>();
             try
             {
-                // Get directory where student's submittion was saved
+                // Get directory where student's submission was saved
                 AnswerPath = FileUtils.GetFolderLocation();
                 if (string.IsNullOrEmpty(AnswerPath))
                     return;
+                _examCode = AnswerPath.Split('\\').Last();
                 Application.UseWaitCursor = true;
                 Text = @"Import Material - Importing";
                 ImportAnswerButton.Enabled = false;
@@ -140,7 +142,7 @@ namespace DBI_Grading.UI
                     var paperNoPaths = Directory.GetDirectories(directory);
                     // Check bao nhieu de duoc import
                     if (!paperNoPaths.Any())
-                        throw new Exception("No PaperNo was found in " + directory);
+                        throw new Exception($"Please check {directory} again!");
                     // Update UI
                     answerTextBox.Invoke((MethodInvoker) (() => { answerTextBox.Text = AnswerPath; }));
                     // PaperNo Found
@@ -154,7 +156,7 @@ namespace DBI_Grading.UI
                         {
                             var rollNumber = new DirectoryInfo(rollNumberPath).Name;
                             // Init submission for student to add to list
-                            var submission = new Submission(_paperSet)
+                            var submission = new Submission(_paperSet, _examCode)
                             {
                                 PaperNo = paperNo,
                                 StudentId = rollNumber

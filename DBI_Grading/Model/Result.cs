@@ -20,6 +20,7 @@ namespace DBI_Grading.Model
             Logs = new string[PaperSet.QuestionSet.QuestionList.Count];
             ListRequirement = new List<string>();
             Submission = submission;
+            ExamCode = submission.ExamCode;
         }
 
         public PaperSet PaperSet { get; set; }
@@ -39,9 +40,7 @@ namespace DBI_Grading.Model
         /// <returns> Sum of point(double)</returns>
         public double SumOfPoint()
         {
-            double sum = 0;
-            foreach (var point in Points)
-                sum += point;
+            double sum = Points.Sum();
             sum = Math.Round(sum, 2);
             if (sum >= _maxPoint) sum = _maxPoint;
             return sum;
