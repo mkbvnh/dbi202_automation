@@ -9,7 +9,7 @@ using dbi_grading_module.Utils.Base;
 
 namespace dbi_grading_module.Controller
 {
-    internal class CompareController
+    public class CompareController
     {
         /// <summary>
         ///     Compare 2 databases

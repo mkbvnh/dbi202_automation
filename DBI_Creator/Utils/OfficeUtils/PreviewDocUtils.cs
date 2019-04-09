@@ -11,7 +11,7 @@ namespace DBI202_Creator.Utils.OfficeUtils
 {
     internal class PreviewDocUtils
     {
-        public static void PreviewCandidatePackage(QuestionSet questionSet)
+        public static bool PreviewCandidatePackage(QuestionSet questionSet)
         {
             Application wordApp = null;
             try
@@ -40,6 +40,7 @@ namespace DBI202_Creator.Utils.OfficeUtils
                 wordApp?.Application.Quit(false);
                 throw;
             }
+            return true;
         }
 
         /// <summary>

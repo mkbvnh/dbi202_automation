@@ -13,7 +13,7 @@ namespace DBI_Grading.Utils
         private static WorksheetFunction _wsf;
         public static int LastRowOfResultSheet { get; private set; }
 
-        public static void ExportResultsExcel(List<Result> results, List<Submission> submissions, double maxPoint,
+        public static bool ExportResultsExcel(List<Result> results, List<Submission> submissions, double maxPoint,
             int numOfQuestion)
         {
             //Open Excel
@@ -58,6 +58,7 @@ namespace DBI_Grading.Utils
             {
                 throw new Exception("You must install Office to export.\n" + ex.Message);
             }
+            return true;
         }
 
         private static void AddAnswerPathSheet(Worksheet sheetAnswerPath, List<Submission> submissions,

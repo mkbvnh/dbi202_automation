@@ -42,7 +42,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>D:\DBI202_Automation\Last version\Creator\</OutputPath>
+    <OutputPath>C:\DBI202_Automation\Creator\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -185,8 +185,6 @@
       <DependentUpon>VerifyForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="DBI_Creator_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>

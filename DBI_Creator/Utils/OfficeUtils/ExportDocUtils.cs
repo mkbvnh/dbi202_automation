@@ -18,7 +18,7 @@ namespace DBI202_Creator.Utils.OfficeUtils
         /// <param name="paper"></param>
         /// <param name="path">Save to location</param>
         /// <returns></returns>
-        public static void ExportDoc(string firstPagePath, Paper paper, string path)
+        public static bool ExportDoc(string firstPagePath, Paper paper, string path)
         {
             Application wordApp = null;
             try
@@ -59,6 +59,7 @@ namespace DBI202_Creator.Utils.OfficeUtils
             {
                 wordApp?.Application.Quit(false);
             }
+            return true;
         }
 
         /// <summary>
