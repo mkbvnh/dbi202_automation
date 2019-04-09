@@ -120,11 +120,13 @@ namespace DBI202_Creator.UI
                     // Visualization.
                     foreach (var q in _questions)
                         AddQuestionTab(q);
-                    MessageBox.Show(Resources.CreatorForm_Open_Info_Open_Successful, @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Resources.CreatorForm_Open_Info_Open_Successful, @"Success", MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(string.Format(Resources.CreatorForm_Open_Error, ex.Message), @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format(Resources.CreatorForm_Open_Error, ex.Message), @"Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
         }
 
@@ -142,12 +144,14 @@ namespace DBI202_Creator.UI
                     {
                         var savePath = Path.Combine(saveFolder, saveQuestionSetDialog.FileName);
                         SerializeUtils.SerializeObject(_questionSet, savePath);
-                        MessageBox.Show(string.Format(Resources.CreatorForm_Save_Info_Export_Successful, savePath), @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show(string.Format(Resources.CreatorForm_Save_Info_Export_Successful, savePath),
+                            @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(string.Format(Resources.CreatorForm_Open_Error, ex.Message), @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(string.Format(Resources.CreatorForm_Open_Error, ex.Message), @"Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                     MessageBox.Show(@"Save failed." + ex.Message);
                 }
         }
@@ -264,7 +268,9 @@ namespace DBI202_Creator.UI
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(string.Format(Resources.CreatorForm_ImportPaperSetToolStripMenuItem_Click_Import_Failed, ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        string.Format(Resources.CreatorForm_ImportPaperSetToolStripMenuItem_Click_Import_Failed,
+                            ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

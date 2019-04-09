@@ -28,201 +28,195 @@ namespace dbi_grading_module.Controller
             string dbEmptyName, Candidate candidate, string errorMessage)
         {
             //Prepare query
-            var compareQuery = "exec sp_CompareDb [" + dbSolutionName + "], [" + dbAnswerName + "]";
-            var countComparisonQuery = "exec sp_CompareDb [" + dbSolutionName + "], [" + dbEmptyName + "]";
+            var compareQuery = $"exec sp_CompareDb [{dbSolutionName}], [{dbAnswerName}]";
+            var countComparisonQuery = $"exec sp_CompareDb [{dbSolutionName}], [{dbEmptyName}]";
             //Comment result
-            if (errorMessage != null)
+            if (errorMessage == null) throw new Exception("Compare error! Please check connection then run again!");
+            var comment = errorMessage;
+
+            //Count tables
+            var countAnswerTables = DatabaseConfig.GetNumberOfTablesInDatabase(dbAnswerName);
+            var countSolutionTables = DatabaseConfig.GetNumberOfTablesInDatabase(dbSolutionName);
+
+            if (countAnswerTables <= 0)
+                return new Dictionary<string, string>
+                {
+                    {"Point", "0"},
+                    {"Comment", comment}
+                };
+            //List all primary key in 2 databases
+            var pkListAnswer = DataTableBase.GetPkInDb(dbAnswerName);
+            var pkListSolution = DataTableBase.GetPkInDb(dbSolutionName);
+
+            //Find difference
+            var missingPkList = pkListSolution.Except(pkListAnswer).ToList(); //missing
+            var redundantPkList = pkListAnswer.Except(pkListSolution).ToList(); //redundant
+
+
+            //Decrease max point by rate
+            //Max point
+            var maxPoint = candidate.Point;
+            comment += "Count Tables in database: ";
+            if (countAnswerTables > countSolutionTables)
             {
-                var comment = errorMessage;
-
-                //Count tables
-                var countAnswerTables = DatabaseConfig.GetNumberOfTablesInDatabase(dbAnswerName);
-                var countSolutionTables = DatabaseConfig.GetNumberOfTablesInDatabase(dbSolutionName);
-
-                if (countAnswerTables <= 0)
-                    return new Dictionary<string, string>
-                    {
-                        {"Point", "0"},
-                        {"Comment", comment}
-                    };
-                //List all primary key in 2 databases
-                var pkListAnswer = DataTableBase.GetPkInDb(dbAnswerName);
-                var pkListSolution = DataTableBase.GetPkInDb(dbSolutionName);
-
-                //Find difference
-                var missingPkList = pkListSolution.Except(pkListAnswer).ToList(); //missing
-                var redundantPkList = pkListAnswer.Except(pkListSolution).ToList(); //redundant
-
-
-                //Decrease maxpoint by rate
-                //Max point
-                var maxPoint = candidate.Point;
-                comment += "Count Tables in database: ";
-                if (countAnswerTables > countSolutionTables)
-                {
-                    var ratePoint = (double)countSolutionTables / countAnswerTables;
-                    maxPoint = Math.Round(candidate.Point * ratePoint, 4);
-                    comment += string.Concat("Answer has more tables than Solution's database (", countAnswerTables, ">",
-                        countSolutionTables, ") => Decrease Max Point by ", Math.Round(ratePoint * 100, 4),
-                        "% => Max Point = ", maxPoint,
-                        "\n");
-                }
-                else if (countSolutionTables > countAnswerTables)
-                {
-                    comment += string.Concat("Answer has less tables than Solution's database (", countAnswerTables, "<",
-                        countSolutionTables, ")\n");
-                }
-                else
-                {
-                    comment += "Same\n";
-                }
-
-                //Count Comparison
-                int comparisonOfStructure;
-                int comparisonOfConstraints;
-                using (var dtsNumOfComparison = DatabaseConfig.GetDataSetFromReader(countComparisonQuery))
-                {
-                    comparisonOfStructure = dtsNumOfComparison.Tables[0].Rows.Count * 2; //A column need both name and type
-                    comparisonOfConstraints = dtsNumOfComparison.Tables[1].Rows.Count + pkListSolution.Count;
-                }
-
-                //Get DataSet compare result
-                using (var dtsCompare = DatabaseConfig.GetDataSetFromReader(compareQuery))
-                {
-                    if (dtsCompare == null)
-                        throw new Exception("Compare error");
-                    //Get all errors
-                    var errorsStructureRows = dtsCompare.Tables[0].AsEnumerable()
-                        .Where(myRow => myRow.Field<string>("DATABASENAME").Contains("Solution")); //Structure
-                    var errorsConstraintRows = dtsCompare.Tables[1].AsEnumerable()
-                        .Where(myRow => myRow.Field<string>("DATABASENAME").Contains("Solution")); //Constraints
-
-
-                    if (!errorsStructureRows.Any() && !errorsConstraintRows.Any())
-                    {
-                        comment = string.Concat("Total Point: ", candidate.Point, "/", candidate.Point, " - Passed\n",
-                            comment);
-
-                        return new Dictionary<string, string>
-                        {
-                            {"Point", Math.Round(maxPoint, 2).ToString()},
-                            {"Comment", comment}
-                        };
-                    }
-
-                    //Separate Structure errors :
-                    //Definition not matching
-                    var defErrors = errorsStructureRows.Where(myRow =>
-                        myRow.Field<string>("REASON").Equals("Definition not matching"));
-                    var defColumnErrors = defErrors.Count(); //minus 1 comparision each error
-
-                    //Missing column
-                    var errorsMissingColumnRows = errorsStructureRows.Where(myRow =>
-                        myRow.Field<string>("REASON").Equals("Missing column or Wrong column name") &&
-                        myRow.Field<string>("DATABASENAME").Contains("Solution"));
-                    var missingColumnErrors = errorsMissingColumnRows.Count(); //minus 2 comparisions each error
-                    //
-                    int rightComparisonOfStructure = comparisonOfStructure - defColumnErrors - missingColumnErrors * 2;
-                    if (rightComparisonOfStructure < 0)
-                    {
-                        rightComparisonOfStructure = 0;
-                    }
-                    var errorsContraint = errorsConstraintRows.Count() + missingPkList.Count() + redundantPkList.Count();
-
-                    int rightComparisonOfConstraints = comparisonOfConstraints - errorsContraint;
-                    if (rightComparisonOfConstraints < 0)
-                    {
-                        rightComparisonOfConstraints = 0;
-                    }
-
-                    //Calculate point
-                    //Point for structure
-                    var pointForStructure = Math.Round(Grading.RateStructure * maxPoint *
-                                                       rightComparisonOfStructure / comparisonOfStructure, 2);
-                    //Point for Constraint
-                    var pointForConstraints = Math.Round((1 - Grading.RateStructure) * maxPoint * (rightComparisonOfConstraints) / comparisonOfConstraints, 2);
-
-
-                    var gradePoint = pointForStructure + pointForConstraints;
-
-                    comment = $"Total Point: {gradePoint}/{candidate.Point},  - Errors details:\n" + comment;
-                    
-                    comment += $"\n- Structure - [Point: {pointForStructure}/{maxPoint * Grading.RateStructure}] - [Comparison: {rightComparisonOfStructure}/{comparisonOfStructure}]:\n";
-                    //Details
-                    //About structure
-                    if (errorsStructureRows.Any())
-                    {
-                        if (defErrors.Any())
-                        {
-                            int countDefError = 0;
-                            comment += $"+ Definition has {defColumnErrors} error(s) (-1 comparison each error):\n";
-                            foreach (var rowSolution in defErrors)
-                            {
-                                comment += $"{++countDefError}. Required: {rowSolution["TABLENAME"]} ({rowSolution["COLUMNNAME"]}) => {rowSolution["DATATYPE"]}, {rowSolution["NULLABLE"]}\n";
-
-                                var rowAnswer = dtsCompare.Tables[0].AsEnumerable().Where(myRow =>
-                                    myRow.Field<string>("REASON").Equals("Definition not matching") &&
-                                    myRow.Field<string>("COLUMNNAME").ToLower()
-                                        .Equals(rowSolution["COLUMNNAME"].ToString().ToLower())
-                                    && myRow.Field<string>("TABLENAME").ToLower()
-                                        .Equals(rowSolution["TABLENAME"].ToString().ToLower()) &&
-                                    myRow.Field<string>("DATABASENAME").Contains("Answer")).ElementAt(0);
-
-                                comment += $"    Answer  : {rowAnswer["TABLENAME"]} ({rowAnswer["COLUMNNAME"]} => {rowAnswer["DATATYPE"]}, {rowAnswer["NULLABLE"]}\n";
-                            }
-                        }
-
-                        if (errorsMissingColumnRows.Any())
-                        {
-                            comment += $"+ Column(s) missing has {missingColumnErrors} errors(s) (-2 comparison each error):\n";
-                            int countMissingError = 0;
-                            foreach (var rowSolution in errorsMissingColumnRows)
-                                comment += $"{++countMissingError}. {rowSolution["COLUMNNAME"]} ({rowSolution["TABLENAME"]})\n";
-                        }
-                    }
-
-                    
-
-                    comment += $"\n- Constraint - [Point: {pointForConstraints}/{maxPoint * (1 - Grading.RateStructure)}] - [Comparison: {rightComparisonOfConstraints}/{comparisonOfConstraints}]:\n";
-
-                    //About Constraints
-                    if (errorsConstraintRows.Any())
-                    {
-                        int countReferences = 0;
-                        comment += "+ References check  (-1 comparison each error):\n";
-                        foreach (var rowSolution in errorsConstraintRows)
-                            comment += $"{++countReferences}. Missing {rowSolution["PK_COLUMNS"]} ({rowSolution["PK_TABLE"]}) - {rowSolution["FK_COLUMNS"]} ({rowSolution["FK_TABLE"]})\n";
-                    }
-
-                    if (missingPkList.Any())
-                    {
-                        int countMissingPk = 0;
-                        comment += "+ Missing Primary Key  (-1 comparison each error): \n";
-                        foreach (var element in missingPkList)
-                        {
-                            comment += $"{++countMissingPk}. {element} \n";
-                        }
-                    }
-
-                    if (redundantPkList.Any())
-                    {
-                        int countRedundantPk = 0;
-                        comment += "+ Redundant Primary Key (-1 comparison each error): \n";
-                        foreach (var element in redundantPkList)
-                        {
-                            comment += $"{++countRedundantPk}. {element} \n";
-                        }
-                    }
-
-                    if (gradePoint > maxPoint) gradePoint = maxPoint;
-                    return new Dictionary<string, string>
-                    {
-                        {"Point", Math.Round(gradePoint, 2).ToString()},
-                        {"Comment", comment}
-                    };
-                }
+                var ratePoint = (double) countSolutionTables / countAnswerTables;
+                maxPoint = Math.Round(candidate.Point * ratePoint, 4);
+                comment += string.Concat("Answer has more tables than Solution's database (", countAnswerTables, ">",
+                    countSolutionTables, ") => Decrease Max Point by ", Math.Round(ratePoint * 100, 4),
+                    "% => Max Point = ", maxPoint,
+                    "\n");
             }
-            throw new Exception("Compare error! Please check connection then run again!");
+            else if (countSolutionTables > countAnswerTables)
+            {
+                comment += string.Concat("Answer has less tables than Solution's database (", countAnswerTables, "<",
+                    countSolutionTables, ")\n");
+            }
+            else
+            {
+                comment += "Same\n";
+            }
+
+            //Count Comparison
+            int comparisonOfStructure;
+            int comparisonOfConstraints;
+            using (var dtsNumOfComparison = DatabaseConfig.GetDataSetFromReader(countComparisonQuery))
+            {
+                comparisonOfStructure = dtsNumOfComparison.Tables[0].Rows.Count * 2; //A column need both name and type
+                comparisonOfConstraints = dtsNumOfComparison.Tables[1].Rows.Count + pkListSolution.Count;
+            }
+
+            //Get DataSet compare result
+            using (var dtsCompare = DatabaseConfig.GetDataSetFromReader(compareQuery))
+            {
+                if (dtsCompare == null)
+                    throw new Exception("Compare error");
+                //Get all errors
+                var errorsStructureRows = dtsCompare.Tables[0].AsEnumerable()
+                    .Where(myRow => myRow.Field<string>("DATABASENAME").Contains("Solution")); //Structure
+                var errorsConstraintRows = dtsCompare.Tables[1].AsEnumerable()
+                    .Where(myRow => myRow.Field<string>("DATABASENAME").Contains("Solution")); //Constraints
+
+
+                if (!errorsStructureRows.Any() && !errorsConstraintRows.Any())
+                {
+                    comment = string.Concat("Total Point: ", candidate.Point, "/", candidate.Point, " - Passed\n",
+                        comment);
+
+                    return new Dictionary<string, string>
+                    {
+                        {"Point", Math.Round(maxPoint, 2).ToString()},
+                        {"Comment", comment}
+                    };
+                }
+
+                //Separate Structure errors :
+                //Definition not matching
+                var defErrors = errorsStructureRows.Where(myRow =>
+                    myRow.Field<string>("REASON").Equals("Definition not matching"));
+                var defColumnErrors = defErrors.Count(); //minus 1 comparision each error
+
+                //Missing column
+                var errorsMissingColumnRows = errorsStructureRows.Where(myRow =>
+                    myRow.Field<string>("REASON").Equals("Missing column or Wrong column name") &&
+                    myRow.Field<string>("DATABASENAME").Contains("Solution"));
+                var missingColumnErrors = errorsMissingColumnRows.Count(); //minus 2 comparison each error
+                //
+                var trueComparisonStructure = comparisonOfStructure - defColumnErrors - missingColumnErrors * 2;
+                if (trueComparisonStructure < 0) trueComparisonStructure = 0;
+                var errorsConstraint = errorsConstraintRows.Count() + missingPkList.Count() + redundantPkList.Count();
+
+                var trueComparisonConstraints = comparisonOfConstraints - errorsConstraint;
+                if (trueComparisonConstraints < 0) trueComparisonConstraints = 0;
+
+                //Calculate point
+                //Point for structure
+                var pointForStructure = Math.Round(Grading.RateStructure * maxPoint *
+                                                   trueComparisonStructure / comparisonOfStructure, 2);
+                //Point for Constraint
+                var pointForConstraints =
+                    Math.Round(
+                        (1 - Grading.RateStructure) * maxPoint * trueComparisonConstraints / comparisonOfConstraints,
+                        2);
+
+
+                var gradePoint = pointForStructure + pointForConstraints;
+
+                comment = $"Total Point: {gradePoint}/{candidate.Point},  - Errors details:\n" + comment;
+
+                comment +=
+                    $"\n- Structure - [Point: {pointForStructure}/{maxPoint * Grading.RateStructure}] - [Comparison: {trueComparisonStructure}/{comparisonOfStructure}]:\n";
+                //Details
+                //About structure
+                if (errorsStructureRows.Any())
+                {
+                    if (defErrors.Any())
+                    {
+                        var countDefError = 0;
+                        comment += $"+ Definition has {defColumnErrors} error(s) (-1 comparison each error):\n";
+                        foreach (var rowSolution in defErrors)
+                        {
+                            comment +=
+                                $"{++countDefError}. Required: {rowSolution["TABLENAME"]} ({rowSolution["COLUMNNAME"]}) => {rowSolution["DATATYPE"]}, {rowSolution["NULLABLE"]}\n";
+
+                            var rowAnswer = dtsCompare.Tables[0].AsEnumerable().Where(myRow =>
+                                myRow.Field<string>("REASON").Equals("Definition not matching") &&
+                                myRow.Field<string>("COLUMNNAME").ToLower()
+                                    .Equals(rowSolution["COLUMNNAME"].ToString().ToLower())
+                                && myRow.Field<string>("TABLENAME").ToLower()
+                                    .Equals(rowSolution["TABLENAME"].ToString().ToLower()) &&
+                                myRow.Field<string>("DATABASENAME").Contains("Answer")).ElementAt(0);
+
+                            comment +=
+                                $"    Answer  : {rowAnswer["TABLENAME"]} ({rowAnswer["COLUMNNAME"]} => {rowAnswer["DATATYPE"]}, {rowAnswer["NULLABLE"]}\n";
+                        }
+                    }
+
+                    if (errorsMissingColumnRows.Any())
+                    {
+                        comment +=
+                            $"+ Column(s) missing has {missingColumnErrors} errors(s) (-2 comparison each error):\n";
+                        var countMissingError = 0;
+                        foreach (var rowSolution in errorsMissingColumnRows)
+                            comment +=
+                                $"{++countMissingError}. {rowSolution["COLUMNNAME"]} ({rowSolution["TABLENAME"]})\n";
+                    }
+                }
+
+
+                comment +=
+                    $"\n- Constraint - [Point: {pointForConstraints}/{maxPoint * (1 - Grading.RateStructure)}] - [Comparison: {trueComparisonConstraints}/{comparisonOfConstraints}]:\n";
+
+                //About Constraints
+                if (errorsConstraintRows.Any())
+                {
+                    var countReferences = 0;
+                    comment += "+ References check  (-1 comparison each error):\n";
+                    foreach (var rowSolution in errorsConstraintRows)
+                        comment +=
+                            $"{++countReferences}. Missing {rowSolution["PK_COLUMNS"]} ({rowSolution["PK_TABLE"]}) - {rowSolution["FK_COLUMNS"]} ({rowSolution["FK_TABLE"]})\n";
+                }
+
+                if (missingPkList.Any())
+                {
+                    var countMissingPk = 0;
+                    comment += "+ Missing Primary Key  (-1 comparison each error): \n";
+                    foreach (var element in missingPkList) comment += $"{++countMissingPk}. {element} \n";
+                }
+
+                if (redundantPkList.Any())
+                {
+                    var countRedundantPk = 0;
+                    comment += "+ Redundant Primary Key (-1 comparison each error): \n";
+                    foreach (var element in redundantPkList) comment += $"{++countRedundantPk}. {element} \n";
+                }
+
+                if (gradePoint > maxPoint) gradePoint = maxPoint;
+                return new Dictionary<string, string>
+                {
+                    {"Point", Math.Round(gradePoint, 2).ToString()},
+                    {"Comment", comment}
+                };
+            }
         }
 
         /// <summary>
@@ -235,7 +229,7 @@ namespace dbi_grading_module.Controller
         /// <returns>
         ///     "true" if correct
         ///     "false" if wrong
-        ///     message error from sqlserver if error
+        ///     message error from sql server if error
         /// </returns>
         internal static Dictionary<string, string> CompareSelectType(string dbAnswerName, string dbSolutionName,
             string answer, Candidate candidate)
@@ -366,7 +360,7 @@ namespace dbi_grading_module.Controller
         }
 
         /// <summary>
-        ///     SP/Trigger Type
+        ///     SP/Trigger/Dml Type
         /// </summary>
         /// <param name="dbAnswerName">DB Name to check student query</param>
         /// <param name="dbSolutionName">DB Name to check teacher query</param>
@@ -396,7 +390,7 @@ namespace dbi_grading_module.Controller
                 foreach (var testCase in testCases)
                 {
                     comment += string.Concat("TC ", ++countTesting, ": ",
-                        testCase.Description, "- ");
+                        testCase.Description.Trim(), " - ");
                     // Prepare query
                     var queryAnswer = "USE [" + dbAnswerName + "] \n" + testCase.TestQuery;
                     var querySolution = "USE [" + dbSolutionName + "] \n" + testCase.TestQuery;
@@ -407,7 +401,7 @@ namespace dbi_grading_module.Controller
 
                     if (CompareDataTableUtils.CompareTwoDataSets(dataSetAnswer.Copy(), dataSetSolution.Copy()))
                     {
-                        var decreaseRate = (double)dataSetSolution.Tables.Count / dataSetAnswer.Tables.Count;
+                        var decreaseRate = (double) dataSetSolution.Tables.Count / dataSetAnswer.Tables.Count;
                         var maxTcPoint = Math.Round(testCase.RatePoint * decreaseRate * candidate.Point, 4);
                         if (dataSetAnswer.Tables.Count > dataSetSolution.Tables.Count)
                         {

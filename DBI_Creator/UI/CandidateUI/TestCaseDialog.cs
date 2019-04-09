@@ -32,7 +32,8 @@ namespace DBI202_Creator.UI.CandidateUI
         {
             if (string.IsNullOrEmpty(_testCase.TestQuery.Trim()))
             {
-                MessageBox.Show(Resources.TestCaseDialog_insertBtn_Click_Error_Fill_Test_Query, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.TestCaseDialog_insertBtn_Click_Error_Fill_Test_Query, @"Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

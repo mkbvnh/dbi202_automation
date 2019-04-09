@@ -11,7 +11,7 @@ namespace dbi_grading_module
     public static class Grading
     {
         //Configure SQL
-        public static int TimeOutInSecond;
+        public static int TimeOutInSecond = 10;
 
         public static int MaxConnectionPoolSize = 100;
 

@@ -80,7 +80,7 @@ namespace dbi_grading_module.Utils
                 var matchFormatted = matchPoint.Value.Split('*')[1];
                 if (count++ % 2 == 0)
                 {
-                    tcp.RatePoint = double.Parse(matchFormatted, CultureInfo.InvariantCulture);
+                    tcp.RatePoint = double.Parse(matchFormatted.Replace(',', '.'), CultureInfo.InvariantCulture);
                 }
                 else
                 {

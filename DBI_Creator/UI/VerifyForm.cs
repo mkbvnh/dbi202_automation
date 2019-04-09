@@ -50,7 +50,8 @@ namespace DBI202_Creator.UI
             }
             else
             {
-                MessageBox.Show(Resources.VerifyForm_CheckConnectionButton_Click_Error_Connect_Sql, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.VerifyForm_CheckConnectionButton_Click_Error_Connect_Sql, @"Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -73,11 +74,12 @@ namespace DBI202_Creator.UI
                 //Get server date and time
                 serverDateTime = DatabaseConfig.ExecuteScalarQuery(@"SELECT SYSDATETIME()").ToString();
                 DatabaseConfig.ExecuteSingleQuery(_questionSet.DBScriptList[0], "master");
-                DatabaseConfig.DropAllDatabaseCreated(serverDateTime);
             }
             catch (Exception exception)
             {
-                MessageBox.Show(string.Format(Resources.VerifyForm_StartBtn_Click_Error_DBScript_Student, exception.Message), @"Error", MessageBoxButtons.OK,
+                MessageBox.Show(
+                    string.Format(Resources.VerifyForm_StartBtn_Click_Error_DBScript_Student, exception.Message),
+                    @"Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
             }
@@ -103,11 +105,12 @@ namespace DBI202_Creator.UI
                             "USE " + "[" + dbName + "]\n" + _questionSet.DBScriptList[1] + "";
                 serverDateTime = DatabaseConfig.ExecuteScalarQuery(@"SELECT SYSDATETIME()").ToString();
                 DatabaseConfig.ExecuteSingleQuery(query, "master");
-                DatabaseConfig.DropAllDatabaseCreated(serverDateTime);
             }
             catch (Exception exception)
             {
-                MessageBox.Show(string.Format(Resources.VerifyForm_StartBtn_Click_Error_DBScript_Teacher, exception.Message), @"Error", MessageBoxButtons.OK,
+                MessageBox.Show(
+                    string.Format(Resources.VerifyForm_StartBtn_Click_Error_DBScript_Teacher, exception.Message),
+                    @"Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
             }

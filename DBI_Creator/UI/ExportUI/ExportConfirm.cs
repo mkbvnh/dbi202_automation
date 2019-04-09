@@ -44,7 +44,8 @@ namespace DBI202_Creator.UI.ExportUI
             {
                 if (string.IsNullOrEmpty(_outPutPath))
                 {
-                    MessageBox.Show(Resources.ExportConfirm_exportBtn_Click_Error_Location_First, @"Error", MessageBoxButtons.OK,
+                    MessageBox.Show(Resources.ExportConfirm_exportBtn_Click_Error_Location_First, @"Error",
+                        MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                     return;
                 }

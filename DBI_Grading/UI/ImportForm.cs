@@ -19,7 +19,6 @@ namespace DBI_Grading.UI
     public partial class ImportForm : Form
     {
         private string _examCode;
-        private bool IsConnectedToDb => statusConnectCheckBox.Checked;
         private PaperSet _paperSet;
         private List<Submission> _submissions;
 
@@ -42,6 +41,8 @@ namespace DBI_Grading.UI
                     MessageBoxIcon.Error);
             }
         }
+
+        private bool IsConnectedToDb => statusConnectCheckBox.Checked;
 
         public string PaperSetPath { get; set; }
         public string AnswerPath { get; set; }
