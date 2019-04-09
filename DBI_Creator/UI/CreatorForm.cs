@@ -7,6 +7,7 @@ using dbi_grading_module.Entity.Paper;
 using dbi_grading_module.Entity.Question;
 using DBI202_Creator.Commons;
 using DBI202_Creator.Model;
+using DBI202_Creator.Properties;
 using DBI202_Creator.UI.CandidateUI;
 using DBI202_Creator.UI.ExportUI;
 using DBI202_Creator.Utils;
@@ -119,11 +120,11 @@ namespace DBI202_Creator.UI
                     // Visualization.
                     foreach (var q in _questions)
                         AddQuestionTab(q);
-                    MessageBox.Show(@"Open question set successfully.");
+                    MessageBox.Show(Resources.CreatorForm_Open_Info_Open_Successful, @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(@"Open question set failed." + ex.Message);
+                    MessageBox.Show(string.Format(Resources.CreatorForm_Open_Error, ex.Message), @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
         }
 
@@ -141,11 +142,12 @@ namespace DBI202_Creator.UI
                     {
                         var savePath = Path.Combine(saveFolder, saveQuestionSetDialog.FileName);
                         SerializeUtils.SerializeObject(_questionSet, savePath);
-                        MessageBox.Show(@"Export data successfully to " + savePath, @"Success");
+                        MessageBox.Show(string.Format(Resources.CreatorForm_Save_Info_Export_Successful, savePath), @"Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 catch (Exception ex)
                 {
+                    MessageBox.Show(string.Format(Resources.CreatorForm_Open_Error, ex.Message), @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     MessageBox.Show(@"Save failed." + ex.Message);
                 }
         }
@@ -258,11 +260,11 @@ namespace DBI202_Creator.UI
                     // Visualization.
                     foreach (var q in _questions)
                         AddQuestionTab(q);
-                    MessageBox.Show(@"Open question set successfully.");
+                    MessageBox.Show(Resources.CreatorForm_Open_Info_Open_Successful);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(@"Import data failed.\n" + ex.Message);
+                    MessageBox.Show(string.Format(Resources.CreatorForm_ImportPaperSetToolStripMenuItem_Click_Import_Failed, ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

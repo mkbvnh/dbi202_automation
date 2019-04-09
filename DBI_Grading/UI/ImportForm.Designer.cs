@@ -34,7 +34,7 @@ namespace DBI_Grading.UI
         {
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.questionTextBox = new System.Windows.Forms.TextBox();
+            this.paperSetPathTextBox = new System.Windows.Forms.TextBox();
             this.answerTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.ImportPaperSetButton = new System.Windows.Forms.Button();
@@ -74,14 +74,14 @@ namespace DBI_Grading.UI
             this.label2.TabIndex = 1;
             this.label2.Text = "Answers Folder";
             // 
-            // questionTextBox
+            // paperSetPathTextBox
             // 
-            this.questionTextBox.Enabled = false;
-            this.questionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.questionTextBox.Location = new System.Drawing.Point(143, 96);
-            this.questionTextBox.Name = "questionTextBox";
-            this.questionTextBox.Size = new System.Drawing.Size(163, 20);
-            this.questionTextBox.TabIndex = 2;
+            this.paperSetPathTextBox.Enabled = false;
+            this.paperSetPathTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.paperSetPathTextBox.Location = new System.Drawing.Point(143, 96);
+            this.paperSetPathTextBox.Name = "paperSetPathTextBox";
+            this.paperSetPathTextBox.Size = new System.Drawing.Size(163, 20);
+            this.paperSetPathTextBox.TabIndex = 2;
             // 
             // answerTextBox
             // 
@@ -110,7 +110,7 @@ namespace DBI_Grading.UI
             this.ImportPaperSetButton.TabIndex = 5;
             this.ImportPaperSetButton.Text = "Import";
             this.ImportPaperSetButton.UseVisualStyleBackColor = true;
-            this.ImportPaperSetButton.Click += new System.EventHandler(this.BrowseQuestionButton_Click);
+            this.ImportPaperSetButton.Click += new System.EventHandler(this.ImportPaperSetButton_Click);
             // 
             // ImportAnswerButton
             // 
@@ -120,7 +120,7 @@ namespace DBI_Grading.UI
             this.ImportAnswerButton.TabIndex = 6;
             this.ImportAnswerButton.Text = "Import";
             this.ImportAnswerButton.UseVisualStyleBackColor = true;
-            this.ImportAnswerButton.Click += new System.EventHandler(this.BrowseAnswerButton_Click);
+            this.ImportAnswerButton.Click += new System.EventHandler(this.ImportAnswerButton_Click);
             // 
             // label4
             // 
@@ -279,7 +279,7 @@ namespace DBI_Grading.UI
             this.Controls.Add(this.ImportPaperSetButton);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.answerTextBox);
-            this.Controls.Add(this.questionTextBox);
+            this.Controls.Add(this.paperSetPathTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -295,7 +295,7 @@ namespace DBI_Grading.UI
 
         private Label label1;
         private Label label2;
-        private TextBox questionTextBox;
+        private TextBox paperSetPathTextBox;
         private TextBox answerTextBox;
         private Label label3;
         private Button ImportPaperSetButton;

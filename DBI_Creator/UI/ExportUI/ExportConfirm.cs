@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using dbi_grading_module.Entity.Question;
 using DBI202_Creator.Commons;
 using DBI202_Creator.Model;
+using DBI202_Creator.Properties;
 using DBI202_Creator.Utils;
 
 namespace DBI202_Creator.UI.ExportUI
@@ -43,7 +44,7 @@ namespace DBI202_Creator.UI.ExportUI
             {
                 if (string.IsNullOrEmpty(_outPutPath))
                 {
-                    MessageBox.Show(@"You need to Browse first!!!", @"Error", MessageBoxButtons.OK,
+                    MessageBox.Show(Resources.ExportConfirm_exportBtn_Click_Error_Location_First, @"Error", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                     return;
                 }

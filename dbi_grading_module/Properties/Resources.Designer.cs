@@ -19,10 +19,10 @@ namespace dbi_grading_module.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -57,6 +57,78 @@ namespace dbi_grading_module.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to export result?.
+        /// </summary>
+        public static string GradingForm_Result_Export_Question {
+            get {
+                return ResourceManager.GetString("GradingForm_Result_Export_Question", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import successfully..
+        /// </summary>
+        public static string GradingForm_StartGrading_Import_Successfully {
+            get {
+                return ResourceManager.GetString("GradingForm_StartGrading_Import_Successfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot connect to Sql Server.
+        /// </summary>
+        public static string ImportForm_CheckConnectionButton_Error_Connect_Sql {
+            get {
+                return ResourceManager.GetString("ImportForm_CheckConnectionButton_Error_Connect_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please test connect to Sql Server.
+        /// </summary>
+        public static string ImportForm_GetMarkButton_Click_Error_Connect_Sql {
+            get {
+                return ResourceManager.GetString("ImportForm_GetMarkButton_Click_Error_Connect_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please import Paper Set.
+        /// </summary>
+        public static string ImportForm_GetMarkButton_Click_Error_Import_PaperSet {
+            get {
+                return ResourceManager.GetString("ImportForm_GetMarkButton_Click_Error_Import_PaperSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please import students&apos; answers.
+        /// </summary>
+        public static string ImportForm_GetMarkButton_Click_Error_Import_Student_Answer {
+            get {
+                return ResourceManager.GetString("ImportForm_GetMarkButton_Click_Error_Import_Student_Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please import PaperSet first..
+        /// </summary>
+        public static string ImportForm_ImportAnswerButton_Click_Error_Import_Paper_First {
+            get {
+                return ResourceManager.GetString("ImportForm_ImportAnswerButton_Click_Error_Import_Paper_First", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load config error: {0}.
+        /// </summary>
+        public static string ImportForm_ImportForm_Error_Load_Config {
+            get {
+                return ResourceManager.GetString("ImportForm_ImportForm_Error_Load_Config", resourceCulture);
             }
         }
         

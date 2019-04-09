@@ -195,7 +195,7 @@ namespace DBI202_Creator.UI.CandidateUI
 
         private void SchemaState()
         {
-            testQueryTxt.Enabled = true;
+            testQueryTxt.Enabled = false;
 
             requireSortCheckBox.Visible = false;
 

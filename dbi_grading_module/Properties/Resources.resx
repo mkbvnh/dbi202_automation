@@ -894,4 +894,28 @@ BEGIN
 	FROM #FK_RESULTS
 END</value>
   </data>
+  <data name="GradingForm_StartGrading_Import_Successfully" xml:space="preserve">
+    <value>Import successfully.</value>
+  </data>
+  <data name="GradingForm_Result_Export_Question" xml:space="preserve">
+    <value>Do you want to export result?</value>
+  </data>
+  <data name="ImportForm_ImportForm_Error_Load_Config" xml:space="preserve">
+    <value>Load config error: {0}</value>
+  </data>
+  <data name="ImportForm_ImportAnswerButton_Click_Error_Import_Paper_First" xml:space="preserve">
+    <value>Please import PaperSet first.</value>
+  </data>
+  <data name="ImportForm_GetMarkButton_Click_Error_Import_Student_Answer" xml:space="preserve">
+    <value>Please import students' answers</value>
+  </data>
+  <data name="ImportForm_GetMarkButton_Click_Error_Import_PaperSet" xml:space="preserve">
+    <value>Please import Paper Set</value>
+  </data>
+  <data name="ImportForm_GetMarkButton_Click_Error_Connect_Sql" xml:space="preserve">
+    <value>Please test connect to Sql Server</value>
+  </data>
+  <data name="ImportForm_CheckConnectionButton_Error_Connect_Sql" xml:space="preserve">
+    <value>Cannot connect to Sql Server</value>
+  </data>
 </root>

@@ -150,6 +150,8 @@
             this.Controls.Add(this.verifyText);
             this.MinimumSize = new System.Drawing.Size(555, 489);
             this.Name = "VerifyForm";
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.Text = "VerifyForm";
             this.ResumeLayout(false);
             this.PerformLayout();

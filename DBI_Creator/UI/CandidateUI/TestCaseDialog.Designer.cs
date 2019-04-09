@@ -138,6 +138,7 @@
             this.Controls.Add(this.testCaseTxt);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Name = "TestCaseDialog";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "TestCaseDialog";
             ((System.ComponentModel.ISupportInitialize)(this.percentageNumericUpDown)).EndInit();

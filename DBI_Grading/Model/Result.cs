@@ -40,7 +40,7 @@ namespace DBI_Grading.Model
         /// <returns> Sum of point(double)</returns>
         public double SumOfPoint()
         {
-            double sum = Points.Sum();
+            var sum = Points.Sum();
             sum = Math.Round(sum, 2);
             if (sum >= _maxPoint) sum = _maxPoint;
             return sum;
@@ -76,13 +76,16 @@ namespace DBI_Grading.Model
                     return Grading.SelectType(candidate, StudentId, answer, questionOrder, PaperSet.DBScriptList[1]);
                 case Candidate.QuestionTypes.DML:
                     // DML: Insert/Delete/Update Question
-                    return Grading.DmlSpTriggerType(candidate, StudentId, answer, questionOrder, PaperSet.DBScriptList[1]);
+                    return Grading.DmlSpTriggerType(candidate, StudentId, answer, questionOrder,
+                        PaperSet.DBScriptList[1]);
                 case Candidate.QuestionTypes.Procedure:
                     // Procedure Question
-                    return Grading.DmlSpTriggerType(candidate, StudentId, answer, questionOrder, PaperSet.DBScriptList[1]);
+                    return Grading.DmlSpTriggerType(candidate, StudentId, answer, questionOrder,
+                        PaperSet.DBScriptList[1]);
                 case Candidate.QuestionTypes.Trigger:
                     // Trigger Question
-                    return Grading.DmlSpTriggerType(candidate, StudentId, answer, questionOrder, PaperSet.DBScriptList[1]);
+                    return Grading.DmlSpTriggerType(candidate, StudentId, answer, questionOrder,
+                        PaperSet.DBScriptList[1]);
                 default:
                     // Not supported yet
                     throw new Exception("This question type has not been supported yet.");

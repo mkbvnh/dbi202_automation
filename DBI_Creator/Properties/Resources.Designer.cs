@@ -19,7 +19,7 @@ namespace DBI202_Creator.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -71,12 +71,59 @@ namespace DBI202_Creator.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import failed.
+        ///{0}.
+        /// </summary>
+        internal static string CreatorForm_ImportPaperSetToolStripMenuItem_Click_Import_Failed {
+            get {
+                return ResourceManager.GetString("CreatorForm_ImportPaperSetToolStripMenuItem_Click_Import_Failed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open question set failed.
+        ///{0}.
+        /// </summary>
+        internal static string CreatorForm_Open_Error {
+            get {
+                return ResourceManager.GetString("CreatorForm_Open_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open question set successfully..
+        /// </summary>
+        internal static string CreatorForm_Open_Info_Open_Successful {
+            get {
+                return ResourceManager.GetString("CreatorForm_Open_Info_Open_Successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export data successfully to {0}.
+        /// </summary>
+        internal static string CreatorForm_Save_Info_Export_Successful {
+            get {
+                return ResourceManager.GetString("CreatorForm_Save_Info_Export_Successful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap delete {
             get {
                 object obj = ResourceManager.GetObject("delete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please choose Save Location first!!!.
+        /// </summary>
+        internal static string ExportConfirm_exportBtn_Click_Error_Location_First {
+            get {
+                return ResourceManager.GetString("ExportConfirm_exportBtn_Click_Error_Location_First", resourceCulture);
             }
         }
         
@@ -151,6 +198,42 @@ namespace DBI202_Creator.Properties {
             get {
                 object obj = ResourceManager.GetObject("right", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to input Test Query!.
+        /// </summary>
+        internal static string TestCaseDialog_insertBtn_Click_Error_Fill_Test_Query {
+            get {
+                return ResourceManager.GetString("TestCaseDialog_insertBtn_Click_Error_Fill_Test_Query", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot connect to Sql Server.
+        /// </summary>
+        internal static string VerifyForm_CheckConnectionButton_Click_Error_Connect_Sql {
+            get {
+                return ResourceManager.GetString("VerifyForm_CheckConnectionButton_Click_Error_Connect_Sql", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error at DBScript for Student: {0}.
+        /// </summary>
+        internal static string VerifyForm_StartBtn_Click_Error_DBScript_Student {
+            get {
+                return ResourceManager.GetString("VerifyForm_StartBtn_Click_Error_DBScript_Student", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error at DBScript for Teacher: {0}.
+        /// </summary>
+        internal static string VerifyForm_StartBtn_Click_Error_DBScript_Teacher {
+            get {
+                return ResourceManager.GetString("VerifyForm_StartBtn_Click_Error_DBScript_Teacher", resourceCulture);
             }
         }
     }

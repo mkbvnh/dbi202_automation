@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using dbi_grading_module.Entity;
+using DBI202_Creator.Properties;
 
 namespace DBI202_Creator.UI.CandidateUI
 {
@@ -31,7 +32,7 @@ namespace DBI202_Creator.UI.CandidateUI
         {
             if (string.IsNullOrEmpty(_testCase.TestQuery.Trim()))
             {
-                MessageBox.Show(@"You need to input Test Query!", @"Error");
+                MessageBox.Show(Resources.TestCaseDialog_insertBtn_Click_Error_Fill_Test_Query, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

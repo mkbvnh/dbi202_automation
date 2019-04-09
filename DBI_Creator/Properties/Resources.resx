@@ -913,4 +913,33 @@ BEGIN
 	FROM #FK_RESULTS
 END</value>
   </data>
+  <data name="TestCaseDialog_insertBtn_Click_Error_Fill_Test_Query" xml:space="preserve">
+    <value>You need to input Test Query!</value>
+  </data>
+  <data name="ExportConfirm_exportBtn_Click_Error_Location_First" xml:space="preserve">
+    <value>Please choose Save Location first!!!</value>
+  </data>
+  <data name="CreatorForm_Open_Info_Open_Successful" xml:space="preserve">
+    <value>Open question set successfully.</value>
+  </data>
+  <data name="CreatorForm_Open_Error" xml:space="preserve">
+    <value>Open question set failed.
+{0}</value>
+  </data>
+  <data name="CreatorForm_Save_Info_Export_Successful" xml:space="preserve">
+    <value>Export data successfully to {0}</value>
+  </data>
+  <data name="CreatorForm_ImportPaperSetToolStripMenuItem_Click_Import_Failed" xml:space="preserve">
+    <value>Import failed.
+{0}</value>
+  </data>
+  <data name="VerifyForm_CheckConnectionButton_Click_Error_Connect_Sql" xml:space="preserve">
+    <value>Cannot connect to Sql Server</value>
+  </data>
+  <data name="VerifyForm_StartBtn_Click_Error_DBScript_Student" xml:space="preserve">
+    <value>Error at DBScript for Student: {0}</value>
+  </data>
+  <data name="VerifyForm_StartBtn_Click_Error_DBScript_Teacher" xml:space="preserve">
+    <value>Error at DBScript for Teacher: {0}</value>
+  </data>
 </root>

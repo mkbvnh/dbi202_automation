@@ -73,6 +73,7 @@
             this.Controls.Add(this.leftBtn);
             this.Controls.Add(this.tabControl);
             this.Name = "PicturePreview";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "PicturePreview";
             this.ResumeLayout(false);

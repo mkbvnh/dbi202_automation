@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 using dbi_grading_module.Configuration;
 using dbi_grading_module.Entity.Paper;
+using dbi_grading_module.Properties;
 using DBI_Grading.Common;
 using DBI_Grading.Model;
 using DBI_Grading.Utils;
@@ -133,7 +134,8 @@ namespace DBI_Grading.UI
             }
             else
             {
-                MessageBox.Show(@"Open question set successfully.");
+                MessageBox.Show(Resources.GradingForm_StartGrading_Import_Successfully, @"Successfully",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -168,7 +170,8 @@ namespace DBI_Grading.UI
 
                 // Done
                 var dialogResult =
-                    MessageBox.Show(@"Do you want to export result?", @"Result", MessageBoxButtons.YesNo);
+                    MessageBox.Show(Resources.GradingForm_Result_Export_Question, @"Result", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
                 if (dialogResult == DialogResult.Yes) ExportButton_Click(null, null);
             }
         }

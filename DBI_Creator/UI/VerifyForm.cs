@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using dbi_grading_module.Configuration;
 using dbi_grading_module.Entity.Question;
 using DBI202_Creator.Model;
+using DBI202_Creator.Properties;
 
 namespace DBI202_Creator.UI
 {
@@ -49,7 +50,7 @@ namespace DBI202_Creator.UI
             }
             else
             {
-                MessageBox.Show(@"Cannot connect to Sql Server", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.VerifyForm_CheckConnectionButton_Click_Error_Connect_Sql, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -76,7 +77,7 @@ namespace DBI202_Creator.UI
             }
             catch (Exception exception)
             {
-                MessageBox.Show($@"Error at DBScript for Student: {exception.Message}", @"Error", MessageBoxButtons.OK,
+                MessageBox.Show(string.Format(Resources.VerifyForm_StartBtn_Click_Error_DBScript_Student, exception.Message), @"Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
             }
@@ -106,7 +107,7 @@ namespace DBI202_Creator.UI
             }
             catch (Exception exception)
             {
-                MessageBox.Show($@"Error at DBScript for Teacher: {exception.Message}", @"Error", MessageBoxButtons.OK,
+                MessageBox.Show(string.Format(Resources.VerifyForm_StartBtn_Click_Error_DBScript_Teacher, exception.Message), @"Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
                 return;
             }

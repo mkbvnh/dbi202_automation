@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using dbi_grading_module;
 using dbi_grading_module.Configuration;
 using dbi_grading_module.Entity.Paper;
+using dbi_grading_module.Properties;
 using DBI_Grading.Model;
 using DBI_Grading.Utils;
 
@@ -17,9 +18,10 @@ namespace DBI_Grading.UI
 {
     public partial class ImportForm : Form
     {
+        private string _examCode;
+        private bool IsConnectedToDb => statusConnectCheckBox.Checked;
         private PaperSet _paperSet;
         private List<Submission> _submissions;
-        private string _examCode;
 
         public ImportForm()
         {
@@ -35,48 +37,45 @@ namespace DBI_Grading.UI
             }
             catch (Exception e)
             {
-                MessageBox.Show(@"Load config error: " + e.Message, @"Error", MessageBoxButtons.OK,
+                MessageBox.Show(string.Format(Resources.ImportForm_ImportForm_Error_Load_Config, e.Message), @"Error",
+                    MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-                Application.Exit();
             }
         }
 
-        public string QuestionPath { get; set; }
-
-        //public List<string> DBScriptList { get; set; }
+        public string PaperSetPath { get; set; }
         public string AnswerPath { get; set; }
 
-        private bool IsConnectedToDb => statusConnectCheckBox.Checked;
-
-        private void BrowseQuestionButton_Click(object sender, EventArgs e)
+        private void ImportPaperSetButton_Click(object sender, EventArgs e)
         {
             try
             {
-                QuestionPath = FileUtils.GetFileLocation();
-                if (string.IsNullOrEmpty(QuestionPath))
+                PaperSetPath = FileUtils.GetFileLocation();
+                if (string.IsNullOrEmpty(PaperSetPath))
                     return;
-                questionTextBox.Text = QuestionPath;
+                paperSetPathTextBox.Text = PaperSetPath;
                 //Set Number of Questions
 
                 // Get QuestionPackage from file
-                _paperSet = SerializationUtils.DeserializeObject<PaperSet>(QuestionPath);
+                _paperSet = SerializationUtils.DeserializeObject<PaperSet>(PaperSetPath);
 
                 if (_paperSet == null || _paperSet.Papers.Count == 0)
                     throw new Exception("No question was found!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, @"Error");
+                MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 if (Visible)
-                    questionTextBox.Text = "";
+                    paperSetPathTextBox.Text = "";
             }
         }
 
-        private void BrowseAnswerButton_Click(object sender, EventArgs e)
+        private void ImportAnswerButton_Click(object sender, EventArgs e)
         {
             if (_paperSet == null)
             {
-                MessageBox.Show(@"Please import PaperSet first.");
+                MessageBox.Show(Resources.ImportForm_ImportAnswerButton_Click_Error_Import_Paper_First, @"Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -313,15 +312,18 @@ namespace DBI_Grading.UI
             {
                 if (_submissions == null || _submissions.Count == 0)
                 {
-                    MessageBox.Show(@"Please import students' answers", @"Error");
+                    MessageBox.Show(Resources.ImportForm_GetMarkButton_Click_Error_Import_Student_Answer, @"Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (_paperSet == null || _paperSet.Papers.Count == 0)
                 {
-                    MessageBox.Show(@"Please import Paper Set", @"Error");
+                    MessageBox.Show(Resources.ImportForm_GetMarkButton_Click_Error_Import_PaperSet, @"Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (!IsConnectedToDb)
                 {
-                    MessageBox.Show(@"Please test connect to Sql Server", @"Error");
+                    MessageBox.Show(Resources.ImportForm_GetMarkButton_Click_Error_Connect_Sql, @"Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -367,7 +369,8 @@ namespace DBI_Grading.UI
             }
             else
             {
-                MessageBox.Show(@"Cannot connect to Sql Server", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.ImportForm_CheckConnectionButton_Error_Connect_Sql, @"Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

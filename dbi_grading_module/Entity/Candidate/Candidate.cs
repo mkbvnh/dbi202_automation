@@ -23,7 +23,7 @@ namespace dbi_grading_module.Entity.Candidate
 
         public Candidate(string candidateId, string questionId, string questionRequirement, QuestionTypes questionType,
             string solution, string testQuery, bool requireSort, bool checkColumnName, bool checkDistinct,
-            bool relatedSchema, List<string> illustration, double point)
+            List<string> illustration, double point)
         {
             CandidateId = candidateId;
             QuestionId = questionId;
@@ -34,7 +34,6 @@ namespace dbi_grading_module.Entity.Candidate
             RequireSort = requireSort;
             CheckColumnName = checkColumnName;
             CheckDistinct = checkDistinct;
-            RelatedSchema = relatedSchema;
             Illustration = illustration;
             Point = point;
         }
@@ -50,7 +49,6 @@ namespace dbi_grading_module.Entity.Candidate
         public bool RequireSort { get; set; }
         public bool CheckColumnName { get; set; }
         public bool CheckDistinct { get; set; }
-        public bool RelatedSchema { get; set; }
 
         public List<string> Illustration { get; set; }
 
