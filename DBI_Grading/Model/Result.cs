@@ -95,7 +95,7 @@ namespace DBI_Grading.Model
         /// <summary>
         ///     Get GradeAnswer function
         /// </summary>
-        public void GetPoint()
+        internal void GetPoint()
         {
             // Find paper of student
             var papersFound = PaperSet.Papers.Where(myPaper => myPaper.PaperNo.Equals(PaperNo));

@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using dbi_grading_module;
 using dbi_grading_module.Entity.Candidate;
+using UnitTest.UnitTestBase;
 
 namespace UnitTest
 {
@@ -70,48 +71,48 @@ namespace UnitTest
             Assert.IsTrue(a);
         }
 
-        [TestMethod]
-        public void SelectType_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            Candidate candidate = TODO;
-            string studentId = TODO;
-            string answer = TODO;
-            int questionOrder = TODO;
-            string dbScript = TODO;
+        //[TestMethod]
+        //public void SelectType_StateUnderTest_ExpectedBehavior()
+        //{
+        //    // Arrange
+        //    Candidate candidate = TODO;
+        //    string studentId = TODO;
+        //    string answer = TODO;
+        //    int questionOrder = TODO;
+        //    string dbScript = TODO;
 
-            // Act
-            var result = Grading.SelectType(
-                candidate,
-                studentId,
-                answer,
-                questionOrder,
-                dbScript);
+        //    // Act
+        //    var result = Grading.SelectType(
+        //        candidate,
+        //        studentId,
+        //        answer,
+        //        questionOrder,
+        //        dbScript);
 
-            // Assert
-            Assert.Fail();
-        }
+        //    // Assert
+        //    Assert.Fail();
+        //}
 
-        [TestMethod]
-        public void DmlSpTriggerType_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            Candidate candidate = TODO;
-            string studentId = TODO;
-            string answer = TODO;
-            int questionOrder = TODO;
-            string dbScript = TODO;
+        //[TestMethod]
+        //public void DmlSpTriggerType_StateUnderTest_ExpectedBehavior()
+        //{
+        //    // Arrange
+        //    Candidate candidate = TODO;
+        //    string studentId = TODO;
+        //    string answer = TODO;
+        //    int questionOrder = TODO;
+        //    string dbScript = TODO;
 
-            // Act
-            var result = Grading.DmlSpTriggerType(
-                candidate,
-                studentId,
-                answer,
-                questionOrder,
-                dbScript);
+        //    // Act
+        //    var result = Grading.DmlSpTriggerType(
+        //        candidate,
+        //        studentId,
+        //        answer,
+        //        questionOrder,
+        //        dbScript);
 
-            // Assert
-            Assert.Fail();
-        }
+        //    // Assert
+        //    Assert.Fail();
+        //}
     }
 }

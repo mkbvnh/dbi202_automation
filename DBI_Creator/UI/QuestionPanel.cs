@@ -9,7 +9,6 @@ namespace DBI202_Creator.UI
 {
     public partial class QuestionPanel : UserControl
     {
-        private readonly HandleRemove _handleRemove;
 
         public QuestionPanel()
         {
@@ -20,8 +19,6 @@ namespace DBI202_Creator.UI
         {
             InitializeComponent();
             Question = question;
-            _handleRemove = new HandleRemove(handleRemove);
-
             OnCreate();
         }
 
@@ -34,11 +31,6 @@ namespace DBI202_Creator.UI
 
             for (var i = 0; i < Question.Candidates.Count; i++)
                 AddCandidateTab(Question.Candidates[i], "Candidate " + (i + 1));
-        }
-
-        private void RemoveQuestionBtn_Click(object sender, EventArgs e)
-        {
-            _handleRemove(Question, (TabPage) Parent);
         }
 
         private void AddCandidateBtn_Click(object sender, EventArgs e)

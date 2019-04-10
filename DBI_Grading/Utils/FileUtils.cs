@@ -4,9 +4,9 @@ using System.Windows.Forms;
 
 namespace DBI_Grading.Utils
 {
-    internal class FileUtils
+    public class FileUtils
     {
-        internal static string[] GetAllSql(string rootPath)
+        public static string[] GetAllSql(string rootPath)
         {
             var front = Directory.GetFiles(rootPath, "*.sql", SearchOption.AllDirectories);
             var back = Directory.GetFiles(rootPath, "*.txt", SearchOption.AllDirectories);
@@ -14,17 +14,6 @@ namespace DBI_Grading.Utils
             Array.Copy(front, combined, front.Length);
             Array.Copy(back, 0, combined, front.Length, back.Length);
             return combined;
-        }
-
-        public static string SaveFileToLocation()
-        {
-            var fbd = new FolderBrowserDialog();
-
-            // Show the FolderBrowserDialog.
-            var result = fbd.ShowDialog();
-            if (result == DialogResult.OK)
-                return fbd.SelectedPath;
-            return "";
         }
 
         /// <summary>

@@ -20,7 +20,7 @@ namespace DBI202_Creator.Model
                 totalPoint += question.Point;
             }
 
-            if (totalPoint < 10) throw new Exception($"Total Point must equal 10 (Current Point: {totalPoint})");
+            if (totalPoint < 10 || totalPoint > 10) throw new Exception($"Total Point must equal 10 (Current Point: {totalPoint})");
 
             //Validate DBScript
             if (questionSet.DBScriptList.Count < 2 || string.IsNullOrEmpty(questionSet.DBScriptList[0].Trim()) ||

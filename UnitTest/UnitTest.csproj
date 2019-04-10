@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,17 +56,14 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompareUnitTest.cs" />
+    <Compile Include="Model\ResultTests.cs" />
+    <Compile Include="UnitTestBase\CompareUnitTest.cs" />
     <Compile Include="GradingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\CandidateUI\InputScriptFormTests.cs" />
-    <Compile Include="UI\CandidateUI\PicturePreviewTests.cs" />
-    <Compile Include="UI\ExportUI\ExportConfirmTests.cs" />
-    <Compile Include="UI\GradingFormTests.cs" />
-    <Compile Include="UI\ImportFormTests.cs" />
-    <Compile Include="UI\VerifyFormTests.cs" />
+    <Compile Include="UnitTestBase\SerializeUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -84,10 +82,7 @@
       <Name>dbi_grading_module</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controller\" />
-    <Folder Include="Utils\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

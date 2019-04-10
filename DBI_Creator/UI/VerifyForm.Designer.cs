@@ -167,6 +167,6 @@
         private System.Windows.Forms.TextBox serverNameTextBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button startBtn;
-        internal System.Windows.Forms.RichTextBox verifyText;
+        public System.Windows.Forms.RichTextBox verifyText;
     }
 }

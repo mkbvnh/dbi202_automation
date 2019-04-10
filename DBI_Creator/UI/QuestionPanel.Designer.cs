@@ -31,7 +31,6 @@
             this.pointLabel = new System.Windows.Forms.Label();
             this.candidateTabControl = new System.Windows.Forms.TabControl();
             this.addCandidateBtn = new System.Windows.Forms.Button();
-            this.removeQuestionBtn = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.questionIdTxt = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -73,20 +72,6 @@
             this.addCandidateBtn.UseVisualStyleBackColor = true;
             this.addCandidateBtn.Click += new System.EventHandler(this.AddCandidateBtn_Click);
             // 
-            // removeQuestionBtn
-            // 
-            this.removeQuestionBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.removeQuestionBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.removeQuestionBtn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.removeQuestionBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.removeQuestionBtn.Image = global::DBI202_Creator.Properties.Resources.delete;
-            this.removeQuestionBtn.Location = new System.Drawing.Point(905, 0);
-            this.removeQuestionBtn.Name = "removeQuestionBtn";
-            this.removeQuestionBtn.Size = new System.Drawing.Size(38, 36);
-            this.removeQuestionBtn.TabIndex = 2;
-            this.removeQuestionBtn.UseVisualStyleBackColor = false;
-            this.removeQuestionBtn.Click += new System.EventHandler(this.RemoveQuestionBtn_Click);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -125,7 +110,6 @@
             this.editQuestionPanel.Controls.Add(this.label2);
             this.editQuestionPanel.Controls.Add(this.questionIdTxt);
             this.editQuestionPanel.Controls.Add(this.label1);
-            this.editQuestionPanel.Controls.Add(this.removeQuestionBtn);
             this.editQuestionPanel.Controls.Add(this.addCandidateBtn);
             this.editQuestionPanel.Controls.Add(this.candidateTabControl);
             this.editQuestionPanel.Controls.Add(this.pointLabel);
@@ -165,7 +149,6 @@
         private System.Windows.Forms.Label pointLabel;
         private System.Windows.Forms.TabControl candidateTabControl;
         private System.Windows.Forms.Button addCandidateBtn;
-        private System.Windows.Forms.Button removeQuestionBtn;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox questionIdTxt;
         private System.Windows.Forms.Label label2;
