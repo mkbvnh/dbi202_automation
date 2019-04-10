@@ -156,7 +156,7 @@ namespace DBI_Grading.UI
                         {
                             var rollNumber = new DirectoryInfo(rollNumberPath).Name;
                             // Init submission for student to add to list
-                            var submission = new Submission(_paperSet, _examCode)
+                            var submission = new Submission(_paperSet.QuestionSet.QuestionList.Count, _examCode)
                             {
                                 PaperNo = paperNo,
                                 StudentId = rollNumber

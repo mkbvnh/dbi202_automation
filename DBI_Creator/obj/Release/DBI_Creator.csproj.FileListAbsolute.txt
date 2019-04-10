@@ -1,0 +1,42 @@
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\DBI_Creator.exe.config
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\DBI_Creator.exe.manifest
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\DBI_Creator.application
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\DBI_Creator.exe
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\DBI_Creator.pdb
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\dbi_grading_module.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\Microsoft.SqlServer.Smo.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\Microsoft.SqlServer.TransactSql.ScriptDom.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\Microsoft.SqlServer.ConnectionInfo.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\Microsoft.SqlServer.Management.Sdk.Sfc.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\Microsoft.SqlServer.SqlEnum.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\Microsoft.SqlServer.Dmf.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\Microsoft.SqlServer.ServiceBrokerEnum.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\Microsoft.SqlServer.SqlClrProvider.dll
+E:\Capstone\Self\DBI_Automation\DBI_Creator\bin\Release\dbi_grading_module.pdb
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI_Creator.csprojAssemblyReference.cache
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI202_Creator.UI.CandidateUI.TestCaseDialog.resources
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI202_Creator.UI.CreatorForm.resources
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI202_Creator.UI.CandidateUI.CandidatePanel.resources
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI202_Creator.Properties.Resources.resources
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI202_Creator.UI.ExportUI.ExportConfirm.resources
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI202_Creator.UI.CandidateUI.InputScriptForm.resources
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI202_Creator.UI.CandidateUI.PicturePreview.resources
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI202_Creator.UI.QuestionPanel.resources
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI202_Creator.UI.VerifyForm.resources
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI_Creator.csproj.GenerateResource.cache
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI_Creator.csproj.CoreCompileInputs.cache
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI_Creator.exe.manifest
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI_Creator.application
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI_Creator.csproj.CopyComplete
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI_Creator.exe
+E:\Capstone\Self\DBI_Automation\DBI_Creator\obj\Release\DBI_Creator.pdb
+D:\DBI202_Automation\Last version\Creator\DBI_Creator.exe.config
+D:\DBI202_Automation\Last version\Creator\DBI_Creator.exe.manifest
+D:\DBI202_Automation\Last version\Creator\DBI_Creator.application
+D:\DBI202_Automation\Last version\Creator\DBI_Creator.exe
+D:\DBI202_Automation\Last version\Creator\DBI_Creator.pdb
+C:\DBI202_Automation\Creator\DBI_Creator.exe.config
+C:\DBI202_Automation\Creator\DBI_Creator.exe.manifest
+C:\DBI202_Automation\Creator\DBI_Creator.application
+C:\DBI202_Automation\Creator\DBI_Creator.exe
+C:\DBI202_Automation\Creator\DBI_Creator.pdb

@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
 using dbi_grading_module;
 using DBI_Grading.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -30,7 +32,7 @@ namespace UnitTest.Model
                 UserID = "sa",
                 Password = "123456"
             };
-            string dataPath = ".\\DataUnitTest\\01_DBI202_PE_2019_Sample\\PaperSet.dat";
+            string dataPath = ".\\DataUnitTest\\01_DBI202_PE_2019_Sample";
             Grading.RateStructure = 0.5;
             compare = new CompareUnitTest();
             Grading.TimeOutInSecond = 20;
@@ -38,16 +40,17 @@ namespace UnitTest.Model
             paperSet.QuestionSet.DBScriptList = paperSet.DBScriptList;
 
             string[] sqlPaths = FileUtils.GetAllSql(dataPath);
-
+            
             this.mockRepository = new MockRepository(MockBehavior.Strict);
 
-            this.mockPaperSet = this.mockRepository.Create<PaperSet>();
-            this.mockSubmission = this.mockRepository.Create<Submission>(paperSet, "PE_Unit_Test");
-            
-
-            mockSubmission.Object.ListAnswer = ;
+            this.mockPaperSet = this.mockRepository.Create<PaperSet>(paperSet);
+            List<string> answers = new List<string>();
+            foreach (string sqlPath in sqlPaths)
+            {
+                answers.Add(File.ReadAllText(sqlPath));
+            }
+            this.mockSubmission = this.mockRepository.Create<Submission>("StudentTest", "1", answers, null, "01_DBI202_PE_2019_Sample");
             mockSubmission.Object.PaperNo = "1";
-            mockSubmission.Object.StudentId = "StudentTest";
         }
 
         [TestCleanup]
@@ -68,12 +71,14 @@ namespace UnitTest.Model
         {
             // Arrange
             var unitUnderTest = this.CreateResult();
-
+            unitUnderTest.ListAnswers = mockSubmission.Object.ListAnswer;
+            unitUnderTest.PaperNo = mockSubmission.Object.PaperNo;
+            unitUnderTest.StudentId = mockSubmission.Object.StudentId;
             // Act
+            unitUnderTest.GetPoint();
             var result = unitUnderTest.SumOfPoint();
-            Console.WriteLine(result);
             // Assert
-            Assert.Fail();
+            Assert.IsTrue(result == 10);
         }
     }
 }

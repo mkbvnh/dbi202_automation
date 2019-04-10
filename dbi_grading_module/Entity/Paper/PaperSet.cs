@@ -22,6 +22,14 @@ namespace dbi_grading_module.Entity.Paper
         {
         }
 
+        public PaperSet(PaperSet paperSet)
+        {
+            Papers = paperSet.Papers;
+            DBScriptList = paperSet.DBScriptList;
+            ListPaperMatrixId = paperSet.ListPaperMatrixId;
+            QuestionSet = paperSet.QuestionSet;
+        }
+
         public List<Paper> Papers { get; set; }
         public List<string> DBScriptList { get; set; }
         public List<int> ListPaperMatrixId { get; set; }

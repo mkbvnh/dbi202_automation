@@ -95,7 +95,7 @@ namespace DBI_Grading.Model
         /// <summary>
         ///     Get GradeAnswer function
         /// </summary>
-        internal void GetPoint()
+        public void GetPoint()
         {
             // Find paper of student
             var papersFound = PaperSet.Papers.Where(myPaper => myPaper.PaperNo.Equals(PaperNo));
@@ -114,8 +114,7 @@ namespace DBI_Grading.Model
 
             Paper = papers[0];
 
-            //Set List requirements and List answers
-            ListAnswers = Submission.ListAnswer;
+
             foreach (var candidate in Paper.CandidateSet) ListRequirement.Add(candidate.QuestionRequirement);
 
             //Calculate max point of the paper
