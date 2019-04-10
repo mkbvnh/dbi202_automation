@@ -66,7 +66,16 @@ namespace DBI202_Creator.UI
         {
             Question.Candidates.Remove(c);
             candidateTabControl.TabPages.Remove(tab);
+            RenderTabTitles();
             return false;
+        }
+
+        private void RenderTabTitles()
+        {
+            for (var i = 0; i < candidateTabControl.TabCount; i++)
+            {
+                candidateTabControl.TabPages[i].Text = "Candidate " + (i + 1);
+            }
         }
 
         private delegate bool HandleRemove(Question q, TabPage tab);
