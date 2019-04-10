@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace UnitTest.UnitTestBase
 {
@@ -10,7 +6,7 @@ namespace UnitTest.UnitTestBase
     {
         public static void SwapValues<T>(List<T> source, int index1, int index2)
         {
-            T temp = source[index1];
+            var temp = source[index1];
             source[index1] = source[index2];
             source[index2] = temp;
         }

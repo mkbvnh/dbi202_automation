@@ -2,7 +2,7 @@
 
 namespace UnitTest.UnitTestBase
 {
-    class CompareUnitTest
+    internal class CompareUnitTest
     {
         public bool CompareDictionary<TKey, TValue>(IDictionary<TKey, TValue> x, IDictionary<TKey, TValue> y)
         {
@@ -11,18 +11,18 @@ namespace UnitTest.UnitTestBase
                 return null == x;
             if (null == x)
                 return false;
-            if (object.ReferenceEquals(x, y))
+            if (ReferenceEquals(x, y))
                 return true;
             if (x.Count != y.Count)
                 return false;
 
             // check keys are the same
-            foreach (TKey k in x.Keys)
+            foreach (var k in x.Keys)
                 if (!y.ContainsKey(k))
                     return false;
 
             // check values are the same
-            foreach (TKey k in x.Keys)
+            foreach (var k in x.Keys)
                 if (!x[k].Equals(y[k]))
                     return false;
             return true;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using dbi_grading_module.Utils.Base;
@@ -115,10 +116,18 @@ namespace dbi_grading_module.Utils
         /// <returns>"(Empty)" if true, "(comment)" if false</returns>
         internal static string CompareColumnsName(DataTable dataTableAnswer, DataTable dataTableSolution)
         {
-            for (var i = 0; i < dataTableSolution.Columns.Count; i++)
-                if (!dataTableSolution.Columns[i].ColumnName.ToLower()
-                    .Equals(dataTableAnswer.Columns[i].ColumnName.ToLower()))
-                    return "Column Name wrong - " + dataTableSolution.Columns[i].ColumnName;
+            List<string> namesAnswer = DataTableBase.GetColumnsName(dataTableAnswer);
+            List<string> namesSolution = new List<string>();
+            var tmp = DataTableBase.GetColumnsName(dataTableSolution);
+            foreach (string name in tmp)
+            {
+                namesSolution.Add(name.ToLower());
+            }
+            string[] listExcept = namesSolution.Except(namesAnswer).ToArray();
+            if (listExcept.Any())
+            {
+                return $"Column Name Wrong - {listExcept[0]}";
+            }
             return "";
         }
     }
