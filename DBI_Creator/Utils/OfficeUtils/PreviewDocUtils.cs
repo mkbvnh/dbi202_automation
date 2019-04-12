@@ -11,7 +11,7 @@ namespace DBI202_Creator.Utils.OfficeUtils
 {
     internal class PreviewDocUtils
     {
-        public static bool PreviewCandidatePackage(QuestionSet questionSet)
+        public static bool PreviewQuestionSet(QuestionSet questionSet)
         {
             Application wordApp = null;
             try

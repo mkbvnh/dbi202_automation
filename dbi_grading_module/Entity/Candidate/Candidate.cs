@@ -59,15 +59,5 @@ namespace dbi_grading_module.Entity.Candidate
             return obj is Candidate candidate &&
                    CandidateId == candidate.CandidateId;
         }
-
-        protected bool Equals(Candidate other)
-        {
-            return string.Equals(CandidateId, other.CandidateId);
-        }
-
-        public override int GetHashCode()
-        {
-            return CandidateId != null ? CandidateId.GetHashCode() : 0;
-        }
     }
 }

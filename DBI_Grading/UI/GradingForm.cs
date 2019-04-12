@@ -19,7 +19,7 @@ namespace DBI_Grading.UI
         private readonly string _serverDateTime;
         private int _count;
         private bool _scored;
-
+        private List<Result> ListResults { get; }
 
         public GradingForm(List<Submission> submissions, PaperSet paperSet)
         {
@@ -62,7 +62,6 @@ namespace DBI_Grading.UI
             StartGrading();
         }
 
-        private List<Result> ListResults { get; }
 
 
         private void SetupUi()

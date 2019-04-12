@@ -12,7 +12,7 @@ using UnitTest.UnitTestBase;
 namespace UnitTest.Model
 {
     [TestClass]
-    public class ResultTests
+    public class GradingResultTests
     {
         private CompareUnitTest compare;
 

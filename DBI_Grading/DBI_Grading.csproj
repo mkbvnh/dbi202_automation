@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Constant.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Model\Result.cs" />
     <Compile Include="Model\Submission.cs" />
     <Compile Include="UI\ImportForm.cs">

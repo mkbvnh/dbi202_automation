@@ -5,6 +5,7 @@ using dbi_grading_module;
 using dbi_grading_module.Entity.Candidate;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using UnitTest.Properties;
 using UnitTest.UnitTestBase;
 
 namespace UnitTest
@@ -14,7 +15,7 @@ namespace UnitTest
     {
         private CompareUnitTest compare;
         private MockRepository mockRepository;
-
+        private string dbScript = Resources.dbScript;
 
         [TestInitialize]
         public void TestInitialize()
@@ -29,7 +30,7 @@ namespace UnitTest
             };
             Grading.RateStructure = 0.5;
             compare = new CompareUnitTest();
-            Grading.TimeOutInSecond = 20;
+            Grading.TimeOutInSecond = 1000;
         }
 
         [TestCleanup]
@@ -153,47 +154,289 @@ namespace UnitTest
             var questionOrder = 1;
 
             // Act
-
-            Exception expectedRes = null;
-            try
-            {
-                var actualRes = Grading.SchemaType(
-                    candidate,
-                    studentId,
-                    answer,
-                    questionOrder);
-            }
-            catch (Exception e)
-            {
-                expectedRes = e;
-            }
+            var actualRes = Grading.SchemaType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder)["Point"];
+            var expectedRes = "0";
             // Assert
-            Assert.IsNotNull(expectedRes);
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void SelectType_CompareDataPassed()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select * from account",
+                Point = 1,
+                TestQuery = "select ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID from ACCOUNT",
+                CheckColumnName = false,
+                CheckDistinct = false,
+                RequireSort = false,
+            };
+            string studentId = "Test";
+            string answer = "select AVAIL_BALANCE, ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID as abc from ACCOUNT";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                dbScript)["Point"];
+            var expectedRes = "1";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void SelectType_CompareDataFail()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select * from account",
+                Point = 1,
+                TestQuery = "select ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID from ACCOUNT",
+                CheckColumnName = false,
+                CheckDistinct = false,
+                RequireSort = false,
+            };
+            string studentId = "Test";
+            string answer = "select AVAIL_BALANCE, CUST_ID, OPEN_BRANCH_ID as abc from ACCOUNT";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                dbScript)["Point"];
+            var expectedRes = "0";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void SelectType_CompareDataError_QueryStudent()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select * from account",
+                Point = 1,
+                TestQuery = "select ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID from ACCOUNT",
+                CheckColumnName = false,
+                CheckDistinct = false,
+                RequireSort = false,
+            };
+            string studentId = "Test";
+            string answer = "select AVAIL_BALANCE, abc, OPEN_BRANCH_ID as abc from ACCOUNT";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                dbScript)["Point"];
+            var expectedRes = "0";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void SelectType_CompareDataPassed_SortPassed()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select * from account order by OPEN_BRANCH_ID",
+                Point = 1,
+                TestQuery = "select AVAIL_BALANCE, ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID from ACCOUNT order by OPEN_BRANCH_ID",
+                CheckColumnName = false,
+                CheckDistinct = false,
+                RequireSort = true,
+            };
+            string studentId = "Test";
+            string answer = "select AVAIL_BALANCE, ACCOUNT_ID, OPEN_DATE, CUST_ID, OPEN_BRANCH_ID, OPEN_DATE from ACCOUNT order by OPEN_BRANCH_ID";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                dbScript)["Point"];
+            var expectedRes = "1";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+
+        [TestMethod]
+        public void SelectType_CompareDataPassed_SortFail()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select * from account",
+                Point = 1,
+                TestQuery = "select ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID from ACCOUNT",
+                CheckColumnName = false,
+                CheckDistinct = false,
+                RequireSort = true,
+            };
+            string studentId = "Test";
+            string answer = "select AVAIL_BALANCE, ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID as abc from ACCOUNT";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                dbScript)["Point"];
+            var expectedRes = "0,5";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void SelectType_CompareDataPassed_DistinctFail()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select distinct OPEN_BRANCH_ID from account",
+                Point = 1,
+                TestQuery = "select distinct OPEN_BRANCH_ID from account",
+                CheckColumnName = false,
+                CheckDistinct = true,
+                RequireSort = false,
+            };
+            string studentId = "Test";
+            string answer = "select OPEN_BRANCH_ID from account";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                dbScript)["Point"];
+            var expectedRes = "0,5";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void SelectType_CompareDataPassed_DistinctPassed()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select distinct OPEN_BRANCH_ID, CUST_ID, account.OPEN_DATE from account",
+                Point = 1,
+                TestQuery = "select distinct OPEN_BRANCH_ID, CUST_ID, account.OPEN_DATE from account",
+                CheckColumnName = false,
+                CheckDistinct = true,
+                RequireSort = false,
+            };
+            string studentId = "Test";
+            string answer = "select distinct OPEN_BRANCH_ID, CUST_ID, account.OPEN_DATE from account";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                dbScript)["Point"];
+            var expectedRes = "1";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void SelectType_CompareDataPassed_ColumnNamePassed()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select ACCOUNT_ID, AVAIL_BALANCE, OPEN_EMP_ID ,OPEN_BRANCH_ID, CUST_ID as ID from account",
+                Point = 1,
+                TestQuery = "select ACCOUNT_ID, AVAIL_BALANCE, OPEN_BRANCH_ID, CUST_ID as ID from account",
+                CheckColumnName = true,
+                CheckDistinct = false,
+                RequireSort = false,
+            };
+            string studentId = "Test";
+            string answer = "select ACCOUNT_ID, AVAIL_BALANCE, CUST_ID as ID, OPEN_BRANCH_ID from account";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                dbScript)["Point"];
+            var expectedRes = "1";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void SelectType_CompareDataPassed_ColumnNameFail()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select ACCOUNT_ID, AVAIL_BALANCE, OPEN_EMP_ID ,OPEN_BRANCH_ID, CUST_ID as ID from account",
+                Point = 1,
+                TestQuery = "select ACCOUNT_ID, AVAIL_BALANCE, OPEN_BRANCH_ID, CUST_ID as ID from account",
+                CheckColumnName = true,
+                CheckDistinct = false,
+                RequireSort = false,
+            };
+            string studentId = "Test";
+            string answer = "select ACCOUNT_ID, AVAIL_BALANCE, CUST_ID as ID, OPEN_BRANCH_ID as abc from account";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                dbScript)["Point"];
+            var expectedRes = "0,5";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
         }
 
 
 
-        //[TestMethod]
-        //public void SelectType_StateUnderTest_ExpectedBehavior()
-        //{
-        //    // Arrange
-        //    Candidate candidate = TODO;
-        //    string studentId = TODO;
-        //    string answer = TODO;
-        //    int questionOrder = TODO;
-        //    string dbScript = TODO;
-
-        //    // Act
-        //    var result = Grading.SelectType(
-        //        candidate,
-        //        studentId,
-        //        answer,
-        //        questionOrder,
-        //        dbScript);
-
-        //    // Assert
-        //    Assert.Fail();
-        //}
 
         //[TestMethod]
         //public void DmlSpTriggerType_StateUnderTest_ExpectedBehavior()

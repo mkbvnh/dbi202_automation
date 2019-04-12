@@ -111,9 +111,7 @@ namespace DBI_Grading.Model
             if (papers.Count() != 1)
                 throw new Exception(
                     $"PaperSet has {papers.Count()} paper which have the same PaperNo ({PaperNo})\nWrong format!");
-
             Paper = papers[0];
-
 
             foreach (var candidate in Paper.CandidateSet) ListRequirement.Add(candidate.QuestionRequirement);
 
@@ -122,7 +120,8 @@ namespace DBI_Grading.Model
             _maxPoint = _maxPoint > 10 ? Math.Floor(_maxPoint) : Math.Ceiling(_maxPoint);
             // Count number of candidate
             var numberOfQuestion = Paper.CandidateSet.Count;
-
+            //Set List answers
+            ListAnswers = Submission.ListAnswer;
 
             // Get mark one by one
             for (var questionOrder = 0; questionOrder < numberOfQuestion; questionOrder++)
@@ -135,7 +134,7 @@ namespace DBI_Grading.Model
                         //Exactly -> Log true and return 0 point
                         if (res != null)
                         {
-                            Points[questionOrder] = Math.Round(double.Parse(res["Point"]), 4);
+                            Points[questionOrder] = Math.Round(double.Parse(res["Point"]), 2);
                             Logs[questionOrder] = res["Comment"];
                         }
                         else

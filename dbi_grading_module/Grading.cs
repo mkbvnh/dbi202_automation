@@ -80,6 +80,18 @@ namespace dbi_grading_module
                         errorMessage),
                     TimeOutInSecond);
             }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    e = e.InnerException;
+                }
+                return new Dictionary<string, string>()
+                {
+                    {"Point", "0"},
+                    {"Comment", e.Message }
+                };
+            }
             finally
             {
                 DatabaseConfig.KillAllSessionSql();
@@ -114,6 +126,18 @@ namespace dbi_grading_module
                 return ThreadUtils.WithTimeout(
                     () => CompareController.CompareSelectType(dbAnswerName, dbSolutionName, answer, candidate),
                     TimeOutInSecond);
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    e = e.InnerException;
+                }
+                return new Dictionary<string, string>()
+                {
+                    {"Point", "0"},
+                    {"Comment", e.Message }
+                };
             }
             finally
             {
@@ -172,6 +196,18 @@ namespace dbi_grading_module
                 return ThreadUtils.WithTimeout(
                     () => CompareController.CompareOthersType(dbAnswerName, dbSolutionName, candidate, errorMessage),
                     TimeOutInSecond);
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException != null)
+                {
+                    e = e.InnerException;
+                }
+                return new Dictionary<string, string>()
+                {
+                    {"Point", "0"},
+                    {"Comment", e.Message }
+                };
             }
             finally
             {

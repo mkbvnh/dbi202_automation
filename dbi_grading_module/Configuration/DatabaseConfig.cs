@@ -75,7 +75,7 @@ namespace dbi_grading_module.Configuration
         }
 
         /// <summary>
-        ///     Get DataSet
+        /// Get DataTable
         /// </summary>
         /// <param name="query"></param>
         /// <returns>

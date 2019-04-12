@@ -58,27 +58,21 @@ namespace dbi_grading_module.Utils
         /// <returns>
         ///     true = same
         /// </returns>
-        internal static bool CompareTwoDataTablesByRow(DataTable dataTableAnswer, DataTable dataTableSolution)
+        internal static bool CompareTwoDataTablesByRow(DataTable dataTableAnswer, DataTable dataTableTq)
         {
-            //Distinct
-            DataTableBase.DistinctTable(dataTableAnswer, DataTableBase.GetColumnsName(dataTableAnswer));
-            DataTableBase.DistinctTable(dataTableSolution, DataTableBase.GetColumnsName(dataTableSolution));
-
             //Sort by column name
             DataTableBase.SortColumnNameTable(dataTableAnswer);
-            DataTableBase.SortColumnNameTable(dataTableSolution);
+            DataTableBase.SortColumnNameTable(dataTableTq);
 
-            if (dataTableSolution.Rows.Count != dataTableAnswer.Rows.Count ||
-                dataTableSolution.Columns.Count != dataTableAnswer.Columns.Count) return false;
-            for (var i = 0; i < dataTableSolution.Rows.Count; i++)
-            {
-                var rowArraySolution = dataTableSolution.Rows[i].ItemArray;
-                var rowArrayAnswer = dataTableAnswer.Rows[i].ItemArray;
-                if (!rowArraySolution.SequenceEqual(rowArrayAnswer))
-                    return false;
-            }
+            //Distinct
+            var distinctTableTq = DataTableBase.DistinctTable(dataTableTq, DataTableBase.GetColumnsName(dataTableTq));
+            var distinctTableAnswer =
+                DataTableBase.DistinctTable(dataTableAnswer, DataTableBase.GetColumnsName(dataTableAnswer));
 
-            return true;
+            //Rotate table
+            var rotateTableTq = DataTableBase.RotateTable(distinctTableTq);
+            var rotateTableAnswer = DataTableBase.RotateTable(distinctTableAnswer);
+            return DataTableBase.CompareTwoDataTablesByExceptOneDirection(rotateTableTq, rotateTableAnswer);
         }
 
         /// <summary>

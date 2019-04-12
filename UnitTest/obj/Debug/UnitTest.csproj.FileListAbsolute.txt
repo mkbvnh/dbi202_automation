@@ -32,3 +32,5 @@ E:\Capstone\Self\DBI_Automation\UnitTest\obj\Debug\UnitTest.csproj.CoreCompileIn
 E:\Capstone\Self\DBI_Automation\UnitTest\obj\Debug\UnitTest.csproj.CopyComplete
 E:\Capstone\Self\DBI_Automation\UnitTest\obj\Debug\UnitTest.dll
 E:\Capstone\Self\DBI_Automation\UnitTest\obj\Debug\UnitTest.pdb
+E:\Capstone\Self\DBI_Automation\UnitTest\obj\Debug\UnitTest.Properties.Resources.resources
+E:\Capstone\Self\DBI_Automation\UnitTest\obj\Debug\UnitTest.csproj.GenerateResource.cache

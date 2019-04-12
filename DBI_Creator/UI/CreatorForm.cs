@@ -69,7 +69,7 @@ namespace DBI202_Creator.UI
         // Preview entire the Questions List.
         private void PreviewBtn_Click(object sender, EventArgs e)
         {
-            PreviewDocUtils.PreviewCandidatePackage(_questionSet);
+            PreviewDocUtils.PreviewQuestionSet(_questionSet);
         }
 
         private void RemoveQuestionBtn_Click(object sender, EventArgs e)

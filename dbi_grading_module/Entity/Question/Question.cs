@@ -29,22 +29,5 @@ namespace dbi_grading_module.Entity.Question
             return obj is Question question &&
                    QuestionId == question.QuestionId;
         }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = QuestionId != null ? QuestionId.GetHashCode() : 0;
-                hashCode = (hashCode * 397) ^ Point.GetHashCode();
-                hashCode = (hashCode * 397) ^ (Candidates != null ? Candidates.GetHashCode() : 0);
-                return hashCode;
-            }
-        }
-
-        protected bool Equals(Question other)
-        {
-            return string.Equals(QuestionId, other.QuestionId) && Point == other.Point &&
-                   Equals(Candidates, other.Candidates);
-        }
     }
 }

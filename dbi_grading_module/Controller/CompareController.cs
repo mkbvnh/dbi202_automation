@@ -283,7 +283,7 @@ namespace dbi_grading_module.Controller
                     {
                         comment += "- Check distinct: ";
                         //Compare number of rows
-                        if (dataTableTq.Rows.Count == dataTableAnswer.Rows.Count)
+                        if (dataTableSolution.Rows.Count == dataTableAnswer.Rows.Count)
                         {
                             tcCount++;
                             comment += string.Concat("Passed => +", tcPoint, "\n");
@@ -300,7 +300,7 @@ namespace dbi_grading_module.Controller
                         comment += "- Check sort: ";
                         //Compare row by row
                         if (CompareDataTableUtils.CompareTwoDataTablesByRow(dataTableAnswer.Copy(),
-                            dataTableSolution.Copy())
+                            dataTableTq.Copy())
                         )
                         {
                             tcCount++;
