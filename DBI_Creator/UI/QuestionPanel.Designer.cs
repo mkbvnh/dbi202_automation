@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             this.pointLabel = new System.Windows.Forms.Label();
             this.candidateTabControl = new System.Windows.Forms.TabControl();

@@ -68,6 +68,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="UI\CandidateUI\CandidatePanelTests.cs" />
+    <Compile Include="UI\CandidateUI\InputScriptFormTests.cs" />
+    <Compile Include="UI\CandidateUI\PicturePreviewTests.cs" />
+    <Compile Include="UI\CandidateUI\TestCaseDialogTests.cs" />
+    <Compile Include="UI\CreatorFormTests.cs" />
+    <Compile Include="UI\ExportUI\ExportConfirmTests.cs" />
+    <Compile Include="UI\QuestionPanelTests.cs" />
+    <Compile Include="UI\VerifyFormTests.cs" />
     <Compile Include="UnitTestBase\CompareUnitTest.cs" />
     <Compile Include="GradingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
