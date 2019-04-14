@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using dbi_grading_module.Entity.Candidate;
 using dbi_grading_module.Entity.Paper;
@@ -8,7 +9,8 @@ using DBI202_Creator.Commons;
 
 namespace DBI202_Creator.Model
 {
-    internal class ShufflePaperModel
+    [ExcludeFromCodeCoverage]
+    public class ShufflePaperModel
     {
         public PaperSet PaperSet; //Include PaperSet after create 
         public QuestionSet QuestionSet; //QBank from Creator

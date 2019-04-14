@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace dbi_grading_module.Entity.Question
 {
+    [ExcludeFromCodeCoverage]
     [Serializable]
     public class QuestionSet
     {

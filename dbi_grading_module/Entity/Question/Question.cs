@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace dbi_grading_module.Entity.Question
 {
+    [ExcludeFromCodeCoverage]
     [Serializable]
     public class Question
     {

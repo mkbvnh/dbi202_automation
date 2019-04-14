@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -6,6 +7,7 @@ using System.IO;
 
 namespace DBI202_Creator.Utils
 {
+    [ExcludeFromCodeCoverage]
     internal class ImageUtils
     {
         /// <summary>

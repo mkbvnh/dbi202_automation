@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace dbi_grading_module.Entity.Candidate
 {
+    [ExcludeFromCodeCoverage]
     public class CandidateNode
     {
         public CandidateNode()

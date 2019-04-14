@@ -6,23 +6,6 @@ namespace UnitTest.UnitTestBase
     internal class SerializeUtils
     {
         /// <summary>
-        ///     Write to File
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public static bool SerializeObject(object obj, string path)
-        {
-            var formatter = new BinaryFormatter();
-            using (var stream = new FileStream(path, FileMode.Create, FileAccess.Write))
-            {
-                formatter.Serialize(stream, obj);
-            }
-
-            return true;
-        }
-
-        /// <summary>
         ///     Deserialize
         /// </summary>
         /// <param name="localPath"></param>

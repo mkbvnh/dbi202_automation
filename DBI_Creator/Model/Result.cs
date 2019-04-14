@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using dbi_grading_module;
 using dbi_grading_module.Entity.Candidate;
 using dbi_grading_module.Entity.Question;
@@ -7,6 +8,7 @@ using DBI202_Creator.UI;
 
 namespace DBI202_Creator.Model
 {
+    [ExcludeFromCodeCoverage]
     public class Result
     {
         private readonly VerifyForm _parentForm;

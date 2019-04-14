@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using dbi_grading_module.Entity.Question;
 
 namespace DBI202_Creator.Model
 {
+    [ExcludeFromCodeCoverage]
     internal class QuestionModel
     {
         internal static bool VerifyQuestionSet(QuestionSet questionSet)

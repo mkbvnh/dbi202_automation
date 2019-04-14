@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace dbi_grading_module.Entity.Candidate
 {
     [Serializable]
+    [ExcludeFromCodeCoverage]
     public class Candidate
     {
         public enum QuestionTypes

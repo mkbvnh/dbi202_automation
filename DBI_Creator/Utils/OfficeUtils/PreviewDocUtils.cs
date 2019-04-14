@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -9,6 +10,7 @@ using Microsoft.Office.Interop.Word;
 
 namespace DBI202_Creator.Utils.OfficeUtils
 {
+    [ExcludeFromCodeCoverage]
     internal class PreviewDocUtils
     {
         public static bool PreviewQuestionSet(QuestionSet questionSet)

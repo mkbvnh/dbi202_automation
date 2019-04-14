@@ -621,7 +621,7 @@ namespace UnitTest
             };
             string studentId = "Test";
             string answer =
-                "create proc Display_EmployeesDepartment @dept_Id int\nas\nbegin\n\tselect DEPARTMENT.NAME as Department_Name, count(EMPLOYEE.EMP_ID) as NumberOfEmployees \n\tfrom DEPARTMENT left join EMPLOYEE\n\ton DEPARTMENT.DEPT_ID = EMPLOYEE.DEPT_ID\n\twhere DEPARTMENT.DEPT_ID = @dept_Id\n\tgroup by DEPARTMENT.NAME\nend\nGO";
+                "GO\ncreate proc Display_EmployeesDepartment @dept_Id int\nas\nbegin\n\tselect DEPARTMENT.NAME as Department_Name, count(EMPLOYEE.EMP_ID) as NumberOfEmployees \n\tfrom DEPARTMENT left join EMPLOYEE\n\ton DEPARTMENT.DEPT_ID = EMPLOYEE.DEPT_ID\n\twhere DEPARTMENT.DEPT_ID = @dept_Id\n\tgroup by DEPARTMENT.NAME\nend\nGO";
             int questionOrder = 0;
 
             // Act

@@ -84,7 +84,6 @@
     <Compile Include="GradingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestBase\SerializeUtils.cs" />
-    <Compile Include="UnitTestBase\Utilities.cs" />
     <Compile Include="Utils\StringUtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>

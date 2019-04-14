@@ -36,7 +36,6 @@ namespace UnitTest.UI.CandidateUI
         {
             // Arrange
             var unitUnderTest = this.CreateCandidatePanel();
-
             // Act
 
             // Assert
