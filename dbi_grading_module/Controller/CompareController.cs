@@ -381,7 +381,6 @@ namespace dbi_grading_module.Controller
             //Init comment
             var comment = errorMessage;
             var countTesting = 0;
-            var countTrueTc = 0;
 
             double gradePoint = 0;
             var maxPoint = candidate.Point;
@@ -416,7 +415,6 @@ namespace dbi_grading_module.Controller
 
                         gradePoint += maxTcPoint;
                         comment += string.Concat("Passed => +", maxTcPoint, "\n");
-                        countTrueTc++;
                     }
                     else
                     {
@@ -430,7 +428,6 @@ namespace dbi_grading_module.Controller
             }
 
             comment = string.Concat("Total Point: ", gradePoint, "/", candidate.Point, "\n", comment);
-            gradePoint = countTrueTc == testCases.Count ? maxPoint : gradePoint;
             if (gradePoint > maxPoint) gradePoint = maxPoint;
             return new Dictionary<string, string>
             {

@@ -208,7 +208,37 @@ namespace UnitTest
                 RequireSort = false,
             };
             string studentId = "Test";
-            string answer = "select AVAIL_BALANCE, CUST_ID, OPEN_BRANCH_ID as abc from ACCOUNT";
+            string answer = "select ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID from ACCOUNT where account_id = 1";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                _dbScript)["Point"];
+            var expectedRes = "0";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void SelectType_CompareDataError()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select * from account",
+                Point = 1,
+                TestQuery = "select ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID from ACCOUNT",
+                CheckColumnName = false,
+                CheckDistinct = false,
+                RequireSort = false,
+            };
+            string studentId = "Test";
+            string answer = "select * from department";
             int questionOrder = 0;
 
             // Act
@@ -485,6 +515,34 @@ namespace UnitTest
                 questionOrder,
                 _dbScript)["Point"];
             var expectedRes = "1";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void ProcedureType_CompareDataPassed_FailNumberOfTable()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Procedure,
+                Solution = "create proc Display_EmployeesDepartment @dept_Id int\nas\nbegin\n\tselect DEPARTMENT.NAME as Department_Name, count(EMPLOYEE.EMP_ID) as NumberOfEmployees \n\tfrom DEPARTMENT left join EMPLOYEE\n\ton DEPARTMENT.DEPT_ID = EMPLOYEE.DEPT_ID\n\twhere DEPARTMENT.DEPT_ID = @dept_Id\n\tgroup by DEPARTMENT.NAME\nend\n",
+                Point = 1,
+                TestQuery = "/* 0.5 */\n/* Test example in question */\nexecute Display_EmployeesDepartment 4\n\n/* 0.5 */\n/* Test another question */\nexecute Display_EmployeesDepartment 1",
+            };
+            string studentId = "Test";
+            string answer =
+                "create proc Display_EmployeesDepartment @dept_Id int\nas\nbegin\n\tselect DEPARTMENT.NAME as Department_Name, count(EMPLOYEE.EMP_ID) as NumberOfEmployees \n\tfrom DEPARTMENT left join EMPLOYEE\n\ton DEPARTMENT.DEPT_ID = EMPLOYEE.DEPT_ID\n\twhere DEPARTMENT.DEPT_ID = @dept_Id\n\tgroup by DEPARTMENT.NAME\n    select * from account\nend\n";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.DmlSpTriggerType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                _dbScript)["Point"];
+            var expectedRes = "0,5";
             // Assert
             Assert.IsTrue(expectedRes.Equals(actualRes));
         }
