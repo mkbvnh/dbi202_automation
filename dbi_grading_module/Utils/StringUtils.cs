@@ -43,7 +43,7 @@ namespace dbi_grading_module.Utils
         /// <param name="oldValue">in lowercase</param>
         /// <param name="newValue"></param>
         /// <returns></returns>
-        internal static string ReplaceByLine(string input, string oldValue, string newValue)
+        public static string ReplaceByLine(string input, string oldValue, string newValue)
         {
             var list = input.Split('\n');
             var output = "";

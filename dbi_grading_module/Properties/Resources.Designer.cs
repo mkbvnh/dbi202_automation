@@ -160,7 +160,7 @@ namespace dbi_grading_module.Properties {
         ///	BEGIN
         ///		PRINT &apos;Error: Unable t [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string ProcCompareDb {
+        public static string ProcCompareDb {
             get {
                 return ResourceManager.GetString("ProcCompareDb", resourceCulture);
             }

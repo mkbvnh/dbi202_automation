@@ -59,7 +59,7 @@ namespace dbi_grading_module.Controller
             comment += "Count Tables in database: ";
             if (countAnswerTables > countSolutionTables)
             {
-                var ratePoint = (double) countSolutionTables / countAnswerTables;
+                var ratePoint = (double)countSolutionTables / countAnswerTables;
                 maxPoint = Math.Round(candidate.Point * ratePoint, 4);
                 comment += string.Concat("Answer has more tables than Solution's database (", countAnswerTables, ">",
                     countSolutionTables, ") => Decrease Max Point by ", Math.Round(ratePoint * 100, 4),
@@ -299,17 +299,25 @@ namespace dbi_grading_module.Controller
                     {
                         comment += "- Check sort: ";
                         //Compare row by row
-                        if (CompareDataTableUtils.CompareTwoDataTablesByRow(dataTableAnswer.Copy(),
-                            dataTableTq.Copy())
-                        )
+                        try
                         {
-                            tcCount++;
-                            comment += string.Concat("Passed => +", tcPoint, "\n");
+                            if (CompareDataTableUtils.CompareTwoDataTablesByRow(dataTableAnswer.Copy(),
+                               dataTableTq.Copy())
+                           )
+                            {
+                                tcCount++;
+                                comment += string.Concat("Passed => +", tcPoint, "\n");
+                            }
+                            else
+                            {
+                                comment += "Not pass\n";
+                            }
                         }
-                        else
+                        catch (Exception e)
                         {
-                            comment += "Not pass\n";
+                            comment += $"Not pass {e.Message}\n";
                         }
+
                     }
 
                     //3. Check if checkColumnName is required
@@ -400,7 +408,7 @@ namespace dbi_grading_module.Controller
 
                     if (CompareDataTableUtils.CompareTwoDataSets(dataSetAnswer.Copy(), dataSetSolution.Copy()))
                     {
-                        var decreaseRate = (double) dataSetSolution.Tables.Count / dataSetAnswer.Tables.Count;
+                        var decreaseRate = (double)dataSetSolution.Tables.Count / dataSetAnswer.Tables.Count;
                         var maxTcPoint = Math.Round(testCase.RatePoint * decreaseRate * candidate.Point, 4);
                         if (dataSetAnswer.Tables.Count > dataSetSolution.Tables.Count)
                         {

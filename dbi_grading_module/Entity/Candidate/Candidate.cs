@@ -21,23 +21,6 @@ namespace dbi_grading_module.Entity.Candidate
             Illustration = new List<string>();
         }
 
-        public Candidate(string candidateId, string questionId, string questionRequirement, QuestionTypes questionType,
-            string solution, string testQuery, bool requireSort, bool checkColumnName, bool checkDistinct,
-            List<string> illustration, double point)
-        {
-            CandidateId = candidateId;
-            QuestionId = questionId;
-            QuestionRequirement = questionRequirement;
-            QuestionType = questionType;
-            Solution = solution;
-            TestQuery = testQuery;
-            RequireSort = requireSort;
-            CheckColumnName = checkColumnName;
-            CheckDistinct = checkDistinct;
-            Illustration = illustration;
-            Point = point;
-        }
-
         public string CandidateId { get; set; }
         public string QuestionId { get; set; }
         public string QuestionRequirement { get; set; }
