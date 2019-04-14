@@ -58,10 +58,8 @@ namespace dbi_grading_module
                 catch (Exception e)
                 {
                     //Keep grading instead of errors
-                    if (e.InnerException != null)
-                        errorMessage = string.Concat("Answer query error: ", e.InnerException.Message, "\n");
-                    else
-                        errorMessage = string.Concat("Answer query error: ", e.Message, "\n");
+                    e = StringUtils.GetInnerException(e);
+                    errorMessage = string.Concat("Answer query error: ", e.Message, "\n");
                 }
 
                 try
@@ -82,10 +80,7 @@ namespace dbi_grading_module
             }
             catch (Exception e)
             {
-                if (e.InnerException != null)
-                {
-                    e = e.InnerException;
-                }
+                e = StringUtils.GetInnerException(e);
                 return new Dictionary<string, string>()
                 {
                     {"Point", "0"},
@@ -129,10 +124,7 @@ namespace dbi_grading_module
             }
             catch (Exception e)
             {
-                if (e.InnerException != null)
-                {
-                    e = e.InnerException;
-                }
+                e = StringUtils.GetInnerException(e);
                 return new Dictionary<string, string>()
                 {
                     {"Point", "0"},
@@ -176,9 +168,8 @@ namespace dbi_grading_module
                 }
                 catch (Exception e)
                 {
-                    if (e.InnerException != null)
-                        errorMessage += string.Concat("Answer query error: ", e.InnerException.Message, "\n");
-                    else errorMessage += string.Concat("Answer query error: " + e.Message, "\n");
+                    e = StringUtils.GetInnerException(e);
+                    errorMessage += string.Concat("Answer query error: " + e.Message, "\n");
                     //Still grading for student even error
                     //Student still right at some testcase, need to keep grading
                 }
@@ -189,7 +180,7 @@ namespace dbi_grading_module
                 }
                 catch (Exception e)
                 {
-                    if (e.InnerException != null) throw new Exception("Compare error: " + e.InnerException.Message);
+                    e = StringUtils.GetInnerException(e);
                     throw new Exception("Compare error: " + e.Message);
                 }
 
@@ -199,10 +190,7 @@ namespace dbi_grading_module
             }
             catch (Exception e)
             {
-                if (e.InnerException != null)
-                {
-                    e = e.InnerException;
-                }
+                e = StringUtils.GetInnerException(e);
                 return new Dictionary<string, string>()
                 {
                     {"Point", "0"},

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -101,6 +102,15 @@ namespace dbi_grading_module.Utils
                     RatePoint = candidate.Point
                 });
             return tcpList;
+        }
+
+        internal static Exception GetInnerException(Exception e)
+        {
+            while (e.InnerException != null)
+            {
+                e = e.InnerException;
+            }
+            return e;
         }
     }
 }
