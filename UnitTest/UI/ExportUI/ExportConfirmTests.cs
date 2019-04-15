@@ -1,7 +1,11 @@
+using System.Collections.Generic;
+using dbi_grading_module.Entity.Paper;
 using DBI202_Creator.UI.ExportUI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using dbi_grading_module.Entity.Question;
+using DBI202_Creator.Commons;
+using UnitTest.UnitTestBase;
 
 namespace UnitTest.UI.ExportUI
 {
@@ -18,6 +22,9 @@ namespace UnitTest.UI.ExportUI
             this.mockRepository = new MockRepository(MockBehavior.Strict);
 
             this.mockQuestionSet = this.mockRepository.Create<QuestionSet>();
+            var dataPath = ".\\DataUnitTest\\01_DBI202_PE_2019_Sample";
+            Constants.PaperSet = SerializeUtils.DeserializeObject<PaperSet>(dataPath + "\\PaperSet.dat");
+
         }
 
         [TestCleanup]
@@ -40,10 +47,8 @@ namespace UnitTest.UI.ExportUI
 
             // Act
             unitUnderTest.browseBtn_Click(null, null);
-
             unitUnderTest.newBtn_Click(null, null);
-            //unitUnderTest.importFirstPageBtn_Click(null, null);
-            //unitUnderTest.exportBtn_Click(null, null);
+
             // Assert
             Assert.IsNotNull(unitUnderTest);
         }
