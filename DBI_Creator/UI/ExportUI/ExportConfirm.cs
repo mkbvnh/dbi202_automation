@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
 using dbi_grading_module.Entity.Question;
@@ -25,7 +26,12 @@ namespace DBI202_Creator.UI.ExportUI
             exportBtn.Visible = true;
         }
 
+<<<<<<< HEAD
         public void browseBtn_Click(object sender, EventArgs e)
+=======
+        [ExcludeFromCodeCoverage]
+        private void browseBtn_Click(object sender, EventArgs e)
+>>>>>>> 9e0fcf32edf48322db9fb29202f65bfa00f94014
         {
             try
             {
@@ -37,8 +43,13 @@ namespace DBI202_Creator.UI.ExportUI
                 MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+<<<<<<< HEAD
 
         public void exportBtn_Click(object sender, EventArgs e)
+=======
+        [ExcludeFromCodeCoverage]
+        private void exportBtn_Click(object sender, EventArgs e)
+>>>>>>> 9e0fcf32edf48322db9fb29202f65bfa00f94014
         {
             try
             {
@@ -84,8 +95,13 @@ namespace DBI202_Creator.UI.ExportUI
 
             Dispose();
         }
+<<<<<<< HEAD
 
         public void newBtn_Click(object sender, EventArgs e)
+=======
+        [ExcludeFromCodeCoverage]
+        private void newBtn_Click(object sender, EventArgs e)
+>>>>>>> 9e0fcf32edf48322db9fb29202f65bfa00f94014
         {
             Constants.PaperSet.ListPaperMatrixId = null;
             papersNumberInput.Enabled = true;
@@ -94,8 +110,13 @@ namespace DBI202_Creator.UI.ExportUI
             papersNumberInput.Enabled = true;
             newBtn.Enabled = false;
         }
+<<<<<<< HEAD
 
         public void importFirstPageBtn_Click(object sender, EventArgs e)
+=======
+        [ExcludeFromCodeCoverage]
+        private void importFirstPageBtn_Click(object sender, EventArgs e)
+>>>>>>> 9e0fcf32edf48322db9fb29202f65bfa00f94014
         {
             _firstPagePath = FileUtils.GetFileLocation(@"Document File|*.docx", @"Select a Document File");
             if (!string.IsNullOrEmpty(_firstPagePath))

@@ -145,8 +145,13 @@ namespace UnitTest
             {
                 QuestionType = Candidate.QuestionTypes.Schema,
                 Solution = "create tadsfble Students(\nStuID int primary key,\nName nvarchar(30),\nDateOfBirth date\n)\n\ncreate table Dom(\nDomID int primary key,\nName nvarchar(50)\n)\n\ncreate table Rooms(\nDomID int references Dom(DomID),\nRoomNumber int,\nCapacity int,\nFloor int,\nprimary key(RoomNumber, DomID)\n)\n\ncreate table Live(\t\nDomID int,\nRoomNumber int,\nStuID int references Students(StuID),\nStartDate Date,\nEndDate Date,\nprimary key (DomID, RoomNumber, StuID, StartDate),\nforeign key (RoomNumber,DomID) references Rooms(RoomNumber, DomID)\n)\n",
-                Point = 1
+                Point = 1,
+                QuestionRequirement = "",
+                Illustration = new List<string>(),
+                QuestionId = "1"
             };
+            candidate.Equals(candidate);
+            var checkIllustration = candidate.Illustration;
             var studentId = "test";
             var answer =
                 "create table Students(\nStuI int primary key,\nName nvarchar(30),\nDateOfBirth nvarchar(30)\n)\n\ncreate table Dom(\nDomID int primary key,\nName nvarchar(50)\n)\n\ncreate table Rooms(\nDomID int references Dom(DomID),\nRoomNumber int,\nCapacity int,\nFloor int,\nprimary key(RoomNumber, DomID)\n)\n\ncreate table Live(\t\nDomID int,\nRoomNumber int,\nStuI int references Students(StuI),\nStartDate Date,\nEndDate Date,\nprimary key (DomID, RoomNumber, StuI, StartDate),\nforeign key (RoomNumber,DomID) references Rooms(RoomNumber, DomID)\n)\n";
@@ -179,6 +184,36 @@ namespace UnitTest
             };
             string studentId = "Test";
             string answer = "select AVAIL_BALANCE, ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID as abc from ACCOUNT";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.SelectType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                _dbScript)["Point"];
+            var expectedRes = "1";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void SelectType_CompareDataPassed_WithGoSyntax()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Select,
+                Solution = "select * from account",
+                Point = 1,
+                TestQuery = "select ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID from ACCOUNT",
+                CheckColumnName = false,
+                CheckDistinct = false,
+                RequireSort = false,
+            };
+            string studentId = "Test";
+            string answer = "select AVAIL_BALANCE, ACCOUNT_ID, CUST_ID, OPEN_BRANCH_ID as abc from ACCOUNT GO";
             int questionOrder = 0;
 
             // Act
@@ -492,6 +527,60 @@ namespace UnitTest
         }
 
         [TestMethod]
+        public void TriggerType_CompareDataError_QuerySolution()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Trigger,
+                Solution = "create trigsdfdsfger Trigger_Delete_Account\non ACCOUNT\ninstead of delete\nas\nbegin\n\tselect FIRST_NAME, LAST_NAME, ACCOUNT_ID, AVAIL_BALANCE\n\tfrom deleted, CUSTOMER\n\twhere deleted.CUST_ID = CUSTOMER.CUST_ID\nend\n",
+                Point = 1,
+                TestQuery = "/*0.5*/\n/*Run example in question*/\ndelete from ACCOUNT where ACCOUNT_ID in (1,2)\nselect * from ACCOUNT\n\n/*0.5*/\n/*Run another example*/\ndelete from ACCOUNT where ACCOUNT_ID in (7,9)\nselect * from ACCOUNT\n",
+            };
+            string studentId = "Test";
+            string answer = "create trigger Trigger_Delete_Account\non ACCOUNT\ninstead of delete\nas\nbegin\n\tselect FIRST_NAME, LAST_NAME, ACCOUNT_ID, AVAIL_BALANCE\n\tfrom deleted, CUSTOMER\n\twhere deleted.CUST_ID = CUSTOMER.CUST_ID\nend\n";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.DmlSpTriggerType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                _dbScript)["Point"];
+            var expectedRes = "0";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void TriggerType_CompareDataError_TimeOut()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Trigger,
+                Solution = "create trigger Trigger_Delete_Account\non ACCOUNT\ninstead of delete\nas\nbegin\n\tselect FIRST_NAME, LAST_NAME, ACCOUNT_ID, AVAIL_BALANCE\n\tfrom deleted, CUSTOMER\n\twhere deleted.CUST_ID = CUSTOMER.CUST_ID\nend\n",
+                Point = 1,
+                TestQuery = "/*0.5*/\n/*Run example in question*/\ndelete from ACCOUNT where ACCOUNT_ID in (1,2)\nselect * from ACCOUNT\n\n/*0.5*/\n/*Run another example*/\ndelete from ACCOUNT where ACCOUNT_ID in (7,9)\nselect * from ACCOUNT\n",
+            };
+            string studentId = "Test";
+            string answer = "WAITFOR DELAY '02:00' \ncreate trigger Trigger_Delete_Account\non ACCOUNT\ninstead of delete\nas\nbegin\n\tselect FIRST_NAME, LAST_NAME, ACCOUNT_ID, AVAIL_BALANCE\n\tfrom deleted, CUSTOMER\n\twhere deleted.CUST_ID = CUSTOMER.CUST_ID\nend\n";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.DmlSpTriggerType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                _dbScript)["Point"];
+            var expectedRes = "0";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
         public void ProcedureType_CompareDataPassed()
         {
             // Arrange
@@ -505,6 +594,34 @@ namespace UnitTest
             string studentId = "Test";
             string answer =
                 "create proc Display_EmployeesDepartment @dept_Id int\nas\nbegin\n\tselect DEPARTMENT.NAME as Department_Name, count(EMPLOYEE.EMP_ID) as NumberOfEmployees \n\tfrom DEPARTMENT left join EMPLOYEE\n\ton DEPARTMENT.DEPT_ID = EMPLOYEE.DEPT_ID\n\twhere DEPARTMENT.DEPT_ID = @dept_Id\n\tgroup by DEPARTMENT.NAME\nend\n";
+            int questionOrder = 0;
+
+            // Act
+            var actualRes = Grading.DmlSpTriggerType(
+                candidate,
+                studentId,
+                answer,
+                questionOrder,
+                _dbScript)["Point"];
+            var expectedRes = "1";
+            // Assert
+            Assert.IsTrue(expectedRes.Equals(actualRes));
+        }
+
+        [TestMethod]
+        public void ProcedureType_CompareDataPassed_WithGoSyntax()
+        {
+            // Arrange
+            Candidate candidate = new Candidate()
+            {
+                QuestionType = Candidate.QuestionTypes.Procedure,
+                Solution = "create proc Display_EmployeesDepartment @dept_Id int\nas\nbegin\n\tselect DEPARTMENT.NAME as Department_Name, count(EMPLOYEE.EMP_ID) as NumberOfEmployees \n\tfrom DEPARTMENT left join EMPLOYEE\n\ton DEPARTMENT.DEPT_ID = EMPLOYEE.DEPT_ID\n\twhere DEPARTMENT.DEPT_ID = @dept_Id\n\tgroup by DEPARTMENT.NAME\nend\n",
+                Point = 1,
+                TestQuery = "/* 0.5 */\n/* Test example in question */\nexecute Display_EmployeesDepartment 4\n\n/* 0.5 */\n/* Test another question */\nexecute Display_EmployeesDepartment 1",
+            };
+            string studentId = "Test";
+            string answer =
+                "GO\ncreate proc Display_EmployeesDepartment @dept_Id int\nas\nbegin\n\tselect DEPARTMENT.NAME as Department_Name, count(EMPLOYEE.EMP_ID) as NumberOfEmployees \n\tfrom DEPARTMENT left join EMPLOYEE\n\ton DEPARTMENT.DEPT_ID = EMPLOYEE.DEPT_ID\n\twhere DEPARTMENT.DEPT_ID = @dept_Id\n\tgroup by DEPARTMENT.NAME\nend\nGO";
             int questionOrder = 0;
 
             // Act
@@ -634,6 +751,8 @@ namespace UnitTest
             // Arrange
             Candidate candidate = new Candidate()
             {
+                CandidateId = "",
+                QuestionId = "",
                 QuestionType = Candidate.QuestionTypes.DML,
                 Solution = "INSERT INTO [dbo].[BRANCH]([ADDRESS],[CITY],[NAME],[STATE],[ZIP_CODE])\n     VALUES('1','1','1','1','1')\n\nDELETE FROM [dbo].[ACCOUNT]\n      WHERE ACCOUNT_ID = '1'",
                 Point = 1,
@@ -642,17 +761,19 @@ namespace UnitTest
             string studentId = "Test";
             string answer = "INSERT INTO [dbo].[BRANCH]([ADDRESSdfd],[CITY],[NAME],[STATE],[ZIP_CODE])\n     VALUES('5','1','1','1','1')\n\nDELETE FROM [dbo].[ACCOUNT]\n      WHERE ACCOUNT_ID = '1'";
             int questionOrder = 0;
-
-            // Act
-            var actualRes = Grading.DmlSpTriggerType(
-                candidate,
-                studentId,
-                answer,
-                questionOrder,
-                _dbScript)["Point"];
-            var expectedRes = "0";
-            // Assert
-            Assert.IsTrue(expectedRes.Equals(actualRes));
+            if (string.IsNullOrEmpty(candidate.CandidateId) && string.IsNullOrEmpty(candidate.QuestionId))
+            {
+                // Act
+                var actualRes = Grading.DmlSpTriggerType(
+                    candidate,
+                    studentId,
+                    answer,
+                    questionOrder,
+                    _dbScript)["Point"];
+                var expectedRes = "0";
+                // Assert
+                Assert.IsTrue(expectedRes.Equals(actualRes));
+            }
         }
 
         [TestMethod]

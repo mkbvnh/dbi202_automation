@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace DBI202_Creator.Utils
 {
+    [ExcludeFromCodeCoverage]
     internal class SerializeUtils
     {
         /// <summary>

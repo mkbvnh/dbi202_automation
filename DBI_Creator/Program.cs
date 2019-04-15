@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using DBI202_Creator.UI;
 
 namespace DBI202_Creator
 {
+    [ExcludeFromCodeCoverage]
     internal static class Program
     {
         /// <summary>

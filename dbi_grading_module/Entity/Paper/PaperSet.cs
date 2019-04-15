@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using dbi_grading_module.Entity.Question;
 
 namespace dbi_grading_module.Entity.Paper
 {
+    [ExcludeFromCodeCoverage]
     [Serializable]
     public class PaperSet
     {

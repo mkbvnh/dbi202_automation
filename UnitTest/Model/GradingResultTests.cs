@@ -76,6 +76,7 @@ namespace UnitTest.Model
             unitUnderTest.GetPoint();
             var result = unitUnderTest.SumOfPoint();
             // Assert
+
             Assert.IsTrue(result == 10);
         }
     }

@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Windows.Forms;
 
 namespace DBI202_Creator.Utils
 {
+    [ExcludeFromCodeCoverage]
     internal class FileUtils
     {
         public static string CreateNewDirectory(string path, string nameOfFolder)

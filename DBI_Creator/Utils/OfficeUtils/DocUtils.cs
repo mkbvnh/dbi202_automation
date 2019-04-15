@@ -1,8 +1,10 @@
-﻿using dbi_grading_module.Entity.Paper;
+﻿using System.Diagnostics.CodeAnalysis;
+using dbi_grading_module.Entity.Paper;
 using Microsoft.Office.Interop.Word;
 
 namespace DBI202_Creator.Utils.OfficeUtils
 {
+    [ExcludeFromCodeCoverage]
     internal static class DocUtils
     {
         /// <summary>

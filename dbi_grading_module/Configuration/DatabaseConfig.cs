@@ -136,7 +136,7 @@ namespace dbi_grading_module.Configuration
             return true;
         }
 
-        internal static bool GenerateDatabase(string dbSolutionName, string dbAnswerName, string dbScript)
+        public static bool GenerateDatabase(string dbSolutionName, string dbAnswerName, string dbScript)
         {
             try
             {

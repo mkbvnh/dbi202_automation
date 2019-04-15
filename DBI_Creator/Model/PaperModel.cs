@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
 using dbi_grading_module.Entity.Paper;
@@ -9,7 +10,8 @@ using DBI202_Creator.Utils.OfficeUtils;
 
 namespace DBI202_Creator.Model
 {
-    internal class PaperModel
+    [ExcludeFromCodeCoverage]
+    public class PaperModel
     {
         public string Path { get; set; }
         public ShufflePaperModel Spm { get; set; }
@@ -24,8 +26,8 @@ namespace DBI202_Creator.Model
             var tmpQuestionSet = paperSet.QuestionSet.CloneObjectSerializable<QuestionSet>();
 
             foreach (var paper in paperSet.Papers)
-            foreach (var candidate in paper.CandidateSet)
-                candidate.Illustration = new List<string>();
+                foreach (var candidate in paper.CandidateSet)
+                    candidate.Illustration = new List<string>();
             //Adding Illustration into QuestionSet
             paperSet.QuestionSet = tmpQuestionSet;
 
