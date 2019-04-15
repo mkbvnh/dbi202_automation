@@ -76,13 +76,21 @@ namespace DBI202_Creator.UI
 
         public void RemoveQuestionBtn_Click(object sender, EventArgs e)
         {
-            var tab = questionTabControl.TabPages[questionTabControl.SelectedIndex];
-            var qp = (QuestionPanel) tab.Controls["questionPanel"];
+            DialogResult result = MessageBox.Show("Are you sure to remove question?", "Remove Confirm", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+            if (result == DialogResult.Yes)
+            {
+                var tab = questionTabControl.TabPages[questionTabControl.SelectedIndex];
+                var qp = (QuestionPanel)tab.Controls["questionPanel"];
 
-            _questions.Remove(qp.Question);
-            questionTabControl.TabPages.Remove(tab);
+                _questions.Remove(qp.Question);
+                questionTabControl.TabPages.Remove(tab);
 
-            PrintQuestionNo();
+                PrintQuestionNo();
+            }
         }
 
         // Add question.

@@ -97,7 +97,15 @@ namespace DBI202_Creator.UI.CandidateUI
         [ExcludeFromCodeCoverage]
         public void DeleteCandidateBtn_Click(object sender, EventArgs e)
         {
-            _handleDelete(Candidate, (TabPage) Parent);
+            DialogResult result = MessageBox.Show("Are you sure to remove candidate?", "Remove Confirm", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+            if (result == DialogResult.Yes)
+            {
+                _handleDelete(Candidate, (TabPage)Parent);
+            }
         }
 
         private void QuestionTypeComboBox_SelectedValueChanged(object sender, EventArgs e)
