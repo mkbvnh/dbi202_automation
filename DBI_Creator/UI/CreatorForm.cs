@@ -12,6 +12,7 @@ using DBI202_Creator.UI.CandidateUI;
 using DBI202_Creator.UI.ExportUI;
 using DBI202_Creator.Utils;
 using DBI202_Creator.Utils.OfficeUtils;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DBI202_Creator.UI
 {
@@ -28,7 +29,7 @@ namespace DBI202_Creator.UI
         }
 
         // Add Question - New Tab.
-        private void AddQuestionToolStripMenuItem_Click(object sender, EventArgs e)
+        public void AddQuestionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var q = new Question
             {
@@ -39,7 +40,7 @@ namespace DBI202_Creator.UI
             AddQuestionTab(q);
         }
 
-        private void AddQuestionBtn_Click(object sender, EventArgs e)
+        public void AddQuestionBtn_Click(object sender, EventArgs e)
         {
             var q = new Question
             {
@@ -58,6 +59,7 @@ namespace DBI202_Creator.UI
             //TabPage currentTab = e.TabPage;
         }
 
+        [ExcludeFromCodeCoverage]
         private bool HandleRemoveQuestion(Question q, TabPage tab)
         {
             _questions.Remove(q);
@@ -67,12 +69,12 @@ namespace DBI202_Creator.UI
         }
 
         // Preview entire the Questions List.
-        private void PreviewBtn_Click(object sender, EventArgs e)
+        public void PreviewBtn_Click(object sender, EventArgs e)
         {
             PreviewDocUtils.PreviewQuestionSet(_questionSet);
         }
 
-        private void RemoveQuestionBtn_Click(object sender, EventArgs e)
+        public void RemoveQuestionBtn_Click(object sender, EventArgs e)
         {
             var tab = questionTabControl.TabPages[questionTabControl.SelectedIndex];
             var qp = (QuestionPanel) tab.Controls["questionPanel"];
@@ -100,6 +102,7 @@ namespace DBI202_Creator.UI
             PrintQuestionNo();
         }
 
+        [ExcludeFromCodeCoverage]
         private void Open()
         {
             openFileDialog.Filter = @"Data (*.dat)|*.dat";
@@ -131,6 +134,7 @@ namespace DBI202_Creator.UI
         }
 
         // Export to .jon file.
+        [ExcludeFromCodeCoverage]
         private void Save()
         {
             saveQuestionSetDialog.Filter = @"Data (*.dat)|*.dat";
@@ -163,6 +167,7 @@ namespace DBI202_Creator.UI
         }
 
         // DrawItem for Vertical TabControl - Question Tabs.
+        [ExcludeFromCodeCoverage]
         private void QuestionTabControl_DrawItem(object sender, DrawItemEventArgs e)
         {
             var g = e.Graphics;
@@ -196,19 +201,21 @@ namespace DBI202_Creator.UI
             g.DrawString(tabPage.Text, tabFont, textBrush, tabBounds, new StringFormat(stringFlags));
         }
 
-        private void ScriptBtn_Click(object sender, EventArgs e)
+        public void ScriptBtn_Click(object sender, EventArgs e)
         {
             var scriptForm = new InputScriptForm(HandleCloseScriptForm, _questionSet.DBScriptList) {Visible = true};
             scriptForm.Show();
         }
 
+        [ExcludeFromCodeCoverage]
         private bool HandleCloseScriptForm(List<string> scripts)
         {
             _questionSet.DBScriptList = scripts;
             return false;
         }
 
-        private void ExportPaperSetToolStripMenuItem_Click(object sender, EventArgs e)
+        [ExcludeFromCodeCoverage]
+        public void ExportPaperSetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -240,7 +247,8 @@ namespace DBI202_Creator.UI
             exportConfirm.Show(this);
         }
 
-        private void ImportPaperSetToolStripMenuItem_Click(object sender, EventArgs e)
+        [ExcludeFromCodeCoverage]
+        public void ImportPaperSetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialog.Filter = @"Data (*.dat)|*.dat";
             openFileDialog.FilterIndex = 2;
@@ -275,17 +283,19 @@ namespace DBI202_Creator.UI
             }
         }
 
-        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        [ExcludeFromCodeCoverage]
+        public void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Open();
         }
 
-        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        [ExcludeFromCodeCoverage]
+        public void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Save();
         }
 
-        private void VerifySolutionBtn_Click(object sender, EventArgs e)
+        public void VerifySolutionBtn_Click(object sender, EventArgs e)
         {
             var verifyForm = new VerifyForm(_questionSet);
             verifyForm.ShowDialog(this);

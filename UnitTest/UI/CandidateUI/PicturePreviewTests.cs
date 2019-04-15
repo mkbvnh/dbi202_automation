@@ -39,7 +39,8 @@ namespace UnitTest.UI.CandidateUI
             var unitUnderTest = this.CreatePicturePreview();
 
             // Act
-
+            //unitUnderTest.LeftBtn_Click(null, null);
+            //unitUnderTest.rightBtn_Click(null, null);
             // Assert
             Assert.IsNotNull(unitUnderTest);
         }

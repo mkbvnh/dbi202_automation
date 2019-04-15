@@ -4,17 +4,12 @@ using System.Windows.Forms;
 using dbi_grading_module.Entity.Candidate;
 using dbi_grading_module.Entity.Question;
 using DBI202_Creator.UI.CandidateUI;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DBI202_Creator.UI
 {
     public partial class QuestionPanel : UserControl
     {
-
-        public QuestionPanel()
-        {
-            InitializeComponent();
-        }
-
         public QuestionPanel(Question question, Func<Question, TabPage, bool> handleRemove)
         {
             InitializeComponent();
@@ -33,7 +28,7 @@ namespace DBI202_Creator.UI
                 AddCandidateTab(Question.Candidates[i], "Candidate " + (i + 1));
         }
 
-        private void AddCandidateBtn_Click(object sender, EventArgs e)
+        public void AddCandidateBtn_Click(object sender, EventArgs e)
         {
             var c = new Candidate
             {
@@ -62,7 +57,7 @@ namespace DBI202_Creator.UI
             candidateTabControl.TabPages.Add(tp);
         }
 
-        private bool HandleDeleteCandidate(Candidate c, TabPage tab)
+        public bool HandleDeleteCandidate(Candidate c, TabPage tab)
         {
             Question.Candidates.Remove(c);
             candidateTabControl.TabPages.Remove(tab);

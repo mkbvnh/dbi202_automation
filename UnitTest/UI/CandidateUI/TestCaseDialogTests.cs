@@ -8,31 +8,25 @@ namespace UnitTest.UI.CandidateUI
     [TestClass]
     public class TestCaseDialogTests
     {
-        private MockRepository mockRepository;
-
-        private Mock<TestCase> mockTestCase;
-        private Mock<TestCaseDialog.HandleInsert> mockHandleInsert;
-
         [TestInitialize]
         public void TestInitialize()
         {
-            this.mockRepository = new MockRepository(MockBehavior.Strict);
 
-            this.mockTestCase = this.mockRepository.Create<TestCase>();
-            this.mockHandleInsert = this.mockRepository.Create<TestCaseDialog.HandleInsert>();
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
-            this.mockRepository.VerifyAll();
+
         }
 
         private TestCaseDialog CreateTestCaseDialog()
         {
-            return new TestCaseDialog(
-                this.mockTestCase.Object,
-                this.mockHandleInsert.Object);
+            TestCase tc = new TestCase();
+            tc.RatePoint = 1;
+            tc.Description = "something";
+            tc.TestQuery = "select * from something";
+            return new TestCaseDialog(tc, (TestCase t) => true);
         }
 
         [TestMethod]
@@ -42,7 +36,8 @@ namespace UnitTest.UI.CandidateUI
             var unitUnderTest = this.CreateTestCaseDialog();
 
             // Act
-
+            unitUnderTest.insertBtn_Click(null, null);
+            unitUnderTest.cancelBtn_Click(null, null);
             // Assert
             Assert.IsNotNull(unitUnderTest);
         }

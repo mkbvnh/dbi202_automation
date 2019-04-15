@@ -39,7 +39,11 @@ namespace UnitTest.UI.ExportUI
             var unitUnderTest = this.CreateExportConfirm();
 
             // Act
+            unitUnderTest.browseBtn_Click(null, null);
 
+            unitUnderTest.newBtn_Click(null, null);
+            //unitUnderTest.importFirstPageBtn_Click(null, null);
+            //unitUnderTest.exportBtn_Click(null, null);
             // Assert
             Assert.IsNotNull(unitUnderTest);
         }

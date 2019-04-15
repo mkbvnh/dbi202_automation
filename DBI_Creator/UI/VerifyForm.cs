@@ -6,14 +6,13 @@ using dbi_grading_module.Configuration;
 using dbi_grading_module.Entity.Question;
 using DBI202_Creator.Model;
 using DBI202_Creator.Properties;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DBI202_Creator.UI
 {
     public partial class VerifyForm : Form
     {
         private readonly QuestionSet _questionSet;
-
-
 
         public VerifyForm(QuestionSet questionSet)
         {
@@ -24,7 +23,7 @@ namespace DBI202_Creator.UI
             passwordTextBox.Text = ConfigurationManager.AppSettings["password"];
         }
 
-        private void CheckConnectionButton_Click(object sender, EventArgs e)
+        public void CheckConnectionButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -57,7 +56,8 @@ namespace DBI202_Creator.UI
             }
         }
 
-        private void StartBtn_Click(object sender, EventArgs e)
+        [ExcludeFromCodeCoverage]
+        public void StartBtn_Click(object sender, EventArgs e)
         {
             verifyText.Text = "";
             try
@@ -134,7 +134,7 @@ namespace DBI202_Creator.UI
             getPointThread.Start();
         }
 
-        private void VerifyText_TextChanged(object sender, EventArgs e)
+        public void VerifyText_TextChanged(object sender, EventArgs e)
         {
             // set the current caret position to the end
             verifyText.SelectionStart = verifyText.Text.Length;

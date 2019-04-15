@@ -38,7 +38,14 @@ namespace UnitTest.UI.CandidateUI
             var unitUnderTest = this.CreateCandidatePanel();
 
             // Act
+            unitUnderTest.ProcedureState();
+            unitUnderTest.TriggerState();
+            unitUnderTest.DmlState();
+            unitUnderTest.SchemaState();
 
+            unitUnderTest.CandidatePanel_Load(null, null);
+            unitUnderTest.InsertTcBtn_Click(null, null);
+            unitUnderTest.ValidateTcBtn_Click(null, null);
             // Assert
             Assert.IsNotNull(unitUnderTest);
         }

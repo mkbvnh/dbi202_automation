@@ -10,8 +10,6 @@ namespace UnitTest.UI.CandidateUI
     {
         private MockRepository mockRepository;
 
-
-
         [TestInitialize]
         public void TestInitialize()
         {
@@ -38,7 +36,8 @@ namespace UnitTest.UI.CandidateUI
             var unitUnderTest = this.CreateInputScriptForm();
 
             // Act
-
+            unitUnderTest.InputScriptForm_FormClosing(null, null);
+            unitUnderTest.SaveBtn_Click(null, null);
             // Assert
             Assert.IsNotNull(unitUnderTest);
         }

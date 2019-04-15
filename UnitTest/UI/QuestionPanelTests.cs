@@ -38,7 +38,8 @@ namespace UnitTest.UI
             var unitUnderTest = this.CreateQuestionPanel();
 
             // Act
-            unitUnderTest.Question = new Question();
+            unitUnderTest.AddCandidateBtn_Click(null, null);
+            unitUnderTest.HandleDeleteCandidate(new dbi_grading_module.Entity.Candidate.Candidate(), new System.Windows.Forms.TabPage());
             // Assert
             Assert.IsNotNull(unitUnderTest);
         }

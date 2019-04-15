@@ -39,7 +39,9 @@ namespace UnitTest.UI
             var unitUnderTest = this.CreateVerifyForm();
 
             // Act
-
+            unitUnderTest.CheckConnectionButton_Click(null, null);
+            //unitUnderTest.StartBtn_Click(null, null);
+            unitUnderTest.VerifyText_TextChanged(null, null);
             // Assert
             Assert.IsNotNull(unitUnderTest);
         }
