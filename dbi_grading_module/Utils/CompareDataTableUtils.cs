@@ -4,8 +4,6 @@ using System.Data;
 using System.Linq;
 using dbi_grading_module.Utils.Base;
 
-// ReSharper disable SpecifyACultureInStringConversionExplicitly
-
 namespace dbi_grading_module.Utils
 {
     internal class CompareDataTableUtils
