@@ -26,8 +26,7 @@ namespace DBI202_Creator.UI.ExportUI
             exportBtn.Visible = true;
         }
 
-        [ExcludeFromCodeCoverage]
-        public void browseBtn_Click(object sender, EventArgs e)
+        private void browseBtn_Click(object sender, EventArgs e)
         {
             try
             {
@@ -39,8 +38,7 @@ namespace DBI202_Creator.UI.ExportUI
                 MessageBox.Show(ex.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        [ExcludeFromCodeCoverage]
+        
         private void exportBtn_Click(object sender, EventArgs e)
         {
             try
@@ -88,8 +86,7 @@ namespace DBI202_Creator.UI.ExportUI
             Dispose();
         }
         
-        [ExcludeFromCodeCoverage]
-        public void newBtn_Click(object sender, EventArgs e)
+        private void newBtn_Click(object sender, EventArgs e)
         {
             Constants.PaperSet.ListPaperMatrixId = null;
             papersNumberInput.Enabled = true;
@@ -98,8 +95,7 @@ namespace DBI202_Creator.UI.ExportUI
             papersNumberInput.Enabled = true;
             newBtn.Enabled = false;
         }
-
-        [ExcludeFromCodeCoverage]
+        
         private void importFirstPageBtn_Click(object sender, EventArgs e)
         {
             _firstPagePath = FileUtils.GetFileLocation(@"Document File|*.docx", @"Select a Document File");

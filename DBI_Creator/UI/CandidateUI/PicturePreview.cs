@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using DBI202_Creator.Utils;
-using System.Diagnostics.CodeAnalysis;
 
 namespace DBI202_Creator.UI.CandidateUI
 {
@@ -39,8 +38,7 @@ namespace DBI202_Creator.UI.CandidateUI
             }
         }
 
-        [ExcludeFromCodeCoverage]
-        public void LeftBtn_Click(object sender, EventArgs e)
+        private void LeftBtn_Click(object sender, EventArgs e)
         {
             var selectedIndex = tabControl.SelectedIndex;
             if (selectedIndex == 0) return;
@@ -50,9 +48,8 @@ namespace DBI202_Creator.UI.CandidateUI
             RenderImages();
             tabControl.SelectedIndex = selectedIndex - 1;
         }
-
-        [ExcludeFromCodeCoverage]
-        public void rightBtn_Click(object sender, EventArgs e)
+        
+        private void rightBtn_Click(object sender, EventArgs e)
         {
             var selectedIndex = tabControl.SelectedIndex;
             if (selectedIndex == tabControl.TabPages.Count - 1) return;

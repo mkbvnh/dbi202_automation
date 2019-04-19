@@ -6,7 +6,6 @@ using dbi_grading_module.Entity.Candidate;
 using dbi_grading_module.Utils;
 using DBI202_Creator.Commons;
 using DBI202_Creator.Utils;
-using System.Diagnostics.CodeAnalysis;
 
 namespace DBI202_Creator.UI.CandidateUI
 {
@@ -56,8 +55,7 @@ namespace DBI202_Creator.UI.CandidateUI
             // Trigger questionTypeComboBox SelectedValueChanged event
             QuestionTypeComboBox_SelectedValueChanged(questionTypeComboBox, null);
         }
-
-        [ExcludeFromCodeCoverage]
+        
         // Browse Images.
         private void BrowseImgBtn_Click(object sender, EventArgs e)
         {
@@ -85,7 +83,6 @@ namespace DBI202_Creator.UI.CandidateUI
         }
 
         // Preview Images.
-        [ExcludeFromCodeCoverage]
         protected virtual void ImgPreview_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             var preview = new PicturePreview(Candidate.Illustration) {Visible = true};
@@ -94,8 +91,7 @@ namespace DBI202_Creator.UI.CandidateUI
 
         // Delete current Candidate from Question
         // Close current Tab.
-        [ExcludeFromCodeCoverage]
-        public void DeleteCandidateBtn_Click(object sender, EventArgs e)
+        private void DeleteCandidateBtn_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Are you sure to remove candidate?", "Remove Confirm", MessageBoxButtons.YesNo);
             if (result == DialogResult.No)
@@ -149,7 +145,7 @@ namespace DBI202_Creator.UI.CandidateUI
             checkDistinctCheckbox.Checked = false;
         }
 
-        public void ProcedureState()
+        private void ProcedureState()
         {
             testQueryTxt.Enabled = true;
 
@@ -166,7 +162,7 @@ namespace DBI202_Creator.UI.CandidateUI
             checkDistinctCheckbox.Checked = false;
         }
 
-        public void TriggerState()
+        private void TriggerState()
         {
             testQueryTxt.Enabled = true;
 
@@ -183,7 +179,7 @@ namespace DBI202_Creator.UI.CandidateUI
             checkDistinctCheckbox.Checked = false;
         }
 
-        public void DmlState()
+        private void DmlState()
         {
             testQueryTxt.Enabled = true;
 
@@ -200,7 +196,7 @@ namespace DBI202_Creator.UI.CandidateUI
             checkDistinctCheckbox.Checked = false;
         }
 
-        public void SchemaState()
+        private void SchemaState()
         {
             testQueryTxt.Enabled = false;
 
@@ -217,12 +213,12 @@ namespace DBI202_Creator.UI.CandidateUI
             checkDistinctCheckbox.Checked = false;
         }
 
-        public void CandidatePanel_Load(object sender, EventArgs e)
+        private void CandidatePanel_Load(object sender, EventArgs e)
         {
             Dock = DockStyle.Fill; //Fill Usercontrol within the his parent layout
         }
 
-        public void InsertTcBtn_Click(object sender, EventArgs e)
+        private void InsertTcBtn_Click(object sender, EventArgs e)
         {
             var testCase = new TestCase();
 
@@ -235,7 +231,7 @@ namespace DBI202_Creator.UI.CandidateUI
             tcDialog.Show();
         }
 
-        public void ValidateTcBtn_Click(object sender, EventArgs e)
+        private void ValidateTcBtn_Click(object sender, EventArgs e)
         {
             var testCases = StringUtils.GetTestCases(testQueryTxt.Text, Candidate);
             var mess = "";
