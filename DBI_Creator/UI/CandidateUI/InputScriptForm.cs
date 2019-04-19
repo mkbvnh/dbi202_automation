@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DBI202_Creator.UI.CandidateUI
 {
@@ -28,8 +29,8 @@ namespace DBI202_Creator.UI.CandidateUI
                 tabControl.TabPages[i].Controls["scriptTextBox"].Text = scriptList[i];
         }
 
-
-        private void InputScriptForm_FormClosing(object sender, FormClosingEventArgs e)
+        
+        public void InputScriptForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             var scriptList = new List<string>();
             for (var index = 0; index < tabControl.TabPages.Count; index++)
@@ -42,7 +43,7 @@ namespace DBI202_Creator.UI.CandidateUI
             _handleClose(scriptList);
         }
 
-        private void SaveBtn_Click(object sender, EventArgs e)
+        public void SaveBtn_Click(object sender, EventArgs e)
         {
             Close();
         }

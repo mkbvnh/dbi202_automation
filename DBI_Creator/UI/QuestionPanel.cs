@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using dbi_grading_module.Entity.Candidate;
 using dbi_grading_module.Entity.Question;
 using DBI202_Creator.UI.CandidateUI;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DBI202_Creator.UI
 {
@@ -27,7 +28,7 @@ namespace DBI202_Creator.UI
                 AddCandidateTab(Question.Candidates[i], "Candidate " + (i + 1));
         }
 
-        private void AddCandidateBtn_Click(object sender, EventArgs e)
+        public void AddCandidateBtn_Click(object sender, EventArgs e)
         {
             var c = new Candidate
             {
