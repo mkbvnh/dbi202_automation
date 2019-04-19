@@ -28,7 +28,7 @@ namespace DBI202_Creator.UI.CandidateUI
             ActiveControl = descriptionTxt;
         }
 
-        public void insertBtn_Click(object sender, EventArgs e)
+        private void insertBtn_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_testCase.TestQuery.Trim()))
             {
@@ -41,7 +41,7 @@ namespace DBI202_Creator.UI.CandidateUI
             Dispose();
         }
 
-        public void cancelBtn_Click(object sender, EventArgs e)
+        private void cancelBtn_Click(object sender, EventArgs e)
         {
             Dispose();
         }

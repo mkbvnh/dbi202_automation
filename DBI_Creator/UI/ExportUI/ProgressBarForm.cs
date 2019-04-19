@@ -5,7 +5,6 @@ using System.Windows.Forms;
 
 namespace DBI202_Creator.UI.ExportUI
 {
-    [ExcludeFromCodeCoverage]
     public partial class ProgressBarForm : Form
     {
         public ProgressBarForm(Action worker)
