@@ -6,37 +6,11 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using dbi_grading_module.Entity;
 using dbi_grading_module.Entity.Candidate;
-using Microsoft.SqlServer.TransactSql.ScriptDom;
 
 namespace dbi_grading_module.Utils
 {
     public class StringUtils
     {
-        /// <summary>
-        ///     Format query
-        /// </summary>
-        /// <param name="query"></param>
-        /// <returns></returns>
-        public static string FormatSqlCode(string query)
-        {
-            var parser = new TSql110Parser(false);
-            IList<ParseError> errors;
-            var parsedQuery = parser.Parse(new StringReader(query), out errors);
-
-            var generator = new Sql110ScriptGenerator(new SqlScriptGeneratorOptions
-            {
-                KeywordCasing = KeywordCasing.Uppercase,
-                IncludeSemicolons = true,
-                NewLineBeforeFromClause = true,
-                NewLineBeforeOrderByClause = true,
-                NewLineBeforeWhereClause = true,
-                AlignClauseBodies = false
-            });
-            string formattedQuery;
-            generator.GenerateScript(parsedQuery, out formattedQuery);
-            return formattedQuery;
-        }
-
         /// <summary>
         /// </summary>
         /// <param name="input"></param>
@@ -69,7 +43,7 @@ namespace dbi_grading_module.Utils
             var queryList = new List<string>();
             while (matchQuery.Success)
             {
-                queryList.Add(matchQuery.Value.Split('/')[1].Trim());
+                queryList.Add(matchQuery.Value.Substring(2).Remove(matchQuery.Value.Length - 4, 2).Trim());
                 matchQuery = matchQuery.NextMatch();
             }
 

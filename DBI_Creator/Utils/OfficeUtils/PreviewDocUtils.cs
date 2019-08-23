@@ -149,8 +149,6 @@ namespace DBI202_Creator.Utils.OfficeUtils
 
                 content = content.Trim();
                 var paraTestQueryContent = section.Range.Paragraphs.Add(ref missing);
-                if (isQuery)
-                    content = StringUtils.FormatSqlCode(content);
                 paraTestQueryContent.Range.Font.Name = "Arial";
                 paraTestQueryContent.Range.Font.Bold = 0;
                 paraTestQueryContent.Range.Font.Underline = WdUnderline.wdUnderlineNone;

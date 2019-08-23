@@ -1,7 +1,0 @@
-select EMP_ID, FIRST_NAME, LAST_NAME, DEPT_ID
-from EMPLOYEE
-where DEPT_ID=1 and EMP_ID not in
-(
-select ACCOUNT.OPEN_EMP_ID
-from ACCOUNT
-)
