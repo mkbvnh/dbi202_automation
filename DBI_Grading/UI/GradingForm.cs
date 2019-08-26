@@ -59,7 +59,15 @@ namespace DBI_Grading.UI
             }
 
             Show();
-            StartGrading();
+            try
+            {
+                StartGrading();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
 
@@ -119,12 +127,12 @@ namespace DBI_Grading.UI
                 {
                     var currentResult = ListResults.ElementAt(row);
                     // Prepare 2 first columns
-                    scoreGridView.Invoke((MethodInvoker) (() =>
-                    {
-                        scoreGridView.Rows.Add(1);
-                        scoreGridView.Rows[row].Cells[0].Value = currentResult.StudentId;
-                        scoreGridView.Rows[row].Cells[1].Value = currentResult.PaperNo;
-                    }));
+                    scoreGridView.Invoke((MethodInvoker)(() =>
+                   {
+                       scoreGridView.Rows.Add(1);
+                       scoreGridView.Rows[row].Cells[0].Value = currentResult.StudentId;
+                       scoreGridView.Rows[row].Cells[1].Value = currentResult.PaperNo;
+                   }));
                     var input = new Input(row, currentResult);
                     ThreadPool.QueueUserWorkItem(callBack => Grade(input));
                 }
@@ -143,13 +151,13 @@ namespace DBI_Grading.UI
             input.Result.GetPoint();
             // Refresh to show point and scroll view to the last row
             // Show point of each question
-            scoreGridView.Invoke((MethodInvoker) (() =>
-            {
-                scoreGridView.Rows[input.Row].Cells[2].Value = input.Result.SumOfPoint();
-                for (var questionOrder = 0; questionOrder < input.Result.Paper.CandidateSet.Count; questionOrder++)
-                    scoreGridView.Rows[input.Row].Cells[3 + questionOrder].Value =
-                        input.Result.Points[questionOrder].ToString();
-            }));
+            scoreGridView.Invoke((MethodInvoker)(() =>
+           {
+               scoreGridView.Rows[input.Row].Cells[2].Value = input.Result.SumOfPoint();
+               for (var questionOrder = 0; questionOrder < input.Result.Paper.CandidateSet.Count; questionOrder++)
+                   scoreGridView.Rows[input.Row].Cells[3 + questionOrder].Value =
+                       input.Result.Points[questionOrder].ToString();
+           }));
             CountDown();
         }
 
@@ -161,17 +169,11 @@ namespace DBI_Grading.UI
             _count++;
             if (_count == ListResults.Count)
             {
-                //drop any database has created after grading
-                DatabaseConfig.DropAllDatabaseCreated(_serverDateTime);
-
                 //Enable export button
-                exportButton.Invoke((MethodInvoker) (() => { exportButton.Enabled = true; }));
+                exportButton.Invoke((MethodInvoker)(() => { exportButton.Enabled = true; }));
 
                 // Done
-                var dialogResult =
-                    MessageBox.Show(Resources.GradingForm_Result_Export_Question, @"Result", MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question);
-                if (dialogResult == DialogResult.Yes) ExportButton_Click(null, null);
+                MessageBox.Show("Grading success", @"Result", MessageBoxButtons.OK);
             }
         }
 
@@ -198,6 +200,28 @@ namespace DBI_Grading.UI
         private void QuitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void BtnDropDatabases_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //drop any database has created after grading
+                if (DatabaseConfig.DropAllDatabaseCreated(_serverDateTime))
+                {
+                    MessageBox.Show("Dropped", "message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error drop", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+
         }
     }
 

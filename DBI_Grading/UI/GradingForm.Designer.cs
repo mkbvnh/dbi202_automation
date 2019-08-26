@@ -36,6 +36,7 @@ namespace DBI_Grading.UI
             this.label1 = new System.Windows.Forms.Label();
             this.scoreGridView = new System.Windows.Forms.DataGridView();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.btnDropDatabases = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.scoreGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,7 +88,19 @@ namespace DBI_Grading.UI
             this.scoreGridView.Size = new System.Drawing.Size(736, 401);
             this.scoreGridView.TabIndex = 3;
             // 
-            // Grading
+            // btnDropDatabases
+            // 
+            this.btnDropDatabases.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDropDatabases.Enabled = false;
+            this.btnDropDatabases.Location = new System.Drawing.Point(452, 478);
+            this.btnDropDatabases.Name = "btnDropDatabases";
+            this.btnDropDatabases.Size = new System.Drawing.Size(120, 23);
+            this.btnDropDatabases.TabIndex = 0;
+            this.btnDropDatabases.Text = "Drop temp databases";
+            this.btnDropDatabases.UseVisualStyleBackColor = true;
+            this.btnDropDatabases.Click += new System.EventHandler(this.BtnDropDatabases_Click);
+            // 
+            // GradingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -95,8 +108,9 @@ namespace DBI_Grading.UI
             this.Controls.Add(this.scoreGridView);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.quitButton);
+            this.Controls.Add(this.btnDropDatabases);
             this.Controls.Add(this.exportButton);
-            this.Name = "Grading";
+            this.Name = "GradingForm";
             this.Text = "Grading";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Scoring_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.scoreGridView)).EndInit();
@@ -111,5 +125,6 @@ namespace DBI_Grading.UI
         private Label label1;
         private DataGridView scoreGridView;
         private SaveFileDialog saveFileDialog1;
+        private Button btnDropDatabases;
     }
 }
