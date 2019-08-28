@@ -12,6 +12,27 @@ namespace dbi_grading_module.Configuration
 {
     public class DatabaseConfig
     {
+        internal static DataTable GetConstraintsAsDatatable(string databaseName)
+        {
+            var query =
+                $"USE [{databaseName}]\r\nSELECT RC.CONSTRAINT_NAME FK_Name\r\n, KF.TABLE_SCHEMA FK_Schema\r\n, KF.TABLE_NAME FK_Table\r\n, KF.COLUMN_NAME FK_Column\r\n, RC.UNIQUE_CONSTRAINT_NAME PK_Name\r\n, KP.TABLE_SCHEMA PK_Schema\r\n, KP.TABLE_NAME PK_Table\r\n, KP.COLUMN_NAME PK_Column\r\n, RC.MATCH_OPTION MatchOption\r\n, RC.UPDATE_RULE UpdateRule\r\n, RC.DELETE_RULE DeleteRule\r\nFROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS RC\r\nJOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE KF ON RC.CONSTRAINT_NAME = KF.CONSTRAINT_NAME\r\nJOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE KP ON RC.UNIQUE_CONSTRAINT_NAME = KP.CONSTRAINT_NAME";
+
+            var dataTable = new DataTable();
+            var builder = Grading.SqlConnectionStringBuilder;
+            using (var connection = new SqlConnection(builder.ConnectionString))
+            {
+                connection.Open();
+                using (var sqlCommandAnswer = new SqlCommand(query, connection))
+                {
+                    sqlCommandAnswer.CommandTimeout = Grading.TimeOutInSecond;
+                    SqlDataReader sqlReaderAnswer;
+                    sqlReaderAnswer = sqlCommandAnswer.ExecuteReader();
+                    dataTable.Load(sqlReaderAnswer);
+                }
+                return dataTable;
+            }
+        }
+
         public static int GetNumberOfConstraintsInDatabase(string databaseName)
         {
             var query =

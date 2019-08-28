@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using dbi_grading_module.Configuration;
 using dbi_grading_module.Entity.Candidate;
+using dbi_grading_module.Model;
 using dbi_grading_module.Utils;
 using dbi_grading_module.Utils.Base;
 
@@ -76,16 +77,15 @@ namespace dbi_grading_module.Controller
                 comment += "Same\n";
             }
 
+
+
             //Count Comparison
             int comparisonOfStructure;
             int comparisonOfConstraints;
-
-
-
             using (DataSet dtsNumOfComparison = DatabaseConfig.GetDataSetFromReader(countComparisonQuery))
             {
                 comparisonOfStructure = dtsNumOfComparison.Tables[0].Rows.Count * 2; //A column need both name and type
-                comparisonOfConstraints = pkListSolution.Count;
+                comparisonOfConstraints = DatabaseConfig.GetNumberOfConstraintsInDatabase(dbSolutionName) + pkListSolution.Count;
             }
 
             //Get DataSet compare result
@@ -96,9 +96,12 @@ namespace dbi_grading_module.Controller
                 //Get all errors
                 var errorsStructureRows = dtsCompare.Tables[0].AsEnumerable()
                     .Where(myRow => myRow.Field<string>("DATABASENAME").Contains("Solution")); //Structure
-                var errorsConstraintRows = dtsCompare.Tables[1].AsEnumerable()
-                    .Where(myRow => myRow.Field<string>("DATABASENAME").Contains("Solution")); //Constraints
 
+                //Constraints
+                var constraintsOfSolutionDt = DatabaseConfig.GetConstraintsAsDatatable(dbSolutionName);
+                var constraintsOfAnswerDt = DatabaseConfig.GetConstraintsAsDatatable(dbAnswerName);
+
+                var errorsConstraintRows = FindWrongConstraints(GetConstrainModel(constraintsOfSolutionDt), GetConstrainModel(constraintsOfAnswerDt));
 
                 if (!errorsStructureRows.Any() && !errorsConstraintRows.Any())
                 {
@@ -196,7 +199,7 @@ namespace dbi_grading_module.Controller
                     comment += "+ References check  (-1 comparison each error):\n";
                     foreach (var rowSolution in errorsConstraintRows)
                         comment +=
-                            $"{++countReferences}. Missing {rowSolution["PK_COLUMNS"]} ({rowSolution["PK_TABLE"]}) - {rowSolution["FK_COLUMNS"]} ({rowSolution["FK_TABLE"]})\n";
+                            $"{++countReferences}. Missing {rowSolution.PrimaryColumnName} ({rowSolution.PrimaryTableName}) - {rowSolution.ForeignColumnName} ({rowSolution.ForeignTableName})\n";
                 }
 
                 if (missingPkList.Any())
@@ -220,6 +223,29 @@ namespace dbi_grading_module.Controller
                     {"Comment", comment}
                 };
             }
+        }
+
+        private static List<ConstraintModel> GetConstrainModel(DataTable constraintDt)
+        {
+            List<ConstraintModel> constraints = new List<ConstraintModel>();
+            foreach (DataRow row in constraintDt.Rows)
+            {
+                constraints.Add(new ConstraintModel(row["FK_Table"].ToString().ToLower(), row["FK_Column"].ToString().ToLower(),
+                    row["PK_Table"].ToString().ToLower(), row["PK_Column"].ToString().ToLower()));
+            }
+            return constraints;
+        }
+
+        private static List<ConstraintModel> FindWrongConstraints(List<ConstraintModel> solutionConstraints, List<ConstraintModel> answerConstraints)
+        {
+            List<ConstraintModel> wrongs = new List<ConstraintModel>();
+            var nameConstraints = new List<string>();
+
+            foreach (var item in answerConstraints)
+            {
+                nameConstraints.Add(item.Name);
+            }
+            return solutionConstraints.AsEnumerable().Where(s => !nameConstraints.Contains(s.Name)).ToList();
         }
 
         /// <summary>
