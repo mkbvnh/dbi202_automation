@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using dbi_grading_module.Configuration;
@@ -84,8 +85,8 @@ namespace dbi_grading_module.Utils.Base
             for (var i = 0; i < dt.Columns.Count; i++)
                 dt2.Rows.Add();
             for (var i = 0; i < dt.Columns.Count; i++)
-            for (var j = 0; j < dt.Rows.Count; j++)
-                dt2.Rows[i][j] = dt.Rows[j][i];
+                for (var j = 0; j < dt.Rows.Count; j++)
+                    dt2.Rows[i][j] = dt.Rows[j][i];
             return dt2;
         }
 
@@ -107,8 +108,19 @@ namespace dbi_grading_module.Utils.Base
                 $"USE [{dbName}]; \r\nSELECT OBJECT_NAME(ic.OBJECT_ID) AS TableName, \r\n       COL_NAME(ic.OBJECT_ID,ic.column_id) AS ColumnName\r\nFROM sys.indexes AS i\r\nINNER JOIN sys.index_columns AS ic\r\nON i.OBJECT_ID = ic.OBJECT_ID\r\nAND i.index_id = ic.index_id\r\nWHERE i.is_primary_key = 1";
             var dt = DatabaseConfig.ExecuteQueryReader(query);
             var pkList = new List<string>();
-            foreach (DataRow row in dt.Rows) pkList.Add($"{row["ColumnName"]} ({row["TableName"]})");
+            foreach (DataRow row in dt.Rows) pkList.Add($"{FirstCharToUpper(row["ColumnName"].ToString())} ({FirstCharToUpper(row["TableName"].ToString())})");
             return pkList;
+        }
+
+        internal static string FirstCharToUpper(string s)
+        {
+            // Check for empty string.  
+            if (String.IsNullOrEmpty(s))
+            {
+                return String.Empty;
+            }
+            // Return char and concat substring.  
+            return Char.ToUpper(s[0]) + s.Substring(1);
         }
     }
 }
