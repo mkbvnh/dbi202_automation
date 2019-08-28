@@ -25,6 +25,7 @@ namespace DBI_Grading.UI
         public ImportForm()
         {
             InitializeComponent();
+
             // Get sql connection information from App.config
             try
             {
@@ -309,6 +310,9 @@ namespace DBI_Grading.UI
 
         private void GetMarkButton_Click(object sender, EventArgs e)
         {
+            var x = dbi_grading_module.Configuration.DatabaseConfig.GetNumberOfConstraintsInDatabase("db_dung");
+
+
             try
             {
                 if (_submissions == null || _submissions.Count == 0)

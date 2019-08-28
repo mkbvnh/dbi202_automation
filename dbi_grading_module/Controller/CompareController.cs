@@ -48,7 +48,7 @@ namespace dbi_grading_module.Controller
             var pkListAnswer = DataTableBase.GetPkInDb(dbAnswerName);
             var pkListSolution = DataTableBase.GetPkInDb(dbSolutionName);
 
-            //Find difference
+            //Find difference in PK
             var missingPkList = pkListSolution.Except(pkListAnswer).ToList(); //missing
             var redundantPkList = pkListAnswer.Except(pkListSolution).ToList(); //redundant
 
@@ -79,10 +79,13 @@ namespace dbi_grading_module.Controller
             //Count Comparison
             int comparisonOfStructure;
             int comparisonOfConstraints;
-            using (var dtsNumOfComparison = DatabaseConfig.GetDataSetFromReader(countComparisonQuery))
+
+
+
+            using (DataSet dtsNumOfComparison = DatabaseConfig.GetDataSetFromReader(countComparisonQuery))
             {
                 comparisonOfStructure = dtsNumOfComparison.Tables[0].Rows.Count * 2; //A column need both name and type
-                comparisonOfConstraints = dtsNumOfComparison.Tables[1].Rows.Count + pkListSolution.Count;
+                comparisonOfConstraints = pkListSolution.Count;
             }
 
             //Get DataSet compare result
