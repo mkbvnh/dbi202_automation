@@ -91,7 +91,6 @@ namespace DBI_Grading.UI
             // btnDropDatabases
             // 
             this.btnDropDatabases.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDropDatabases.Enabled = false;
             this.btnDropDatabases.Location = new System.Drawing.Point(452, 478);
             this.btnDropDatabases.Name = "btnDropDatabases";
             this.btnDropDatabases.Size = new System.Drawing.Size(120, 23);

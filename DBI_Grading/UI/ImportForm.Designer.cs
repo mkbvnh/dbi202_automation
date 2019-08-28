@@ -155,7 +155,7 @@ namespace DBI_Grading.UI
             this.checkConnectionButton.TabIndex = 40;
             this.checkConnectionButton.Text = "Check Connection";
             this.checkConnectionButton.UseVisualStyleBackColor = true;
-            this.checkConnectionButton.Click += new EventHandler(this.CheckConnectionButton_Click);
+            this.checkConnectionButton.Click += new System.EventHandler(this.CheckConnectionButton_Click);
             // 
             // passwordTextBox
             // 
@@ -197,6 +197,7 @@ namespace DBI_Grading.UI
             // 
             // initialCatalogTextBox
             // 
+            this.initialCatalogTextBox.Enabled = false;
             this.initialCatalogTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.initialCatalogTextBox.Location = new System.Drawing.Point(150, 303);
             this.initialCatalogTextBox.Name = "initialCatalogTextBox";
@@ -257,7 +258,7 @@ namespace DBI_Grading.UI
             this.label10.TabIndex = 42;
             this.label10.Text = "label10";
             // 
-            // ImportMaterial
+            // ImportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -283,7 +284,7 @@ namespace DBI_Grading.UI
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "ImportMaterial";
+            this.Name = "ImportForm";
             this.Text = "ImportMaterial";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ImportMaterial_FormClosed);
             this.ResumeLayout(false);

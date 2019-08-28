@@ -174,6 +174,7 @@ namespace DBI_Grading.UI
 
                 // Done
                 MessageBox.Show("Grading success", @"Result", MessageBoxButtons.OK);
+                btnDropDatabases.Invoke((MethodInvoker)(() => { btnDropDatabases.Enabled = true; }));
             }
         }
 
@@ -220,7 +221,7 @@ namespace DBI_Grading.UI
             {
                 MessageBox.Show(exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
 
         }
     }
