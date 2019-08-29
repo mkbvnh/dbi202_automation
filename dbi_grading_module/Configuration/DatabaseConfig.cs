@@ -259,6 +259,10 @@ namespace dbi_grading_module.Configuration
                     server.ConnectionContext.ExecuteNonQuery(query);
                     return true;
                 }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
                 finally
                 {
                     server.ConnectionContext.ExecuteNonQuery("Use master");
