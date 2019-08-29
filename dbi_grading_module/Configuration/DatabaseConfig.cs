@@ -5,8 +5,6 @@ using System.Data.SqlClient;
 using System.Reflection;
 using System.Resources;
 using dbi_grading_module.Utils;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
 
 namespace dbi_grading_module.Configuration
 {
@@ -276,6 +274,7 @@ namespace dbi_grading_module.Configuration
             query = "Use " + "[" + catalog + "];\nGO\n" + query + "";
             using (var conn = new SqlConnection(Grading.SqlConnectionStringBuilder.ConnectionString))
             {
+                conn.Open();
                 string sqlBatch = string.Empty;
                 SqlCommand cmd = new SqlCommand(string.Empty, conn);
                 query += "\nGO";   // make sure last batch is executed.
@@ -286,6 +285,11 @@ namespace dbi_grading_module.Configuration
                     {
                         if (line.ToUpperInvariant().Trim() == "GO")
                         {
+                            if (string.IsNullOrEmpty(sqlBatch.Trim()))
+                            {
+                                continue;
+                            }
+
                             cmd.CommandText = sqlBatch;
                             cmd.ExecuteNonQuery();
                             sqlBatch = string.Empty;
@@ -298,7 +302,11 @@ namespace dbi_grading_module.Configuration
                 }
                 catch (Exception ex)
                 {
-
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    conn.Close();
                 }
             }
 
