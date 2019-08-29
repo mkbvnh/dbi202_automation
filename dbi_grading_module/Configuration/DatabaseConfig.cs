@@ -246,29 +246,63 @@ namespace dbi_grading_module.Configuration
         /// </summary>
         /// <param name="query">Query to execute</param>
         /// <param name="catalog"></param>
+        //public static bool ExecuteSingleQuery(string query, string catalog)
+        //{
+        //    query = "Use " + "[" + catalog + "];\nGO\n" + query + "";
+        //    using (var connection = new SqlConnection(Grading.SqlConnectionStringBuilder.ConnectionString))
+        //    {
+        //        var server = new Server(new ServerConnection(connection));
+        //        server.ConnectionContext.StatementTimeout = Grading.TimeOutInSecond;
+        //        server.ConnectionContext.Connect();
+        //        try
+        //        {
+        //            server.ConnectionContext.ExecuteNonQuery(query);
+        //            return true;
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw ex;
+        //        }
+        //        finally
+        //        {
+        //            server.ConnectionContext.ExecuteNonQuery("Use master");
+        //            server.ConnectionContext.Disconnect();
+        //        }
+        //    }
+        //}
+
         public static bool ExecuteSingleQuery(string query, string catalog)
         {
             query = "Use " + "[" + catalog + "];\nGO\n" + query + "";
-            using (var connection = new SqlConnection(Grading.SqlConnectionStringBuilder.ConnectionString))
+            using (var conn = new SqlConnection(Grading.SqlConnectionStringBuilder.ConnectionString))
             {
-                var server = new Server(new ServerConnection(connection));
-                server.ConnectionContext.StatementTimeout = Grading.TimeOutInSecond;
-                server.ConnectionContext.Connect();
+                string sqlBatch = string.Empty;
+                SqlCommand cmd = new SqlCommand(string.Empty, conn);
+                query += "\nGO";   // make sure last batch is executed.
                 try
                 {
-                    server.ConnectionContext.ExecuteNonQuery(query);
-                    return true;
+                    foreach (string line in query.Split(new string[2] { "\n", "\r" },
+                        StringSplitOptions.RemoveEmptyEntries))
+                    {
+                        if (line.ToUpperInvariant().Trim() == "GO")
+                        {
+                            cmd.CommandText = sqlBatch;
+                            cmd.ExecuteNonQuery();
+                            sqlBatch = string.Empty;
+                        }
+                        else
+                        {
+                            sqlBatch += line + "\n";
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    throw ex;
-                }
-                finally
-                {
-                    server.ConnectionContext.ExecuteNonQuery("Use master");
-                    server.ConnectionContext.Disconnect();
+
                 }
             }
+
+            return true;
         }
 
         /// <summary>
